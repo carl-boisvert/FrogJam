@@ -55,7 +55,8 @@ public class PlayerController : MonoBehaviour
                 movementDir.y += _speed * Time.deltaTime;
                 _isJumping = true;
             }
-
+            
+            Debug.Log(transform.position.y - _startHeight);
             if (_isJumping && transform.position.y - _startHeight < _jumpMaxHeight)
             {
                 movementDir.y += _speed * Time.deltaTime;
