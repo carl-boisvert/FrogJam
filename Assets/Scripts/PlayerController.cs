@@ -45,15 +45,16 @@ public class PlayerController : MonoBehaviour
     private void Move()
     {
         _dir = _moveInput.ReadValue<Vector2>();
-        
+
         Vector3 movementDir = _cameraTransform.forward * _dir.y + _cameraTransform.right * _dir.x;
 
         movementDir.y = 0;
+        
+        Debug.Log(movementDir);
 
         _cc.Move(movementDir * _speed * Time.deltaTime);
-        
-        Quaternion rotation = Quaternion.Euler(0f, _cameraTransform.eulerAngles.y, 0f);
-        transform.rotation = rotation; //Quaternion.Lerp(transform.rotation, rotation, Time.deltaTime * _rotationSpeed);
+
+        transform.rotation = Quaternion.Euler(0f, _cameraTransform.eulerAngles.y, 0f);
     }
 
     private void Look()
@@ -63,6 +64,5 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("Hit");
         }
-
     }
 }
