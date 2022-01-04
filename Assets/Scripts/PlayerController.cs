@@ -1,17 +1,15 @@
-using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.Controls;
 
 public class PlayerController : MonoBehaviour
 {
     [Header("Movement")]
     [SerializeField] private float _speed;
     [SerializeField] private float _fallSpeed;
-    [SerializeField] private float _rotationSpeed;
-    [SerializeField] private float _jumpMaxHeight;
     [Header("Link")]
     [SerializeField] private CharacterController _cc;
+
+    [SerializeField] private LayerMask _interactableLayer;
     
     private Transform _cameraTransform;
     private MovementControl _moveControl;
@@ -19,9 +17,7 @@ public class PlayerController : MonoBehaviour
     private InputAction _jumpInput;
 
     private Vector2 _dir;
-    private bool _isJumping;
-    private float _startHeight;
-    
+
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
@@ -39,41 +35,32 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        _dir = _moveInput.ReadValue<Vector2>() * _speed * Time.deltaTime;
+        Move();
+        Look();
+
+    }
+
+    private void Move()
+    {
+        _dir = _moveInput.ReadValue<Vector2>();
         
         Vector3 movementDir = _cameraTransform.forward * _dir.y + _cameraTransform.right * _dir.x;
 
         movementDir.y = 0;
-        if (!_cc.isGrounded && !_isJumping)
+
+        _cc.Move(movementDir * _speed * Time.deltaTime);
+        
+        Quaternion rotation = Quaternion.Euler(0f, _cameraTransform.eulerAngles.y, 0f);
+        transform.rotation = rotation; //Quaternion.Lerp(transform.rotation, rotation, Time.deltaTime * _rotationSpeed);
+    }
+
+    private void Look()
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(_cameraTransform.position, _cameraTransform.forward, out hit, 10f, _interactableLayer))
         {
-            movementDir.y -= _fallSpeed * Time.deltaTime;
-        }
-        else
-        {
-            if (_jumpInput.inProgress && !_isJumping)
-            {
-                movementDir.y += _speed * Time.deltaTime;
-                _isJumping = true;
-            }
-            
-            Debug.Log(transform.position.y - _startHeight);
-            if (_isJumping && transform.position.y - _startHeight < _jumpMaxHeight)
-            {
-                movementDir.y += _speed * Time.deltaTime;
-            }
-            else
-            {
-                _isJumping = false;
-            }
+            Debug.Log("Hit");
         }
 
-        _cc.Move(movementDir);
-
-        if (_dir != Vector2.zero)
-        {
-            float targetAngle = Mathf.Atan2(_dir.x, _dir.y) * Mathf.Rad2Deg + _cameraTransform.eulerAngles.y;
-            Quaternion rotation = Quaternion.Euler(0f, targetAngle, 0f);
-            transform.rotation = Quaternion.Lerp(transform.rotation, rotation, Time.deltaTime * _rotationSpeed);
-        }
     }
 }

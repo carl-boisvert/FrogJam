@@ -21,7 +21,7 @@
                     "id": "0997387d-f847-44e0-89c3-01e21ea2b689",
                     "path": "<Mouse>/delta",
                     "interactions": "",
-                    "processors": "InvertVector2",
+                    "processors": "InvertVector2(invertX=false,invertY=false)",
                     "groups": "",
                     "action": "Look",
                     "isComposite": false,
