@@ -6,6 +6,8 @@ public class PlayerController : MonoBehaviour
     [Header("Movement")]
     [SerializeField] private float _speed;
     [SerializeField] private float _fallSpeed;
+    [Header("Interaction")]
+    [SerializeField] private float _distance;
     [Header("Link")]
     [SerializeField] private CharacterController _cc;
 
@@ -57,7 +59,7 @@ public class PlayerController : MonoBehaviour
     private void Look()
     {
         RaycastHit hit;
-        if (Physics.Raycast(_cameraTransform.position, _cameraTransform.forward, out hit, 10f, _interactableLayer))
+        if (Physics.Raycast(_cameraTransform.position, _cameraTransform.forward, out hit, _distance, _interactableLayer))
         {
             Debug.Log("Hit");
         }
