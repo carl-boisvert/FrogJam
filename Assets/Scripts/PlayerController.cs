@@ -12,11 +12,13 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private CharacterController _cc;
 
     [SerializeField] private LayerMask _interactableLayer;
+    [SerializeField] private GameObject _cropPrefab;
     
     private Transform _cameraTransform;
     private MovementControl _moveControl;
+    private LookControl _lookControl;
     private InputAction _moveInput;
-    private InputAction _jumpInput;
+    private InputAction _interactInput;
 
     private Vector2 _dir;
 
@@ -25,13 +27,14 @@ public class PlayerController : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         
         _moveControl = new MovementControl();
+        _lookControl = new LookControl();
         
         _moveInput = _moveControl.Player.Move;
         _moveInput.Enable();
 
-        _jumpInput = _moveControl.Player.Jump;
-        _jumpInput.Enable();
-        
+        _interactInput = _lookControl.Mouse.Interact;
+        _interactInput.Enable();
+
         _cameraTransform = Camera.main.transform;
     }
 
@@ -49,8 +52,6 @@ public class PlayerController : MonoBehaviour
         Vector3 movementDir = _cameraTransform.forward * _dir.y + _cameraTransform.right * _dir.x;
 
         movementDir.y = 0;
-        
-        Debug.Log(movementDir);
 
         _cc.Move(movementDir * _speed * Time.deltaTime);
 
@@ -62,7 +63,17 @@ public class PlayerController : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(_cameraTransform.position, _cameraTransform.forward, out hit, _distance, _interactableLayer))
         {
-            Debug.Log("Hit");
+            if (hit.collider.tag == "GardenSlot")
+            {
+                if (_interactInput.triggered)
+                {
+                    GardenSlot gs = hit.collider.gameObject.GetComponent<GardenSlot>();
+                    if (gs.canPlant())
+                    {
+                        gs.plant(_cropPrefab);
+                    }
+                }
+            }
         }
     }
 }
