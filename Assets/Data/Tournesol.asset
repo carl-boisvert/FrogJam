@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b862658681ed4a4da4c2b2e5f5262c9, type: 3}
+  m_Name: Tournesol
+  m_EditorClassIdentifier: 
+  name: Tournesol
+  needWater: 0
+  needLight: 0
+  stages:
+  - time: 5
+    prefab: {fileID: 3018450324503860379, guid: bb49512f679c7dd4cb6bcf4e7dbb7156, type: 3}
+  - time: 5
+    prefab: {fileID: 3709799888909398600, guid: d1107d082bd68b84796c793a048d22ca, type: 3}
+  - time: 5
+    prefab: {fileID: 830500233494281096, guid: dbd44f58ad6c8bc4e86c0abb9cecc8ff, type: 3}
+  - time: 5
+    prefab: {fileID: 8638718984522927421, guid: ae2001ba3e654cd4bb99bcd5b231299e, type: 3}
+  musicLikeMultiplier: 2
+  musicDislikeTime: 10
+  musicLikes: 0000000004000000
+  musicDisikes: 0200000003000000

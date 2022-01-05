@@ -409,6 +409,8 @@ MonoBehaviour:
   _interactableLayer:
     serializedVersion: 2
     m_Bits: 8
+  _plantPrefab: {fileID: 6861726599833889317, guid: 2e601b80d9cbfe44d97d67ca3276c5d0, type: 3}
+  _currentSeed: {fileID: 0}
 --- !u!143 &8474051390437630078
 CharacterController:
   m_ObjectHideFlags: 0

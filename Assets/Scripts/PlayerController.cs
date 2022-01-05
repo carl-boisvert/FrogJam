@@ -12,7 +12,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private CharacterController _cc;
 
     [SerializeField] private LayerMask _interactableLayer;
-    [SerializeField] private GameObject _cropPrefab;
+    [SerializeField] private GameObject _plantPrefab;
+
+    [SerializeField]
+    private PlantData _currentSeed;
     
     private Transform _cameraTransform;
     private MovementControl _moveControl;
@@ -68,12 +71,28 @@ public class PlayerController : MonoBehaviour
                 if (_interactInput.triggered)
                 {
                     GardenSlot gs = hit.collider.gameObject.GetComponent<GardenSlot>();
-                    if (gs.canPlant())
-                    {
-                        gs.plant(_cropPrefab);
-                    }
+                    Plant(gs);
+                }
+            } else if (hit.collider.tag == "SeedBag")
+            {
+                if (_interactInput.triggered)
+                {
+                    SeedBag bag = hit.collider.gameObject.GetComponent<SeedBag>();
+                    _currentSeed = bag.plantData;
                 }
             }
+        }
+    }
+
+    private void Plant(GardenSlot slot)
+    {
+        if (!slot.hasSomething)
+        {
+            GameObject go = Instantiate(_plantPrefab, slot.transform);
+            PlantController ctrl = go.GetComponent<PlantController>();
+            ctrl.Init(slot, _currentSeed);
+            slot.hasSomething = true;
+            _currentSeed = null;
         }
     }
 }
