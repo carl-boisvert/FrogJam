@@ -34,6 +34,11 @@ public class PlantController : MonoBehaviour
         }
     }
 
+    public void StopGrowth()
+    {
+        StopCoroutine(_coroutine);
+    }
+
     IEnumerator GrowPlant(PlantDataStage stage)
     {
         float time = Time.time;
