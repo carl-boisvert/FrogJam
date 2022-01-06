@@ -6,5 +6,5 @@ using UnityEngine;
 [Serializable]
 public class Order
 {
-    [SerializeField] private List<PlantData> _plants;
+    [SerializeField] public List<PlantData> plants;
 }

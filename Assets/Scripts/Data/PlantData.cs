@@ -7,6 +7,7 @@ using UnityEngine;
 public class PlantData : ScriptableObject
 {
     public string name;
+    public Texture2D icon;
     public bool needWater;
     public bool needLight;
     public List<PlantDataStage> stages;
