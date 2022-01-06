@@ -47,8 +47,8 @@ public class PlantController : MonoBehaviour
         Debug.Log($"Start Growing phase {_plantStage} at {time} and stopping at {stageTime}");
         while (time < stageTime)
         {
-            time = Time.time;
             yield return new WaitForSeconds(1);
+            time = Time.time;
         }
         Debug.Log($"Stop Growing phase {_plantStage} at {time}");
         Destroy(_currentPlantGameObject);
