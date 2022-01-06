@@ -32,7 +32,7 @@ public class GameManager : MonoBehaviour
         float time = Time.time;
         float stageTime = time + stage.stageDuration;
         float nextOrder = Random.Range(stage.timeBetweenOrdersMin, stage.timeBetweenOrdersMax);
-        Debug.Log($"Start of order phase {_currentStage} at {time} and stopping at {stageTime}");
+        //Debug.Log($"Start of order phase {_currentStage} at {time} and stopping at {stageTime}");
         while (time < stageTime)
         {
             if (time + nextOrder > stageTime)
@@ -46,13 +46,13 @@ public class GameManager : MonoBehaviour
 
             GameEventSystem.OnNewOrderEvent(order);
             
-            Debug.Log($"New Order in! Next order in {nextOrder}");
+            //Debug.Log($"New Order in! Next order in {nextOrder}");
             yield return new WaitForSeconds(nextOrder);
             
             time = Time.time;
             nextOrder = Random.Range(stage.timeBetweenOrdersMin, stage.timeBetweenOrdersMax);
         }
-        Debug.Log($"End of order phase {_currentStage} at {time}");
+        //Debug.Log($"End of order phase {_currentStage} at {time}");
         _currentStage++;
         NewPhase();
     }
