@@ -35,15 +35,19 @@ public class PlantController : MonoBehaviour
         else
         {
             isDoneGrowing = true;
-            Instantiate(_plantData.stages[_plantStage].prefab, transform);
+            GameObject plant = Instantiate(_plantData.stages[_plantStage].prefab, transform);
+            plant.GetComponentInChildren<MeshRenderer>().material.color = _plantData.color;
         }
     }
 
     public void PickedUp()
     {
         StopCoroutine(_coroutine);
-        _slot.hasSomething = false;
-        _slot = null;
+        if (_slot != null)
+        {
+            _slot.hasSomething = false;
+            _slot = null;
+        }
     }
 
     IEnumerator GrowPlant(PlantDataStage stage)

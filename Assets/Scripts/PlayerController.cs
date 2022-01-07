@@ -1,4 +1,6 @@
+using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -12,6 +14,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float _timeBetweenInteraction;
     [SerializeField] private bool _canInteract;
     [SerializeField] private float _throwForce;
+    [SerializeField] private Transform _holdSocket;
     [Header("Link")]
     [SerializeField] private CharacterController _cc;
     [SerializeField] private LayerMask _interactableLayer;
@@ -19,11 +22,10 @@ public class PlayerController : MonoBehaviour
     
     [Header("Plant")]
     [SerializeField] private GameObject _plantPrefab;
-    [SerializeField] private Transform _plantHoldSocket;
 
     [SerializeField] private bool _hasSomethingInHand;
     [SerializeField] private PlantData _currentSeed;
-    [SerializeField] private PlantController _plantInHand;
+    [SerializeField] private List<PlantController> _plantsInHand = new List<PlantController>();
     
     private Transform _cameraTransform;
     private MovementControl _moveControl;
@@ -47,6 +49,14 @@ public class PlayerController : MonoBehaviour
         _interactInput.Enable();
 
         _cameraTransform = Camera.main.transform;
+        
+        GameEvents.OnOrderDoneEvent += OnOrderDoneEvent;
+    }
+
+    private void OnOrderDoneEvent(Order order)
+    {
+        _plantsInHand.Clear();
+        _hasSomethingInHand = false;
     }
 
     private void Update()
@@ -80,6 +90,7 @@ public class PlayerController : MonoBehaviour
                     GardenSlot gs = hit.collider.gameObject.GetComponent<GardenSlot>();
                     Plant(gs);
                     _canInteract = false;
+                    _hasSomethingInHand = false;
                     StartCoroutine(InteractionTimer());
                 }
             } else if (hit.collider.tag == "SeedBag")
@@ -94,18 +105,18 @@ public class PlayerController : MonoBehaviour
                 }
             } else if (hit.collider.tag == "Plant"  && _canInteract)
             {
-                if (_interactInput.triggered)
+                if (_interactInput.triggered && !_hasSomethingInHand)
                 {
                     GameObject plant = hit.collider.gameObject;
                     PlantController plantController = plant.GetComponent<PlantController>();
                     plantController.PickedUp();
                     Rigidbody _rb = plant.GetComponent<Rigidbody>();
                     _rb.isKinematic = true;
-                    plant.transform.parent = _plantHoldSocket;
-                    plant.transform.position = _plantHoldSocket.position;
+                    plant.transform.parent = _holdSocket;
+                    plant.transform.position = _holdSocket.position;
                     plant.transform.localPosition = Vector3.zero;
-                    plant.transform.localRotation = _plantHoldSocket.rotation;
-                    _plantInHand = plantController;
+                    plant.transform.localRotation = _holdSocket.rotation;
+                    _plantsInHand.Add(plantController);
                     _hasSomethingInHand = true;
                     _canInteract = false;
                     StartCoroutine(InteractionTimer());
@@ -114,7 +125,7 @@ public class PlayerController : MonoBehaviour
             {
                 if (_interactInput.triggered)
                 {
-                    if (_plantInHand != null)
+                    if (_plantsInHand.Count > 0)
                     {
                         SellPlant();
                     }
@@ -128,10 +139,13 @@ public class PlayerController : MonoBehaviour
             if (_interactInput.triggered && _hasSomethingInHand  && _canInteract)
             {
                 //Throw it
-                _plantHoldSocket.DetachChildren();
-                Rigidbody _rb = _plantInHand.GetComponent<Rigidbody>();
-                _rb.isKinematic = false;
-                _rb.AddForce(_cameraTransform.forward*_throwForce, ForceMode.Impulse);
+                _holdSocket.DetachChildren();
+                foreach (var plantController in _plantsInHand)
+                {
+                    Rigidbody _rb = plantController.GetComponent<Rigidbody>();
+                    _rb.isKinematic = false;
+                    _rb.AddForce(_cameraTransform.forward*_throwForce, ForceMode.Impulse);
+                }
                 _canInteract = false;
                 StartCoroutine(InteractionTimer());
             }
@@ -140,7 +154,7 @@ public class PlayerController : MonoBehaviour
 
     private void SellPlant()
     {
-        _gameManager.SellPlant(_plantInHand);
+        _gameManager.SellPlant(_plantsInHand);
     }
 
     private void Plant(GardenSlot slot)
@@ -167,5 +181,10 @@ public class PlayerController : MonoBehaviour
         }
 
         _canInteract = true;
+    }
+
+    private void OnDestroy()
+    {
+        GameEvents.OnOrderDoneEvent -= OnOrderDoneEvent;
     }
 }

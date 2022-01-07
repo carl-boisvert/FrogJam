@@ -67,20 +67,36 @@ public class GameManager : MonoBehaviour
         return order;
     }
 
-    public void SellPlant(PlantController plantInHand)
+    public void SellPlant(List<PlantController> plantsInHand)
     {
-        PlantData data = plantInHand.GetPlantData();
+        //PlantData data = plantInHand.GetPlantData();
         Order soldOrder = null;
         foreach (var order in _orders)
         {
-            if (order.plants.Count == 1 && order.plants[0].name == plantInHand.GetPlantData().name && plantInHand.isDoneGrowing)
+            if (order.plants.Count == plantsInHand.Count)
             {
-                soldOrder = order;
-                Destroy(plantInHand.gameObject);
-                break;;
+                bool orderIsDone = true;
+                foreach (var orderPlant in order.plants)
+                {
+                    if (plantsInHand.Find(plant => plant.GetPlantData().name == orderPlant.name) == null)
+                    {
+                        orderIsDone = false;
+                    }
+                }
+
+                if (orderIsDone)
+                {
+                    soldOrder = order;
+                    foreach (var plantController in plantsInHand)
+                    {
+                        Destroy(plantController.gameObject);
+                    }
+                    break;
+                }
             }
         }
         
         _orders.Remove(soldOrder);
+        GameEvents.OnOrderDoneEvent(soldOrder);
     }
 }
