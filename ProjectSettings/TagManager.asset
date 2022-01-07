@@ -9,6 +9,7 @@ TagManager:
   - Plant
   - Paint
   - Book
+  - Kiosque
   layers:
   - Default
   - TransparentFX

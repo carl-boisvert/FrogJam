@@ -7,7 +7,7 @@ public class PlantController : MonoBehaviour
     [SerializeField] private GardenSlot _slot;
     [SerializeField] private PlantData _plantData;
     [SerializeField] private int _plantStage;
-    [SerializeField] private bool isDoneGrowing = false;
+    [SerializeField] public bool isDoneGrowing = false;
 
     private GameObject _currentPlantGameObject;
 
@@ -21,6 +21,11 @@ public class PlantController : MonoBehaviour
         Growth();
     }
 
+    public PlantData GetPlantData()
+    {
+        return _plantData;
+    }
+
     private void Growth()
     {
         if (_plantStage < _plantData.stages.Count - 1)
@@ -30,13 +35,19 @@ public class PlantController : MonoBehaviour
         else
         {
             isDoneGrowing = true;
-            Instantiate(_plantData.stages[_plantStage].prefab, transform);
+            GameObject plant = Instantiate(_plantData.stages[_plantStage].prefab, transform);
+            plant.GetComponentInChildren<MeshRenderer>().material.color = _plantData.color;
         }
     }
 
-    public void StopGrowth()
+    public void PickedUp()
     {
         StopCoroutine(_coroutine);
+        if (_slot != null)
+        {
+            _slot.hasSomething = false;
+            _slot = null;
+        }
     }
 
     IEnumerator GrowPlant(PlantDataStage stage)
@@ -44,13 +55,13 @@ public class PlantController : MonoBehaviour
         float time = Time.time;
         float stageTime = time + stage.time;
         _currentPlantGameObject = Instantiate(stage.prefab, transform);
-        Debug.Log($"Start Growing phase {_plantStage} at {time} and stopping at {stageTime}");
+        //Debug.Log($"Start Growing phase {_plantStage} at {time} and stopping at {stageTime}");
         while (time < stageTime)
         {
             yield return new WaitForSeconds(1);
             time = Time.time;
         }
-        Debug.Log($"Stop Growing phase {_plantStage} at {time}");
+        //Debug.Log($"Stop Growing phase {_plantStage} at {time}");
         Destroy(_currentPlantGameObject);
         _plantStage++;
         Growth();

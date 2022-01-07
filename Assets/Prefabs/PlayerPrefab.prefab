@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 987524579854634615}
   m_Layer: 0
-  m_Name: PlantSocket
+  m_Name: HoldSocket
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -436,13 +436,19 @@ MonoBehaviour:
   _speed: 12
   _fallSpeed: 10
   _distance: 5
+  _timeBetweenInteraction: 0.1
+  _canInteract: 1
+  _throwForce: 30
   _cc: {fileID: 8474051390437630078}
   _interactableLayer:
     serializedVersion: 2
     m_Bits: 8
+  _gameManager: {fileID: 0}
   _plantPrefab: {fileID: 6861726599833889317, guid: 2e601b80d9cbfe44d97d67ca3276c5d0, type: 3}
   _plantHoldSocket: {fileID: 987524579854634615}
+  _hasSomethingInHand: 0
   _currentSeed: {fileID: 0}
+  _plantInHand: {fileID: 0}
 --- !u!143 &8474051390437630078
 CharacterController:
   m_ObjectHideFlags: 0
