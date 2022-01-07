@@ -108,15 +108,7 @@ public class PlayerController : MonoBehaviour
                 if (_interactInput.triggered && !_hasSomethingInHand)
                 {
                     GameObject plant = hit.collider.gameObject;
-                    PlantController plantController = plant.GetComponent<PlantController>();
-                    plantController.PickedUp();
-                    Rigidbody _rb = plant.GetComponent<Rigidbody>();
-                    _rb.isKinematic = true;
-                    plant.transform.parent = _holdSocket;
-                    plant.transform.position = _holdSocket.position;
-                    plant.transform.localPosition = Vector3.zero;
-                    plant.transform.localRotation = _holdSocket.rotation;
-                    _plantsInHand.Add(plantController);
+                    PickUpPlant(plant);
                     _hasSomethingInHand = true;
                     _canInteract = false;
                     StartCoroutine(InteractionTimer());
@@ -139,16 +131,24 @@ public class PlayerController : MonoBehaviour
             if (_interactInput.triggered && _hasSomethingInHand  && _canInteract)
             {
                 //Throw it
-                _holdSocket.DetachChildren();
-                foreach (var plantController in _plantsInHand)
-                {
-                    Rigidbody _rb = plantController.GetComponent<Rigidbody>();
-                    _rb.isKinematic = false;
-                    _rb.AddForce(_cameraTransform.forward*_throwForce, ForceMode.Impulse);
-                }
+                ThrowObject();
                 _canInteract = false;
                 StartCoroutine(InteractionTimer());
             }
+        }
+    }
+
+    private void ThrowObject()
+    {
+        _holdSocket.DetachChildren();
+        foreach (var plantController in _plantsInHand)
+        {
+            Rigidbody _rb = plantController.GetComponent<Rigidbody>();
+            _rb.isKinematic = false;
+            _rb.AddForce(_cameraTransform.forward*_throwForce, ForceMode.Impulse);
+
+            Collider collider = plantController.GetComponent<Collider>();
+            collider.enabled = true;
         }
     }
 
@@ -181,6 +181,27 @@ public class PlayerController : MonoBehaviour
         }
 
         _canInteract = true;
+    }
+
+    private void PickUpPlant(GameObject plant)
+    {
+        PlantController plantController = plant.GetComponent<PlantController>();
+        plantController.PickedUp();
+        //Switch Rigidbody to kinematic
+        Rigidbody _rb = plant.GetComponent<Rigidbody>();
+        _rb.isKinematic = true;
+        
+        //Parent to hand
+        plant.transform.parent = _holdSocket;
+        plant.transform.position = _holdSocket.position;
+        plant.transform.localPosition = Vector3.zero;
+        plant.transform.localRotation = _holdSocket.rotation;
+        
+        // Deactivate Collider
+        Collider collider = plant.GetComponent<Collider>();
+        collider.enabled = false;
+        //Add to our hold plants
+        _plantsInHand.Add(plantController);
     }
 
     private void OnDestroy()
