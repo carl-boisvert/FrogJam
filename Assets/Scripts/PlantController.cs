@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,16 +9,30 @@ public class PlantController : MonoBehaviour
     [SerializeField] private PlantData _plantData;
     [SerializeField] private int _plantStage;
     [SerializeField] public bool isDoneGrowing = false;
+    [SerializeField] private DebugSettings _debug;
 
     private GameObject _currentPlantGameObject;
 
     private Coroutine _coroutine;
+
+    private void OnEnable()
+    {
+        _debug = FindObjectOfType<DebugSettings>();
+    }
+
     // Start is called before the first frame update
     public void Init(GardenSlot slot, PlantData data)
     {
         _slot = slot;
         _plantData = data;
         _plantStage = 0;
+        
+        if (_debug.ImmediateGrowth)
+        {
+            _plantStage = _plantData.stages.Count - 1;
+        }
+
+        
         Growth();
     }
 
@@ -42,7 +57,11 @@ public class PlantController : MonoBehaviour
 
     public void PickedUp()
     {
-        StopCoroutine(_coroutine);
+        if (_coroutine != null)
+        {
+            StopCoroutine(_coroutine);
+        }
+        
         if (_slot != null)
         {
             _slot.hasSomething = false;
