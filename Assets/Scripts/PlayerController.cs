@@ -132,6 +132,8 @@ public class PlayerController : MonoBehaviour
             {
                 //Throw it
                 ThrowObject();
+                _hasSomethingInHand = false;
+                _plantsInHand.Clear();
                 _canInteract = false;
                 StartCoroutine(InteractionTimer());
             }
