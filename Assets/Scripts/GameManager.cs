@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        NewPhase();
+        Invoke("NewPhase",5);
     }
 
     private void NewPhase()
@@ -39,12 +39,9 @@ public class GameManager : MonoBehaviour
             {
                 nextOrder = stageTime - time;
             }
-            Order order = new Order();
-            //Select a plant randomly;
-            order.plants = stage.plantThatCanSpawn;
-            _orders.Add(order);
+            Order order = CreateOrder(stage);
 
-            GameEventSystem.OnNewOrderEvent(order);
+            GameEvents.OnNewOrderEvent(order);
             
             //Debug.Log($"New Order in! Next order in {nextOrder}");
             yield return new WaitForSeconds(nextOrder);
@@ -55,5 +52,35 @@ public class GameManager : MonoBehaviour
         //Debug.Log($"End of order phase {_currentStage} at {time}");
         _currentStage++;
         NewPhase();
+    }
+
+    private Order CreateOrder(OrderPlantDataStage stage)
+    {
+        Order order = new Order();
+        //Select a plant randomly;
+        order.plants = new List<PlantData>();
+        for (int i = 0; i < stage.maximumOfPlantPerOrder; i++)
+        {
+            order.plants.Add(stage.plantThatCanSpawn[Random.Range(0,stage.plantThatCanSpawn.Count-1 )]);
+        }
+        _orders.Add(order);
+        return order;
+    }
+
+    public void SellPlant(PlantController plantInHand)
+    {
+        PlantData data = plantInHand.GetPlantData();
+        Order soldOrder = null;
+        foreach (var order in _orders)
+        {
+            if (order.plants.Count == 1 && order.plants[0].name == plantInHand.GetPlantData().name && plantInHand.isDoneGrowing)
+            {
+                soldOrder = order;
+                Destroy(plantInHand.gameObject);
+                break;;
+            }
+        }
+        
+        _orders.Remove(soldOrder);
     }
 }

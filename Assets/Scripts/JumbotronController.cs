@@ -11,7 +11,7 @@ public class JumbotronController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GameEventSystem.OnNewOrderEvent += OnNewOrderEvent;
+        GameEvents.OnNewOrderEvent += OnNewOrderEvent;
     }
 
     private void OnNewOrderEvent(Order order)
@@ -21,6 +21,6 @@ public class JumbotronController : MonoBehaviour
 
     private void OnDestroy()
     {
-        GameEventSystem.OnNewOrderEvent -= OnNewOrderEvent;
+        GameEvents.OnNewOrderEvent -= OnNewOrderEvent;
     }
 }

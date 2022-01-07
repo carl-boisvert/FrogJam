@@ -9,7 +9,7 @@ public class CustomerSpawnController : MonoBehaviour
     [SerializeField] private FileController _fileController;
     void Start()
     {
-        GameEventSystem.OnNewOrderEvent += OnNewOrderEvent;   
+        GameEvents.OnNewOrderEvent += OnNewOrderEvent;   
     }
 
     private void OnNewOrderEvent(Order order)
@@ -22,6 +22,6 @@ public class CustomerSpawnController : MonoBehaviour
 
     private void OnDestroy()
     {
-        GameEventSystem.OnNewOrderEvent -= OnNewOrderEvent;
+        GameEvents.OnNewOrderEvent -= OnNewOrderEvent;
     }
 }
