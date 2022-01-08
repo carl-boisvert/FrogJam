@@ -10,6 +10,9 @@ TagManager:
   - Paint
   - Book
   - Kiosque
+  - Radio
+  - RadioSpot
+  - RadioAiguille
   layers:
   - Default
   - TransparentFX
