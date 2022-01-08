@@ -8,13 +8,15 @@ public class PlayerController : MonoBehaviour
 {
     [Header("Movement")]
     [SerializeField] private float _speed;
-    [SerializeField] private float _fallSpeed;
-    [Header("Interaction")]
+
+    [Header("Interaction")] 
+    [SerializeField] private GameObject _hud;
     [SerializeField] private float _distance;
     [SerializeField] private float _timeBetweenInteraction;
     [SerializeField] private bool _canInteract;
     [SerializeField] private float _throwForce;
     [SerializeField] private Transform _holdSocket;
+    
     [Header("Link")]
     [SerializeField] private CharacterController _cc;
     [SerializeField] private LayerMask _interactableLayer;
@@ -23,15 +25,25 @@ public class PlayerController : MonoBehaviour
     [Header("Plant")]
     [SerializeField] private GameObject _plantPrefab;
 
+    [Header("Camera")] 
+    [SerializeField] private Camera _camera;
+
+    [Header("State variable")]
     [SerializeField] private bool _hasSomethingInHand;
     [SerializeField] private PlantData _currentSeed;
     [SerializeField] private List<PlantController> _plantsInHand = new List<PlantController>();
-    
-    private Transform _cameraTransform;
+    [SerializeField] private bool _hasRadio;
+    [SerializeField] private GameObject _radioGO;
+    [SerializeField] private bool _inGardenBoxZone;
+    [SerializeField] private RadioSpot _radioSpot;
+    [SerializeField] private bool _canMove = true;
+    [SerializeField] private bool _isLookingAtRadio = false;
+
     private MovementControl _moveControl;
     private LookControl _lookControl;
     private InputAction _moveInput;
     private InputAction _interactInput;
+    private InputAction _useInput;
 
     private Vector2 _dir;
 
@@ -45,12 +57,14 @@ public class PlayerController : MonoBehaviour
         _moveInput = _moveControl.Player.Move;
         _moveInput.Enable();
 
+        _useInput = _moveControl.Player.Use;
+        _useInput.Enable();
+
         _interactInput = _lookControl.Mouse.Interact;
         _interactInput.Enable();
 
-        _cameraTransform = Camera.main.transform;
-        
         GameEvents.OnOrderDoneEvent += OnOrderDoneEvent;
+        GameEvents.OnStopLookAtRadioEvent += OnStopLookAtRadioEvent;
     }
 
     private void OnOrderDoneEvent(Order order)
@@ -61,7 +75,31 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        Move();
+        if (_inGardenBoxZone && _useInput.triggered && _hasRadio)
+        {
+            _radioGO.transform.parent = _radioSpot.gameObject.transform;
+            _radioGO.transform.position = _radioSpot.gameObject.transform.position;
+            _radioGO.transform.rotation = _radioSpot.gameObject.transform.rotation;
+            
+            Collider collider = _radioGO.GetComponent<Collider>();
+            collider.enabled = true;
+            
+            _hasRadio = false;
+            _hasSomethingInHand = false;
+            _canInteract = false;
+            StartCoroutine(InteractionTimer());
+        }
+
+        if (_isLookingAtRadio)
+        {
+            
+        }
+
+        if (_canMove)
+        {
+            Move();
+        }
+        
         Look();
     }
 
@@ -69,19 +107,19 @@ public class PlayerController : MonoBehaviour
     {
         _dir = _moveInput.ReadValue<Vector2>();
 
-        Vector3 movementDir = _cameraTransform.forward * _dir.y + _cameraTransform.right * _dir.x;
+        Vector3 movementDir = _camera.transform.forward * _dir.y + _camera.transform.right * _dir.x;
 
         movementDir.y = 0;
 
         _cc.Move(movementDir * _speed * Time.deltaTime);
 
-        transform.rotation = Quaternion.Euler(0f, _cameraTransform.eulerAngles.y, 0f);
+        transform.rotation = Quaternion.Euler(0f, _camera.transform.eulerAngles.y, 0f);
     }
 
     private void Look()
     {
         RaycastHit hit;
-        if (Physics.Raycast(_cameraTransform.position, _cameraTransform.forward, out hit, _distance, _interactableLayer))
+        if (Physics.Raycast(_camera.transform.position, _camera.transform.forward, out hit, _distance, _interactableLayer))
         {
             if (hit.collider.tag == "GardenSlot")
             {
@@ -124,6 +162,30 @@ public class PlayerController : MonoBehaviour
                     _canInteract = false;
                     StartCoroutine(InteractionTimer());
                 }
+            } else if (hit.collider.tag == "Radio" && _canInteract)
+            {
+                if (_interactInput.triggered && !_hasSomethingInHand && _canInteract)
+                {
+                    PickUpRadio(hit.collider.gameObject);
+                    _radioGO = hit.collider.gameObject;
+                    _hasSomethingInHand = true;
+                    _hasRadio = true;
+                    _canInteract = false;
+                    StartCoroutine(InteractionTimer());
+                } else if (_useInput.triggered)
+                {
+                    GameObject radio = hit.collider.gameObject;
+
+                    GameEvents.OnLookAtRadioEvent();
+
+                    _canMove = false;
+                    _isLookingAtRadio = true;
+                    
+                    _moveInput.Disable();
+                    _useInput.Disable();
+                    _interactInput.Disable();
+                    SwitchToRadioUI();
+                }
             }
         }
         else
@@ -132,6 +194,7 @@ public class PlayerController : MonoBehaviour
             {
                 //Throw it
                 ThrowObject();
+                _hasRadio = false;
                 _hasSomethingInHand = false;
                 _plantsInHand.Clear();
                 _canInteract = false;
@@ -140,14 +203,31 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void SwitchToRadioUI()
+    {
+        Camera.main.enabled = false;
+        _camera.enabled = false;
+        _hud.SetActive(false);
+    }
+
     private void ThrowObject()
     {
         _holdSocket.DetachChildren();
+        if (_hasRadio)
+        {
+            Rigidbody _rb = _radioGO.GetComponent<Rigidbody>();
+            _rb.isKinematic = false;
+            _rb.AddForce(_camera.transform.forward*_throwForce, ForceMode.Impulse);
+
+            Collider collider = _radioGO.GetComponent<Collider>();
+            collider.enabled = true;
+        }
+
         foreach (var plantController in _plantsInHand)
         {
             Rigidbody _rb = plantController.GetComponent<Rigidbody>();
             _rb.isKinematic = false;
-            _rb.AddForce(_cameraTransform.forward*_throwForce, ForceMode.Impulse);
+            _rb.AddForce(_camera.transform.forward*_throwForce, ForceMode.Impulse);
 
             Collider collider = plantController.GetComponent<Collider>();
             collider.enabled = true;
@@ -184,6 +264,23 @@ public class PlayerController : MonoBehaviour
 
         _canInteract = true;
     }
+    
+    private void PickUpRadio(GameObject radio)
+    {
+        //Switch Rigidbody to kinematic
+        Rigidbody _rb = radio.GetComponent<Rigidbody>();
+        _rb.isKinematic = true;
+        
+        // Deactivate Collider
+        Collider collider = radio.GetComponent<Collider>();
+        collider.enabled = false;
+        
+        //Parent to hand
+        radio.transform.parent = _holdSocket;
+        radio.transform.position = _holdSocket.position;
+        radio.transform.localPosition = Vector3.zero;
+        radio.transform.localRotation = _holdSocket.rotation;
+    }
 
     private void PickUpPlant(GameObject plant)
     {
@@ -204,6 +301,37 @@ public class PlayerController : MonoBehaviour
         collider.enabled = false;
         //Add to our hold plants
         _plantsInHand.Add(plantController);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "RadioSpot")
+        {
+            _inGardenBoxZone = true;
+            _radioSpot = other.GetComponentInChildren<RadioSpot>();
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "RadioSpot")
+        {
+            _inGardenBoxZone = false;
+            _radioSpot = null;
+        }
+    }
+    
+    private void OnStopLookAtRadioEvent()
+    {
+        _canMove = true;
+        _isLookingAtRadio = false;
+
+        _camera.enabled = true;
+        _hud.SetActive(true);
+                    
+        _moveInput.Enable();
+        _useInput.Enable();
+        _interactInput.Enable();
     }
 
     private void OnDestroy()
