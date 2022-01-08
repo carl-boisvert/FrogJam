@@ -24,7 +24,8 @@ public enum MusicType
     Classical,
     Country,
     Rock,
-    HipHop
+    HipHop,
+    Frog
 }
 
 [Serializable]
