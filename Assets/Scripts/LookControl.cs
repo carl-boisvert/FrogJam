@@ -44,6 +44,15 @@ public partial class @LookControl : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Throw"",
+                    ""type"": ""Button"",
+                    ""id"": ""f140e723-bb85-47bc-a26d-45dab982f62c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -68,6 +77,17 @@ public partial class @LookControl : IInputActionCollection2, IDisposable
                     ""action"": ""Interact"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0b7cd8a5-f299-4253-9c27-81ffb8d778e4"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Throw"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -78,6 +98,7 @@ public partial class @LookControl : IInputActionCollection2, IDisposable
         m_Mouse = asset.FindActionMap("Mouse", throwIfNotFound: true);
         m_Mouse_Look = m_Mouse.FindAction("Look", throwIfNotFound: true);
         m_Mouse_Interact = m_Mouse.FindAction("Interact", throwIfNotFound: true);
+        m_Mouse_Throw = m_Mouse.FindAction("Throw", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -139,12 +160,14 @@ public partial class @LookControl : IInputActionCollection2, IDisposable
     private IMouseActions m_MouseActionsCallbackInterface;
     private readonly InputAction m_Mouse_Look;
     private readonly InputAction m_Mouse_Interact;
+    private readonly InputAction m_Mouse_Throw;
     public struct MouseActions
     {
         private @LookControl m_Wrapper;
         public MouseActions(@LookControl wrapper) { m_Wrapper = wrapper; }
         public InputAction @Look => m_Wrapper.m_Mouse_Look;
         public InputAction @Interact => m_Wrapper.m_Mouse_Interact;
+        public InputAction @Throw => m_Wrapper.m_Mouse_Throw;
         public InputActionMap Get() { return m_Wrapper.m_Mouse; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -160,6 +183,9 @@ public partial class @LookControl : IInputActionCollection2, IDisposable
                 @Interact.started -= m_Wrapper.m_MouseActionsCallbackInterface.OnInteract;
                 @Interact.performed -= m_Wrapper.m_MouseActionsCallbackInterface.OnInteract;
                 @Interact.canceled -= m_Wrapper.m_MouseActionsCallbackInterface.OnInteract;
+                @Throw.started -= m_Wrapper.m_MouseActionsCallbackInterface.OnThrow;
+                @Throw.performed -= m_Wrapper.m_MouseActionsCallbackInterface.OnThrow;
+                @Throw.canceled -= m_Wrapper.m_MouseActionsCallbackInterface.OnThrow;
             }
             m_Wrapper.m_MouseActionsCallbackInterface = instance;
             if (instance != null)
@@ -170,6 +196,9 @@ public partial class @LookControl : IInputActionCollection2, IDisposable
                 @Interact.started += instance.OnInteract;
                 @Interact.performed += instance.OnInteract;
                 @Interact.canceled += instance.OnInteract;
+                @Throw.started += instance.OnThrow;
+                @Throw.performed += instance.OnThrow;
+                @Throw.canceled += instance.OnThrow;
             }
         }
     }
@@ -178,5 +207,6 @@ public partial class @LookControl : IInputActionCollection2, IDisposable
     {
         void OnLook(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
+        void OnThrow(InputAction.CallbackContext context);
     }
 }
