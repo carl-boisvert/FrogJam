@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Boots
   icon: {fileID: 0}
-  color: {r: 0, g: 0, b: 0, a: 0}
+  color: {r: 0.5849056, g: 0.26577863, b: 0, a: 0}
   needWater: 1
   needLight: 0
   stages:

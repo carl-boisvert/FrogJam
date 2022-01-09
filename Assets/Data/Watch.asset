@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Watch
   icon: {fileID: 0}
-  color: {r: 0, g: 0, b: 0, a: 0}
+  color: {r: 0, g: 0.16973758, b: 1, a: 0}
   needWater: 0
   needLight: 0
   stages:

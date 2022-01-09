@@ -24,7 +24,7 @@ MonoBehaviour:
     hasColorModifier: 0
     timeBetweenFrogsMin: 10
     timeBetweenFrogsMax: 20
-  - stageDuration: 300
+  - stageDuration: 200
     timeBetweenOrdersMin: 10
     timeBetweenOrdersMax: 20
     plantThatCanSpawn:
@@ -38,7 +38,7 @@ MonoBehaviour:
     hasColorModifier: 1
     timeBetweenFrogsMin: 5
     timeBetweenFrogsMax: 10
-  - stageDuration: 9999
+  - stageDuration: 200
     timeBetweenOrdersMin: 10
     timeBetweenOrdersMax: 20
     plantThatCanSpawn:
