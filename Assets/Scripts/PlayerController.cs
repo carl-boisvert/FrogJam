@@ -212,6 +212,23 @@ public class PlayerController : MonoBehaviour
                     _canInteract = false;
                     StartCoroutine(InteractionTimer());
                 }
+            } else if (hit.collider.tag == "Bin" && _canInteract)
+            {
+                if (_interactInput.triggered)
+                {
+                    if (_plantsInHand.Count > 0)
+                    {
+                        
+                        foreach (var plantController in _plantsInHand)
+                        {
+                            Destroy(plantController.gameObject);
+                        }
+                        _plantsInHand.Clear();
+                        _hasSomethingInHand = false;
+                        _canInteract = false;
+                        StartCoroutine(InteractionTimer());
+                    }
+                }
             }
         }
         else
