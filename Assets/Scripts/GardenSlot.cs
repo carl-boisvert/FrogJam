@@ -18,6 +18,9 @@ public class GardenSlot : MonoBehaviour
 
     private void OnParticleCollision(GameObject other)
     {
-        Debug.Log("WATER");
+        if (hasSomething)
+        {
+            plantController.Watered();
+        }
     }
 }

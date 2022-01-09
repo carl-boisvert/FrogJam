@@ -11,6 +11,7 @@ public class PlantController : MonoBehaviour
     [SerializeField] public bool isDoneGrowing = false;
     [SerializeField] public bool isDead = false;
     [SerializeField] public bool isDying = false;
+    [SerializeField] public bool isWatered = false;
     [SerializeField] private DebugSettings _debug;
     [SerializeField] private PlantStatus _status;
     [SerializeField] private Transform _particleSpawnPoint;
@@ -47,8 +48,14 @@ public class PlantController : MonoBehaviour
             _plantStage = _plantData.stages.Count - 1;
         }
 
-        
-        Growth();
+        if (!_plantData.needWater)
+        {
+            Growth();
+        }
+        else
+        {
+            _currentPlantGameObject = Instantiate(_plantData.stages[_plantStage].prefab, transform);
+        }
     }
 
     private void Update()
@@ -169,6 +176,16 @@ public class PlantController : MonoBehaviour
         Destroy(_currentPlantGameObject);
         _plantStage++;
         Growth();
+    }
+
+    public void Watered()
+    {
+        if (_plantData.needWater && !isWatered)
+        {
+            isWatered = true;
+            Destroy(_currentPlantGameObject);
+            Growth();
+        }
     }
 }
 
