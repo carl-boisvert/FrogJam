@@ -36,6 +36,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject _radioGO;
     [SerializeField] private bool _inGardenBoxZone;
     [SerializeField] private RadioSpot _radioSpot;
+    [SerializeField] private RadioSpot _currentRadioSpot;
     [SerializeField] private bool _canMove = true;
     [SerializeField] private bool _isLookingAtRadio = false;
 
@@ -77,6 +78,11 @@ public class PlayerController : MonoBehaviour
     {
         if (_inGardenBoxZone && _useInput.triggered && _hasRadio)
         {
+            RadioSpot radioSpot = _radioSpot.GetComponent<RadioSpot>();
+            RadioDataController radioDataController = _radioGO.GetComponent<RadioDataController>();
+            radioSpot.MusicPlaying(radioDataController._musicPlaying);
+            _currentRadioSpot = radioSpot;
+            radioDataController.radioSpot = radioSpot;
             _radioGO.transform.parent = _radioSpot.gameObject.transform;
             _radioGO.transform.position = _radioSpot.gameObject.transform.position;
             _radioGO.transform.rotation = _radioSpot.gameObject.transform.rotation;
@@ -164,8 +170,16 @@ public class PlayerController : MonoBehaviour
                 }
             } else if (hit.collider.tag == "Radio" && _canInteract)
             {
+                //If RadioSpot is not null, we need to remove music
                 if (_interactInput.triggered && !_hasSomethingInHand && _canInteract)
                 {
+                    if (_currentRadioSpot != null)
+                    {
+                        _currentRadioSpot.MusicPlaying(MusicType.None);
+                    }
+
+                    RadioDataController radioDataController = hit.collider.gameObject.GetComponent<RadioDataController>();
+                    radioDataController.radioSpot = null;
                     PickUpRadio(hit.collider.gameObject);
                     _radioGO = hit.collider.gameObject;
                     _hasSomethingInHand = true;
@@ -247,6 +261,7 @@ public class PlayerController : MonoBehaviour
             PlantController ctrl = go.GetComponent<PlantController>();
             ctrl.Init(slot, _currentSeed);
             slot.hasSomething = true;
+            slot.plantController = ctrl;
             _currentSeed = null;
         }
     }
@@ -321,7 +336,7 @@ public class PlayerController : MonoBehaviour
         }
     }
     
-    private void OnStopLookAtRadioEvent()
+    private void OnStopLookAtRadioEvent(MusicType musicType)
     {
         _canMove = true;
         _isLookingAtRadio = false;

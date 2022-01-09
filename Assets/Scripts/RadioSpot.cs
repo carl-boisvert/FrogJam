@@ -1,18 +1,20 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class RadioSpot : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] private List<GardenSlot> _gardenSlotsLinked;
 
-    // Update is called once per frame
-    void Update()
+    public void MusicPlaying(MusicType musicType)
     {
+        foreach (var gardenSlot in _gardenSlotsLinked)
+        {
+            gardenSlot.MusicPlaying(musicType);
+        }
+
         
     }
+    
 }
