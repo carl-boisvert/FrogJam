@@ -21,4 +21,7 @@ public static class GameEvents
     
     public delegate void ExitMusicChannel();
     public static ExitMusicChannel OnExitMusicChannel;
+
+    public delegate void FrogChangedMusic();
+    public static FrogChangedMusic OnFrogChangedMusic;
 }

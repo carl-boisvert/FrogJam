@@ -8,7 +8,11 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] private OrdersData _ordersData;
     [SerializeField] private List<Order> _orders;
-
+    [SerializeField] private GameObject _frogPrefab;
+    [SerializeField] private List<GameObject> _frogSpawnPoint;
+    [SerializeField] private float _frogTimer;
+    [SerializeField] private GameObject _radio;
+    
     private float _nextOrderTime;
     private int _currentStage = 0;
     
@@ -17,6 +21,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         Invoke("NewPhase",5);
+        Invoke("StartSpawningFrog",5);
     }
 
     private void NewPhase()
@@ -27,6 +32,11 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void StartSpawningFrog()
+    {
+        StartCoroutine(SpawnFrog());
+    }
+
     IEnumerator CreateNextOrder(OrderPlantDataStage stage)
     {
         float time = Time.time;
@@ -35,23 +45,35 @@ public class GameManager : MonoBehaviour
         //Debug.Log($"Start of order phase {_currentStage} at {time} and stopping at {stageTime}");
         while (time < stageTime)
         {
-            if (time + nextOrder > stageTime)
+            if (_orders.Count < 5)
             {
-                nextOrder = stageTime - time;
-            }
-            Order order = CreateOrder(stage);
+                if (time + nextOrder > stageTime)
+                {
+                    nextOrder = stageTime - time;
+                }
+                Order order = CreateOrder(stage);
 
-            GameEvents.OnNewOrderEvent(order);
+                GameEvents.OnNewOrderEvent(order);
             
-            //Debug.Log($"New Order in! Next order in {nextOrder}");
-            yield return new WaitForSeconds(nextOrder);
+                //Debug.Log($"New Order in! Next order in {nextOrder}");
+                yield return new WaitForSeconds(nextOrder);
             
-            time = Time.time;
-            nextOrder = Random.Range(stage.timeBetweenOrdersMin, stage.timeBetweenOrdersMax);
+                time = Time.time;
+                nextOrder = Random.Range(stage.timeBetweenOrdersMin, stage.timeBetweenOrdersMax);
+            }
         }
         //Debug.Log($"End of order phase {_currentStage} at {time}");
         _currentStage++;
         NewPhase();
+    }
+    
+    IEnumerator SpawnFrog()
+    {
+        yield return new WaitForSeconds(Random.Range(_ordersData.stages[_currentStage].timeBetweenFrogsMin, _ordersData.stages[_currentStage].timeBetweenFrogsMax));
+        GameObject frog = Instantiate(_frogPrefab, _frogSpawnPoint[Random.Range(0, _frogSpawnPoint.Count - 1)].transform);
+        FrogController frogController = frog.GetComponent<FrogController>();
+        frogController.Init(_radio);
+        StartSpawningFrog();
     }
 
     private Order CreateOrder(OrderPlantDataStage stage)

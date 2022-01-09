@@ -32,6 +32,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private bool _hasSomethingInHand;
     [SerializeField] private PlantData _currentSeed;
     [SerializeField] private List<PlantController> _plantsInHand = new List<PlantController>();
+    [SerializeField] private bool _hasFrog;
+    [SerializeField] private GameObject _frogGo;
     [SerializeField] private bool _hasRadio;
     [SerializeField] private GameObject _radioGO;
     [SerializeField] private bool _inGardenBoxZone;
@@ -170,7 +172,6 @@ public class PlayerController : MonoBehaviour
                 }
             } else if (hit.collider.tag == "Radio" && _canInteract)
             {
-                //If RadioSpot is not null, we need to remove music
                 if (_interactInput.triggered && !_hasSomethingInHand && _canInteract)
                 {
                     if (_currentRadioSpot != null)
@@ -200,6 +201,17 @@ public class PlayerController : MonoBehaviour
                     _interactInput.Disable();
                     SwitchToRadioUI();
                 }
+            } else if (hit.collider.tag == "Frog" && _canInteract)
+            {
+                if (_interactInput.triggered && !_hasSomethingInHand)
+                {
+                    PickUpFrog(hit.collider.gameObject);
+                    _frogGo = hit.collider.gameObject;
+                    _hasFrog = true;
+                    _hasSomethingInHand = true;
+                    _canInteract = false;
+                    StartCoroutine(InteractionTimer());
+                }
             }
         }
         else
@@ -209,6 +221,7 @@ public class PlayerController : MonoBehaviour
                 //Throw it
                 ThrowObject();
                 _hasRadio = false;
+                _hasFrog = false;
                 _hasSomethingInHand = false;
                 _plantsInHand.Clear();
                 _canInteract = false;
@@ -234,6 +247,19 @@ public class PlayerController : MonoBehaviour
             _rb.AddForce(_camera.transform.forward*_throwForce, ForceMode.Impulse);
 
             Collider collider = _radioGO.GetComponent<Collider>();
+            collider.enabled = true;
+        }
+        
+        if (_hasFrog)
+        {
+            Rigidbody _rb = _frogGo.GetComponent<Rigidbody>();
+            _rb.isKinematic = false;
+            _rb.AddForce(_camera.transform.forward*_throwForce, ForceMode.Impulse);
+
+            Collider collider = _frogGo.GetComponent<SphereCollider>();
+            collider.enabled = true;
+            
+            collider = _frogGo.GetComponent<BoxCollider>();
             collider.enabled = true;
         }
 
@@ -278,6 +304,24 @@ public class PlayerController : MonoBehaviour
         }
 
         _canInteract = true;
+    }
+    
+    private void PickUpFrog(GameObject frog)
+    {
+        Rigidbody _rb = frog.GetComponent<Rigidbody>();
+        _rb.isKinematic = true;
+        
+        Collider collider = frog.GetComponent<BoxCollider>();
+        collider.enabled = false;
+        
+        FrogController frogController = frog.GetComponent<FrogController>();
+        frogController.PickedUp();
+
+        //Parent to hand
+        frog.transform.parent = _holdSocket;
+        frog.transform.position = _holdSocket.position;
+        frog.transform.localPosition = Vector3.zero;
+        frog.transform.localRotation = _holdSocket.rotation;
     }
     
     private void PickUpRadio(GameObject radio)
