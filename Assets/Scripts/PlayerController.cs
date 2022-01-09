@@ -287,10 +287,7 @@ public class PlayerController : MonoBehaviour
         _rb.isKinematic = true;
         
         //Parent to hand
-        waterSpray.transform.parent = _holdSocket;
-        waterSpray.transform.position = _holdSocket.position;
-        waterSpray.transform.localPosition = Vector3.zero;
-        waterSpray.transform.localRotation = _holdSocket.rotation;
+        AttacheToHand(waterSpray, false);
         
         // Deactivate Collider
         Collider collider = waterSpray.GetComponent<Collider>();
@@ -395,10 +392,7 @@ public class PlayerController : MonoBehaviour
         frogController.PickedUp();
 
         //Parent to hand
-        frog.transform.parent = _holdSocket;
-        frog.transform.position = _holdSocket.position;
-        frog.transform.localPosition = Vector3.zero;
-        frog.transform.localRotation = _holdSocket.rotation;
+        AttacheToHand(frog);
     }
     
     private void PickUpRadio(GameObject radio)
@@ -412,10 +406,7 @@ public class PlayerController : MonoBehaviour
         collider.enabled = false;
         
         //Parent to hand
-        radio.transform.parent = _holdSocket;
-        radio.transform.position = _holdSocket.position;
-        radio.transform.localPosition = Vector3.zero;
-        radio.transform.localRotation = _holdSocket.rotation;
+        AttacheToHand(radio);
     }
 
     private void PickUpPlant(GameObject plant)
@@ -427,10 +418,7 @@ public class PlayerController : MonoBehaviour
         _rb.isKinematic = true;
         
         //Parent to hand
-        plant.transform.parent = _holdSocket;
-        plant.transform.position = _holdSocket.position;
-        plant.transform.localPosition = Vector3.zero;
-        plant.transform.localRotation = _holdSocket.rotation;
+        AttacheToHand(plant);
         
         // Deactivate Collider
         Collider collider = plant.GetComponent<Collider>();
@@ -468,6 +456,23 @@ public class PlayerController : MonoBehaviour
         _moveInput.Enable();
         _useInput.Enable();
         _interactInput.Enable();
+    }
+
+    private void AttacheToHand(GameObject go, bool facingPlayer = true)
+    {
+        //Parent to hand
+        go.transform.parent = _holdSocket;
+        go.transform.position = _holdSocket.position;
+        go.transform.localPosition = Vector3.zero;
+        if (facingPlayer)
+        {
+            go.transform.localRotation = Quaternion.identity;
+        }
+        else
+        {
+            go.transform.rotation *= Quaternion.Euler(0,180f,0);
+            //go.transform.localRotation = Quaternion.identity;
+        }
     }
 
     private void OnDestroy()
