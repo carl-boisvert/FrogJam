@@ -22,8 +22,8 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 1fcbfd98b23189342bde67335e0b6bba, type: 2}
     maximumOfPlantPerOrder: 1
     hasColorModifier: 0
-    timeBetweenFrogsMin: 0
-    timeBetweenFrogsMax: 0
+    timeBetweenFrogsMin: 1000
+    timeBetweenFrogsMax: 1000
   - stageDuration: 200
     timeBetweenOrdersMin: 10
     timeBetweenOrdersMax: 20
