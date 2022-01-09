@@ -15,6 +15,7 @@ TagManager:
   - RadioAiguille
   - Frog
   - Bin
+  - WaterSpray
   layers:
   - Default
   - TransparentFX
