@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class GardenSlot : MonoBehaviour
@@ -12,6 +13,14 @@ public class GardenSlot : MonoBehaviour
         if (plantController != null)
         {
             plantController._currentMusicType = musicType;
+        }
+    }
+
+    private void OnParticleCollision(GameObject other)
+    {
+        if (hasSomething)
+        {
+            plantController.Watered();
         }
     }
 }

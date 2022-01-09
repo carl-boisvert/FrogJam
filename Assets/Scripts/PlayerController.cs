@@ -32,6 +32,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private bool _hasSomethingInHand;
     [SerializeField] private PlantData _currentSeed;
     [SerializeField] private List<PlantController> _plantsInHand = new List<PlantController>();
+    [SerializeField] private bool _hasWaterSpray;
+    [SerializeField] private GameObject _waterSprayGo;
     [SerializeField] private bool _hasFrog;
     [SerializeField] private GameObject _frogGo;
     [SerializeField] private bool _hasRadio;
@@ -47,6 +49,7 @@ public class PlayerController : MonoBehaviour
     private InputAction _moveInput;
     private InputAction _interactInput;
     private InputAction _useInput;
+    private InputAction _throwInput;
 
     private Vector2 _dir;
 
@@ -65,6 +68,9 @@ public class PlayerController : MonoBehaviour
 
         _interactInput = _lookControl.Mouse.Interact;
         _interactInput.Enable();
+
+        _throwInput = _lookControl.Mouse.Throw;
+        _throwInput.Enable();
 
         GameEvents.OnOrderDoneEvent += OnOrderDoneEvent;
         GameEvents.OnStopLookAtRadioEvent += OnStopLookAtRadioEvent;
@@ -94,7 +100,7 @@ public class PlayerController : MonoBehaviour
             
             _hasRadio = false;
             _hasSomethingInHand = false;
-            _canInteract = false;
+           // _canInteract = false;
             StartCoroutine(InteractionTimer());
         }
 
@@ -129,15 +135,16 @@ public class PlayerController : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(_camera.transform.position, _camera.transform.forward, out hit, _distance, _interactableLayer))
         {
+            //Pick Up Interaction
             if (hit.collider.tag == "GardenSlot")
             {
                 if (_interactInput.triggered && _currentSeed != null && _canInteract)
                 {
                     GardenSlot gs = hit.collider.gameObject.GetComponent<GardenSlot>();
                     Plant(gs);
-                    _canInteract = false;
+                    //_canInteract = false;
                     _hasSomethingInHand = false;
-                    StartCoroutine(InteractionTimer());
+                    //StartCoroutine(InteractionTimer());
                 }
             } else if (hit.collider.tag == "SeedBag")
             {
@@ -146,8 +153,8 @@ public class PlayerController : MonoBehaviour
                     SeedBag bag = hit.collider.gameObject.GetComponent<SeedBag>();
                     _currentSeed = bag.plantData;
                     _hasSomethingInHand = true;
-                    _canInteract = false;
-                    StartCoroutine(InteractionTimer());
+                    //_canInteract = false;
+                    //StartCoroutine(InteractionTimer());
                 }
             } else if (hit.collider.tag == "Plant"  && _canInteract)
             {
@@ -156,8 +163,8 @@ public class PlayerController : MonoBehaviour
                     GameObject plant = hit.collider.gameObject;
                     PickUpPlant(plant);
                     _hasSomethingInHand = true;
-                    _canInteract = false;
-                    StartCoroutine(InteractionTimer());
+                    //_canInteract = false;
+                    //StartCoroutine(InteractionTimer());
                 }
             } else if (hit.collider.tag == "Kiosque"  && _canInteract)
             {
@@ -167,8 +174,8 @@ public class PlayerController : MonoBehaviour
                     {
                         SellPlant();
                     }
-                    _canInteract = false;
-                    StartCoroutine(InteractionTimer());
+                    //_canInteract = false;
+                    //StartCoroutine(InteractionTimer());
                 }
             } else if (hit.collider.tag == "Radio" && _canInteract)
             {
@@ -185,8 +192,8 @@ public class PlayerController : MonoBehaviour
                     _radioGO = hit.collider.gameObject;
                     _hasSomethingInHand = true;
                     _hasRadio = true;
-                    _canInteract = false;
-                    StartCoroutine(InteractionTimer());
+                    //_canInteract = false;
+                    //StartCoroutine(InteractionTimer());
                 } else if (_useInput.triggered)
                 {
                     GameObject radio = hit.collider.gameObject;
@@ -209,8 +216,8 @@ public class PlayerController : MonoBehaviour
                     _frogGo = hit.collider.gameObject;
                     _hasFrog = true;
                     _hasSomethingInHand = true;
-                    _canInteract = false;
-                    StartCoroutine(InteractionTimer());
+                    //_canInteract = false;
+                    //StartCoroutine(InteractionTimer());
                 }
             } else if (hit.collider.tag == "Bin" && _canInteract)
             {
@@ -225,15 +232,35 @@ public class PlayerController : MonoBehaviour
                         }
                         _plantsInHand.Clear();
                         _hasSomethingInHand = false;
-                        _canInteract = false;
-                        StartCoroutine(InteractionTimer());
+                        //_canInteract = false;
+                       // StartCoroutine(InteractionTimer());
                     }
+                }
+            } else if (hit.collider.tag == "WaterSpray"  && _canInteract)
+            {
+                if (_interactInput.triggered && !_hasSomethingInHand)
+                {
+                    GameObject waterSpray = hit.collider.gameObject;
+                    _waterSprayGo = waterSpray;
+                    PickUpWaterSpray(waterSpray);
+                    _hasWaterSpray = true;
+                    _hasSomethingInHand = true;
+                    //_canInteract = false;
+                    //StartCoroutine(InteractionTimer());
+                }
+            } else if (hit.collider.tag == "Sink"  && _canInteract)
+            {
+                if (_interactInput.triggered && _hasWaterSpray)
+                {
+                    WaterSpray waterSpray =_waterSprayGo.GetComponent<WaterSpray>();
+                    waterSpray.Refill();
                 }
             }
         }
         else
         {
-            if (_interactInput.triggered && _hasSomethingInHand  && _canInteract)
+            //Other Interaction
+            if (_throwInput.triggered && _hasSomethingInHand  && _canInteract)
             {
                 //Throw it
                 ThrowObject();
@@ -241,10 +268,33 @@ public class PlayerController : MonoBehaviour
                 _hasFrog = false;
                 _hasSomethingInHand = false;
                 _plantsInHand.Clear();
-                _canInteract = false;
-                StartCoroutine(InteractionTimer());
+                //_canInteract = false;
+                //StartCoroutine(InteractionTimer());
+            }
+
+            if (_interactInput.triggered && _hasWaterSpray)
+            {
+                WaterSpray waterSpray = _waterSprayGo.GetComponent<WaterSpray>();
+                waterSpray.Spray();
             }
         }
+    }
+
+    private void PickUpWaterSpray(GameObject waterSpray)
+    {
+        //Switch Rigidbody to kinematic
+        Rigidbody _rb = waterSpray.GetComponent<Rigidbody>();
+        _rb.isKinematic = true;
+        
+        //Parent to hand
+        waterSpray.transform.parent = _holdSocket;
+        waterSpray.transform.position = _holdSocket.position;
+        waterSpray.transform.localPosition = Vector3.zero;
+        waterSpray.transform.localRotation = _holdSocket.rotation;
+        
+        // Deactivate Collider
+        Collider collider = waterSpray.GetComponent<Collider>();
+        collider.enabled = false;
     }
 
     private void SwitchToRadioUI()
@@ -277,6 +327,16 @@ public class PlayerController : MonoBehaviour
             collider.enabled = true;
             
             collider = _frogGo.GetComponent<BoxCollider>();
+            collider.enabled = true;
+        }
+
+        if (_hasWaterSpray)
+        {
+            Rigidbody _rb = _waterSprayGo.GetComponent<Rigidbody>();
+            _rb.isKinematic = false;
+            _rb.AddForce(_camera.transform.forward*_throwForce, ForceMode.Impulse);
+
+            Collider collider = _waterSprayGo.GetComponent<Collider>();
             collider.enabled = true;
         }
 
