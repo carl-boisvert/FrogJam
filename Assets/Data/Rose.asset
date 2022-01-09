@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Rose
   icon: {fileID: 0}
-  color: {r: 0.82207096, g: 0.16967781, b: 0.8773585, a: 1}
+  color: {r: 0.8679245, g: 0.045033824, b: 0.14007924, a: 1}
   needWater: 1
   needLight: 0
   stages:
