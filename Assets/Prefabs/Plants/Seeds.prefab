@@ -112,3 +112,5 @@ MonoBehaviour:
   _plantData: {fileID: 11400000, guid: 238f2d8ce721cf947b8f4ed7d0d424cf, type: 2}
   _plantStage: 0
   isDoneGrowing: 0
+  _debug: {fileID: 0}
+  _currentMusicType: 6

@@ -14,6 +14,7 @@ public class RadioController : MonoBehaviour
     [SerializeField] private Camera _camera;
     [SerializeField] private AudioSource _speaker;
 
+    private MusicType _musicTypePlaying;
     private RadioControls _radioControls;
     private InputAction _aiguilleInput;
     private InputAction _escapeInput;
@@ -31,12 +32,14 @@ public class RadioController : MonoBehaviour
 
     private void OnExitMusicChannel()
     {
+        _musicTypePlaying = MusicType.None;
         _speaker.clip = _whiteNoise;
         _speaker.Play();
     }
 
     private void OnEnterMusicChannel(MusicType type)
     {
+        _musicTypePlaying = type;
         AudioClip clip = _musicTypeAudioClips.Find(musicType => musicType._type == type)._audio;
         _speaker.clip = clip;
         _speaker.Play();
@@ -46,6 +49,7 @@ public class RadioController : MonoBehaviour
     {
         if (!_speaker.isPlaying)
         {
+            _musicTypePlaying = MusicType.None;
             _speaker.clip = _whiteNoise;
             _speaker.Play();
         }
@@ -70,7 +74,13 @@ public class RadioController : MonoBehaviour
             _camera.enabled = false;
             _aiguilleInput.Disable();
             _escapeInput.Disable();
-            GameEvents.OnStopLookAtRadioEvent();
+
+            if (_musicTypePlaying == MusicType.None)
+            {
+                _speaker.Stop();
+            }
+
+            GameEvents.OnStopLookAtRadioEvent(_musicTypePlaying);
         }
     }
 }
