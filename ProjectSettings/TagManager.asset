@@ -13,6 +13,7 @@ TagManager:
   - Radio
   - RadioSpot
   - RadioAiguille
+  - Frog
   layers:
   - Default
   - TransparentFX
