@@ -28,6 +28,15 @@ public class RadioController : MonoBehaviour
         GameEvents.OnLookAtRadioEvent += OnLookAtRadioEvent;
         GameEvents.OnEnterMusicChannel += OnEnterMusicChannel;
         GameEvents.OnExitMusicChannel += OnExitMusicChannel;
+        GameEvents.OnFrogChangedMusic += OnFrogChangedMusic;
+    }
+
+    private void OnFrogChangedMusic()
+    {
+        _musicTypePlaying = MusicType.Frog;
+        AudioClip clip = _musicTypeAudioClips.Find(musicType => musicType._type == MusicType.Frog)._audio;
+        _speaker.clip = clip;
+        _speaker.Play();
     }
 
     private void OnExitMusicChannel()

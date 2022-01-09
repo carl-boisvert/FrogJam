@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 9194079186139243667}
   - component: {fileID: 408032942726829384}
   - component: {fileID: 2646560729438426345}
+  - component: {fileID: 203314083}
   m_Layer: 3
   m_Name: Radio
   m_TagString: Radio
@@ -113,3 +114,17 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &203314083
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7248282184921630022}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45546f409094e174b9ef1ad7ee4e5ff5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _musicPlaying: 6
+  radioSpot: {fileID: 0}

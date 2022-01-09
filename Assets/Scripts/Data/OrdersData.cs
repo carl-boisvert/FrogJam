@@ -18,4 +18,6 @@ public class OrderPlantDataStage
     public List<PlantData> plantThatCanSpawn;
     public int maximumOfPlantPerOrder;
     public bool hasColorModifier = false;
+    public float timeBetweenFrogsMin;
+    public float timeBetweenFrogsMax;
 }
