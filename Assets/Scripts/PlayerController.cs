@@ -135,6 +135,7 @@ public class PlayerController : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(_camera.transform.position, _camera.transform.forward, out hit, _distance, _interactableLayer))
         {
+            //Pick Up Interaction
             if (hit.collider.tag == "GardenSlot")
             {
                 if (_interactInput.triggered && _currentSeed != null && _canInteract)
@@ -247,10 +248,18 @@ public class PlayerController : MonoBehaviour
                     //_canInteract = false;
                     //StartCoroutine(InteractionTimer());
                 }
+            } else if (hit.collider.tag == "Sink"  && _canInteract)
+            {
+                if (_interactInput.triggered && _hasWaterSpray)
+                {
+                    WaterSpray waterSpray =_waterSprayGo.GetComponent<WaterSpray>();
+                    waterSpray.Refill();
+                }
             }
         }
         else
         {
+            //Other Interaction
             if (_throwInput.triggered && _hasSomethingInHand  && _canInteract)
             {
                 //Throw it
@@ -261,6 +270,12 @@ public class PlayerController : MonoBehaviour
                 _plantsInHand.Clear();
                 //_canInteract = false;
                 //StartCoroutine(InteractionTimer());
+            }
+
+            if (_interactInput.triggered && _hasWaterSpray)
+            {
+                WaterSpray waterSpray = _waterSprayGo.GetComponent<WaterSpray>();
+                waterSpray.Spray();
             }
         }
     }
