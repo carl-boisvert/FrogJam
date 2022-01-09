@@ -22,6 +22,8 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 1fcbfd98b23189342bde67335e0b6bba, type: 2}
     maximumOfPlantPerOrder: 1
     hasColorModifier: 0
+    timeBetweenFrogsMin: 10
+    timeBetweenFrogsMax: 20
   - stageDuration: 300
     timeBetweenOrdersMin: 10
     timeBetweenOrdersMax: 20
@@ -34,6 +36,8 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 7675694b6ea0b9040a5938b1455bbc48, type: 2}
     maximumOfPlantPerOrder: 2
     hasColorModifier: 1
+    timeBetweenFrogsMin: 5
+    timeBetweenFrogsMax: 10
   - stageDuration: 9999
     timeBetweenOrdersMin: 10
     timeBetweenOrdersMax: 20
@@ -46,3 +50,5 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 4e9f5a68353611740a5e20c1ad823725, type: 2}
     maximumOfPlantPerOrder: 3
     hasColorModifier: 1
+    timeBetweenFrogsMin: 5
+    timeBetweenFrogsMax: 10
