@@ -16,6 +16,7 @@ TagManager:
   - Frog
   - Bin
   - WaterSpray
+  - Sink
   layers:
   - Default
   - TransparentFX
