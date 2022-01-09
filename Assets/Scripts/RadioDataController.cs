@@ -5,6 +5,7 @@ using UnityEngine;
 public class RadioDataController : MonoBehaviour
 {
     public MusicType _musicPlaying = MusicType.None;
+    
 
     public RadioSpot radioSpot;
     // Start is called before the first frame update
@@ -20,5 +21,10 @@ public class RadioDataController : MonoBehaviour
         {
             radioSpot.MusicPlaying(musicTypePlaying);
         }
+    }
+
+    public void PlayFrogMusic()
+    {
+        GameEvents.OnFrogChangedMusic();
     }
 }
