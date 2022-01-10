@@ -32,8 +32,11 @@ public class GameManager : MonoBehaviour
     private void OnOrderTimerExpiredEvent(Order order)
     {
         _orders.Remove(order);
-        _score += _ordersData.stages[_currentStage].pointPerOrderExpired;
-        _scoreText.text = _score.ToString();
+        if (_score + _ordersData.stages[_currentStage].pointPerOrderExpired > 0)
+        {
+            _score += _ordersData.stages[_currentStage].pointPerOrderExpired;
+            _scoreText.text = _score.ToString();   
+        }
     }
 
     private void NewPhase()
