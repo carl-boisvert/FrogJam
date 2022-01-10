@@ -600,7 +600,7 @@ Transform:
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_Children: []
   m_Father: {fileID: 2006768108}
-  m_RootOrder: 27
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 90, y: 90, z: 0}
 --- !u!64 &160718759
 MeshCollider:
@@ -699,7 +699,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &219618174
 Transform:
   m_ObjectHideFlags: 0
@@ -1781,7 +1781,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8060531365855862780, guid: ec3755540a4e2164d9779d56fcec9bde, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.51
+      value: -2.88
       objectReference: {fileID: 0}
     - target: {fileID: 8060531365855862780, guid: ec3755540a4e2164d9779d56fcec9bde, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1789,7 +1789,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8060531365855862780, guid: ec3755540a4e2164d9779d56fcec9bde, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -6.9
+      value: -7.23
       objectReference: {fileID: 0}
     - target: {fileID: 8060531365855862780, guid: ec3755540a4e2164d9779d56fcec9bde, type: 3}
       propertyPath: m_LocalRotation.w
@@ -7463,6 +7463,7 @@ Transform:
   - {fileID: 613791369}
   - {fileID: 1369172879}
   - {fileID: 1400934993}
+  - {fileID: 160718758}
   - {fileID: 466513309}
   - {fileID: 126835808}
   - {fileID: 1053298295}
@@ -7476,7 +7477,6 @@ Transform:
   - {fileID: 1253689049}
   - {fileID: 960765095}
   - {fileID: 2104674202}
-  - {fileID: 160718758}
   - {fileID: 140439905}
   - {fileID: 1597500242}
   - {fileID: 1842825853}
