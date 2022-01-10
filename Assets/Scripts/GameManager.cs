@@ -45,8 +45,8 @@ public class GameManager : MonoBehaviour
         //Debug.Log($"Start of order phase {_currentStage} at {time} and stopping at {stageTime}");
         while (time < stageTime)
         {
-            if (_orders.Count < 5)
-            {
+            //if (_orders.Count < 5)
+            //{
                 if (time + nextOrder > stageTime)
                 {
                     nextOrder = stageTime - time;
@@ -60,7 +60,7 @@ public class GameManager : MonoBehaviour
             
                 time = Time.time;
                 nextOrder = Random.Range(stage.timeBetweenOrdersMin, stage.timeBetweenOrdersMax);
-            }
+            //}
         }
         //Debug.Log($"End of order phase {_currentStage} at {time}");
         _currentStage++;
