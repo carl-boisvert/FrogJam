@@ -7,6 +7,7 @@ public class PlantController : MonoBehaviour
 {
     [SerializeField] private GardenSlot _slot;
     [SerializeField] private PlantData _plantData;
+    [SerializeField] private GameObject _deadPlantPrefab;
     [SerializeField] private int _plantStage;
     [SerializeField] public bool isDoneGrowing = false;
     [SerializeField] public bool isDead = false;
@@ -156,6 +157,8 @@ public class PlantController : MonoBehaviour
         }
         
         isDead = true;
+        Destroy(_currentPlantGameObject);
+        Instantiate(_deadPlantPrefab, transform);
     }
     
     
