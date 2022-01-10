@@ -149,9 +149,26 @@ public class PlayerController : MonoBehaviour
         if (_dropInput.triggered && _hasSomethingInHand)
         {
             //Drop object
-            _radioGO.transform.parent = null;
-            _radioGO.transform.position = new Vector3(_radioGO.transform.position.x, 0, _radioGO.transform.position.z);
+            if (_hasFrog)
+            {
+                DropObject(_frogGo, false);
+            } else if (_hasRadio)
+            {
+                DropObject(_radioGO, false);
+            } else if (_hasWaterSpray)
+            {
+                DropObject(_waterSprayGo, false);
+            } else if (_plantsInHand.Count > 0)
+            {
+                foreach (var plantController in _plantsInHand)
+                {
+                    DropObject(plantController.gameObject, false);
+                }
+            }
+
+
             _hasSomethingInHand = false;
+            _hasRadio = false;
         }
 
         if (Physics.Raycast(_camera.transform.position, _camera.transform.forward, out hit, _distance, _interactableLayer))
@@ -314,8 +331,16 @@ public class PlayerController : MonoBehaviour
         
         Collider collider = go.GetComponent<Collider>();
         collider.enabled = true;
-        
-        _rb.AddForce(_camera.transform.forward*_throwForce, ForceMode.Impulse);
+
+        if (throwObject)
+        {
+            _rb.AddForce(_camera.transform.forward*_throwForce, ForceMode.Impulse);
+        }
+        else
+        {
+            go.transform.parent = null;
+            go.transform.position = new Vector3(go.transform.position.x, 0, go.transform.position.z);
+        }
     }
 
     private void ThrowObject()
