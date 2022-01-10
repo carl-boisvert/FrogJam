@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Watch
   m_EditorClassIdentifier: 
   name: Watch
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 55008dbcae0d01c4a83fd49654bf7c20, type: 3}
   color: {r: 0, g: 0.16973758, b: 1, a: 0}
   needWater: 0
   needLight: 0

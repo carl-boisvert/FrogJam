@@ -7,4 +7,5 @@ using UnityEngine;
 public class Order
 {
     [SerializeField] public List<PlantData> plants;
+    [SerializeField] public float time;
 }

@@ -13,6 +13,9 @@ public class OrdersData : ScriptableObject
 public class OrderPlantDataStage
 {
     public float stageDuration;
+    public float timePerOrder;
+    public int pointPerOrderDone;
+    public int pointPerOrderExpired;
     public float timeBetweenOrdersMin;
     public float timeBetweenOrdersMax;
     public List<PlantData> plantThatCanSpawn;

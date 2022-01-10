@@ -10,6 +10,9 @@ public static class GameEvents
     public delegate void OrderDoneEvent(Order order);
     public static OrderDoneEvent OnOrderDoneEvent;
     
+    public delegate void OrderTimerExpiredEvent(Order order);
+    public static OrderTimerExpiredEvent OnOrderTimerExpiredEvent;
+    
     public delegate void LookAtRadioEvent();
     public static LookAtRadioEvent OnLookAtRadioEvent;
     
@@ -24,4 +27,5 @@ public static class GameEvents
 
     public delegate void FrogChangedMusic();
     public static FrogChangedMusic OnFrogChangedMusic;
+    
 }

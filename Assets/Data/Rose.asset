@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Rose
   m_EditorClassIdentifier: 
   name: Rose
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 9cbcc5909c29cf2428d7c4dbdcfed60a, type: 3}
   color: {r: 0.8679245, g: 0.045033824, b: 0.14007924, a: 1}
   needWater: 1
   needLight: 0
