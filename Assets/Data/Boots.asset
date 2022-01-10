@@ -29,4 +29,4 @@ MonoBehaviour:
   musicLikeMultiplier: 2
   musicDislikeTime: 5
   musicLikes: 02000000
-  musicDisikes: 0000000001000000
+  musicDisikes: 000000000100000005000000

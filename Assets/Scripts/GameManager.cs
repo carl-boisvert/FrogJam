@@ -123,6 +123,14 @@ public class GameManager : MonoBehaviour
                     }
                 }
 
+                foreach (var plantController in plantsInHand)
+                {
+                    if (plantController.isDead)
+                    {
+                        orderIsDone = false;
+                    }
+                }
+
                 if (orderIsDone)
                 {
                     soldOrder = order;

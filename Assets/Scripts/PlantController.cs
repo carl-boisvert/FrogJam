@@ -64,42 +64,61 @@ public class PlantController : MonoBehaviour
     {
         if (!isDead)
         {
-            if (_plantData.musicLikes.Contains(_currentMusicType))
+            if (_plantData.needWater)
             {
-                _activeModifier = _plantData.musicLikeMultiplier;
-                if (_status != PlantStatus.Happy)
+                if (isWatered)
                 {
-                    Debug.Log("Spawning Happy");
-                    Destroy(_currentParticle);
-                    _currentParticle = Instantiate(_likeParticlePrefab, _particleSpawnPoint);
+                    SetPlantStatus();
                 }
-                _status = PlantStatus.Happy;
-
-            } else if (_plantData.musicDisikes.Contains(_currentMusicType))
-            {
-                if (_status != PlantStatus.Sad)
-                {
-                    Debug.Log("Spawning Sad");
-                    Destroy(_currentParticle);
-                    _currentParticle = Instantiate(_dislikeParticlePrefab, _particleSpawnPoint);
-                }
-
-                if (!isDying)
-                {
-                    StopCoroutine(_coroutine);
-                    StartCoroutine(Die());
-                    isDying = true;
-                }
-                
-                _status = PlantStatus.Sad;
             }
             else
             {
-                Debug.Log("Spawning Neutral");
-                _status = PlantStatus.Neutral;
-                Destroy(_currentParticle);
-                _activeModifier = 1;
+                SetPlantStatus();
             }
+        }
+        else
+        {
+            Destroy(_currentParticle);
+        }
+    }
+
+    private void SetPlantStatus()
+    {
+        if (_plantData.musicLikes.Contains(_currentMusicType))
+        {
+            _activeModifier = _plantData.musicLikeMultiplier;
+            if (_status != PlantStatus.Happy)
+            {
+                Debug.Log("Spawning Happy");
+                Destroy(_currentParticle);
+                _currentParticle = Instantiate(_likeParticlePrefab, _particleSpawnPoint);
+            }
+            _status = PlantStatus.Happy;
+
+        } else if (_plantData.musicDisikes.Contains(_currentMusicType))
+        {
+            if (_status != PlantStatus.Sad)
+            {
+                Debug.Log("Spawning Sad");
+                Destroy(_currentParticle);
+                _currentParticle = Instantiate(_dislikeParticlePrefab, _particleSpawnPoint);
+            }
+
+            if (!isDying)
+            {
+                StopCoroutine(_coroutine);
+                StartCoroutine(Die());
+                isDying = true;
+            }
+                
+            _status = PlantStatus.Sad;
+        }
+        else
+        {
+            Debug.Log("Spawning Neutral");
+            _status = PlantStatus.Neutral;
+            Destroy(_currentParticle);
+            _activeModifier = 1;
         }
     }
 
