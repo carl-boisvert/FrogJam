@@ -77,11 +77,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _slot: {fileID: 0}
   _plantData: {fileID: 0}
+  _deadPlantPrefab: {fileID: 919132149155446097, guid: 98b47888018af2e45a71f393e6c48bf2, type: 3}
   _plantStage: 0
   isDoneGrowing: 0
   isDead: 0
   isDying: 0
+  isWatered: 0
   _debug: {fileID: 0}
+  _status: 0
   _particleSpawnPoint: {fileID: 333374756569351927}
   _likeParticlePrefab: {fileID: 5820725920080467459, guid: 0b9460cc5aa7c42418379f4e47f38f16, type: 3}
   _dislikeParticlePrefab: {fileID: 9020537810350360991, guid: dbd492e272d583e4ebfc7c6230427a2d, type: 3}
