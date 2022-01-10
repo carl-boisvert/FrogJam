@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stages:
   - stageDuration: 200
-    timePerOrder: 3
+    timePerOrder: 75
     pointPerOrderDone: 10
     pointPerOrderExpired: -5
     timeBetweenOrdersMin: 10
