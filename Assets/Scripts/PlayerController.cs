@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float _distance;
     [SerializeField] private float _throwForce;
     [SerializeField] private Transform _holdSocket;
+    [SerializeField] private GameObject _radioHologram;
     
     [Header("Link")]
     [SerializeField] private CharacterController _cc;
@@ -36,6 +37,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject _frogGo;
     [SerializeField] private bool _hasRadio;
     [SerializeField] private GameObject _radioGO;
+    [SerializeField] private GameObject _radioGOHolo;
     [SerializeField] private bool _inGardenBoxZone;
     [SerializeField] private RadioSpot _radioSpot;
     [SerializeField] private RadioSpot _currentRadioSpot;
@@ -86,23 +88,32 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        if (_inGardenBoxZone && _useInput.triggered && _hasRadio)
+        if (_inGardenBoxZone)
         {
-            //Placer la radio
-            RadioSpot radioSpot = _radioSpot.GetComponent<RadioSpot>();
-            RadioDataController radioDataController = _radioGO.GetComponent<RadioDataController>();
-            radioSpot.MusicPlaying(radioDataController._musicPlaying);
-            _currentRadioSpot = radioSpot;
-            radioDataController.radioSpot = radioSpot;
-            _radioGO.transform.parent = _radioSpot.gameObject.transform;
-            _radioGO.transform.position = _radioSpot.gameObject.transform.position;
-            _radioGO.transform.rotation = _radioSpot.gameObject.transform.rotation;
+            //Show placeholder mesh
+            if (_interactInput.triggered && _hasRadio)
+            {
+                if (_radioGOHolo != null)
+                {
+                    Destroy(_radioGOHolo);
+                }
+                
+                //Placer la radio
+                RadioSpot radioSpot = _radioSpot.GetComponent<RadioSpot>();
+                RadioDataController radioDataController = _radioGO.GetComponent<RadioDataController>();
+                radioSpot.MusicPlaying(radioDataController._musicPlaying);
+                _currentRadioSpot = radioSpot;
+                radioDataController.radioSpot = radioSpot;
+                _radioGO.transform.parent = _radioSpot.gameObject.transform;
+                _radioGO.transform.position = _radioSpot.gameObject.transform.position;
+                _radioGO.transform.rotation = _radioSpot.gameObject.transform.rotation;
             
-            Collider collider = _radioGO.GetComponent<Collider>();
-            collider.enabled = true;
+                Collider collider = _radioGO.GetComponent<Collider>();
+                collider.enabled = true;
             
-            _hasRadio = false;
-            _hasSomethingInHand = false;
+                _hasRadio = false;
+                _hasSomethingInHand = false;
+            }
         }
 
         if (_isLookingAtRadio)
@@ -410,6 +421,11 @@ public class PlayerController : MonoBehaviour
         {
             _inGardenBoxZone = true;
             _radioSpot = other.GetComponentInChildren<RadioSpot>();
+
+            if (_hasRadio)
+            {
+                _radioGOHolo = Instantiate(_radioHologram, _radioSpot.transform);
+            }
         }
     }
 
@@ -419,6 +435,10 @@ public class PlayerController : MonoBehaviour
         {
             _inGardenBoxZone = false;
             _radioSpot = null;
+            if (_radioGOHolo != null)
+            {
+                Destroy(_radioGOHolo);
+            }
         }
     }
     
