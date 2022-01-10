@@ -7,6 +7,16 @@ public class GardenSlot : MonoBehaviour
     public MusicType musicTypePlaying = MusicType.None;
     public PlantController plantController;
 
+    private void Start()
+    {
+        GameEvents.OnFrogChangedMusic += OnFrogChangedMusic;
+    }
+
+    private void OnFrogChangedMusic()
+    {
+        MusicPlaying(MusicType.Frog);
+    }
+
     public void MusicPlaying(MusicType musicType)
     {
         musicTypePlaying = musicType;
@@ -22,5 +32,10 @@ public class GardenSlot : MonoBehaviour
         {
             plantController.Watered();
         }
+    }
+
+    private void OnDestroy()
+    {
+        GameEvents.OnFrogChangedMusic -= OnFrogChangedMusic;
     }
 }
