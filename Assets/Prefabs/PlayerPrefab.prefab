@@ -58,7 +58,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1999927239953988749}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -36.6, y: 9.813999, z: -17.41}
+  m_LocalPosition: {x: 0, y: 9.813999, z: -17.41}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7765159494426097433}
@@ -322,7 +322,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8474051390432687266}
   m_LocalRotation: {x: -0, y: 0.9473044, z: -0, w: 0.3203347}
-  m_LocalPosition: {x: -36.6, y: 9.813999, z: -17.41}
+  m_LocalPosition: {x: 0, y: 1.164, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8474051391373358123}
@@ -412,7 +412,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8474051390437630075}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -36.6, y: 8.65, z: -17.41}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8474051391592294688}
@@ -450,6 +450,8 @@ MonoBehaviour:
   _hasSomethingInHand: 0
   _currentSeed: {fileID: 0}
   _plantsInHand: []
+  _hasWaterSpray: 0
+  _waterSprayGo: {fileID: 0}
   _hasFrog: 0
   _frogGo: {fileID: 0}
   _hasRadio: 0
