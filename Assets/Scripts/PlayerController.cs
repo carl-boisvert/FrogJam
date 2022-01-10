@@ -12,8 +12,6 @@ public class PlayerController : MonoBehaviour
     [Header("Interaction")] 
     [SerializeField] private GameObject _hud;
     [SerializeField] private float _distance;
-    [SerializeField] private float _timeBetweenInteraction;
-    [SerializeField] private bool _canInteract;
     [SerializeField] private float _throwForce;
     [SerializeField] private Transform _holdSocket;
     
@@ -50,6 +48,7 @@ public class PlayerController : MonoBehaviour
     private InputAction _interactInput;
     private InputAction _useInput;
     private InputAction _throwInput;
+    private InputAction _dropInput;
 
     private Vector2 _dir;
 
@@ -72,6 +71,9 @@ public class PlayerController : MonoBehaviour
         _throwInput = _lookControl.Mouse.Throw;
         _throwInput.Enable();
 
+        _dropInput = _moveControl.Player.Drop;
+        _dropInput.Enable();
+
         GameEvents.OnOrderDoneEvent += OnOrderDoneEvent;
         GameEvents.OnStopLookAtRadioEvent += OnStopLookAtRadioEvent;
     }
@@ -86,6 +88,7 @@ public class PlayerController : MonoBehaviour
     {
         if (_inGardenBoxZone && _useInput.triggered && _hasRadio)
         {
+            //Placer la radio
             RadioSpot radioSpot = _radioSpot.GetComponent<RadioSpot>();
             RadioDataController radioDataController = _radioGO.GetComponent<RadioDataController>();
             radioSpot.MusicPlaying(radioDataController._musicPlaying);
@@ -100,8 +103,6 @@ public class PlayerController : MonoBehaviour
             
             _hasRadio = false;
             _hasSomethingInHand = false;
-           // _canInteract = false;
-            StartCoroutine(InteractionTimer());
         }
 
         if (_isLookingAtRadio)
@@ -133,40 +134,43 @@ public class PlayerController : MonoBehaviour
     private void Look()
     {
         RaycastHit hit;
+
+        if (_dropInput.triggered && _hasSomethingInHand)
+        {
+            //Drop object
+            _radioGO.transform.parent = null;
+            _radioGO.transform.position = new Vector3(_radioGO.transform.position.x, 0, _radioGO.transform.position.z);
+            _hasSomethingInHand = false;
+        }
+
         if (Physics.Raycast(_camera.transform.position, _camera.transform.forward, out hit, _distance, _interactableLayer))
         {
             //Pick Up Interaction
             if (hit.collider.tag == "GardenSlot")
             {
-                if (_interactInput.triggered && _currentSeed != null && _canInteract)
+                if (_interactInput.triggered && _currentSeed != null)
                 {
                     GardenSlot gs = hit.collider.gameObject.GetComponent<GardenSlot>();
                     Plant(gs);
-                    //_canInteract = false;
                     _hasSomethingInHand = false;
-                    //StartCoroutine(InteractionTimer());
                 }
             } else if (hit.collider.tag == "SeedBag")
             {
-                if (_interactInput.triggered  && _canInteract)
+                if (_interactInput.triggered)
                 {
                     SeedBag bag = hit.collider.gameObject.GetComponent<SeedBag>();
                     _currentSeed = bag.plantData;
                     _hasSomethingInHand = true;
-                    //_canInteract = false;
-                    //StartCoroutine(InteractionTimer());
                 }
-            } else if (hit.collider.tag == "Plant"  && _canInteract)
+            } else if (hit.collider.tag == "Plant")
             {
                 if (_interactInput.triggered && !_hasSomethingInHand)
                 {
                     GameObject plant = hit.collider.gameObject;
                     PickUpPlant(plant);
                     _hasSomethingInHand = true;
-                    //_canInteract = false;
-                    //StartCoroutine(InteractionTimer());
                 }
-            } else if (hit.collider.tag == "Kiosque"  && _canInteract)
+            } else if (hit.collider.tag == "Kiosque")
             {
                 if (_interactInput.triggered)
                 {
@@ -174,12 +178,10 @@ public class PlayerController : MonoBehaviour
                     {
                         SellPlant();
                     }
-                    //_canInteract = false;
-                    //StartCoroutine(InteractionTimer());
                 }
-            } else if (hit.collider.tag == "Radio" && _canInteract)
+            } else if (hit.collider.tag == "Radio")
             {
-                if (_interactInput.triggered && !_hasSomethingInHand && _canInteract)
+                if (_interactInput.triggered && !_hasSomethingInHand)
                 {
                     if (_currentRadioSpot != null)
                     {
@@ -192,8 +194,6 @@ public class PlayerController : MonoBehaviour
                     _radioGO = hit.collider.gameObject;
                     _hasSomethingInHand = true;
                     _hasRadio = true;
-                    //_canInteract = false;
-                    //StartCoroutine(InteractionTimer());
                 } else if (_useInput.triggered)
                 {
                     GameObject radio = hit.collider.gameObject;
@@ -208,7 +208,7 @@ public class PlayerController : MonoBehaviour
                     _interactInput.Disable();
                     SwitchToRadioUI();
                 }
-            } else if (hit.collider.tag == "Frog" && _canInteract)
+            } else if (hit.collider.tag == "Frog")
             {
                 if (_interactInput.triggered && !_hasSomethingInHand)
                 {
@@ -216,10 +216,8 @@ public class PlayerController : MonoBehaviour
                     _frogGo = hit.collider.gameObject;
                     _hasFrog = true;
                     _hasSomethingInHand = true;
-                    //_canInteract = false;
-                    //StartCoroutine(InteractionTimer());
                 }
-            } else if (hit.collider.tag == "Bin" && _canInteract)
+            } else if (hit.collider.tag == "Bin")
             {
                 if (_interactInput.triggered)
                 {
@@ -232,11 +230,9 @@ public class PlayerController : MonoBehaviour
                         }
                         _plantsInHand.Clear();
                         _hasSomethingInHand = false;
-                        //_canInteract = false;
-                       // StartCoroutine(InteractionTimer());
                     }
                 }
-            } else if (hit.collider.tag == "WaterSpray"  && _canInteract)
+            } else if (hit.collider.tag == "WaterSpray")
             {
                 if (_interactInput.triggered && !_hasSomethingInHand)
                 {
@@ -248,7 +244,7 @@ public class PlayerController : MonoBehaviour
                     //_canInteract = false;
                     //StartCoroutine(InteractionTimer());
                 }
-            } else if (hit.collider.tag == "Sink"  && _canInteract)
+            } else if (hit.collider.tag == "Sink")
             {
                 if (_interactInput.triggered && _hasWaterSpray)
                 {
@@ -260,16 +256,15 @@ public class PlayerController : MonoBehaviour
         else
         {
             //Other Interaction
-            if (_throwInput.triggered && _hasSomethingInHand  && _canInteract)
+            if (_throwInput.triggered && _hasSomethingInHand)
             {
                 //Throw it
                 ThrowObject();
                 _hasRadio = false;
                 _hasFrog = false;
                 _hasSomethingInHand = false;
+                _hasWaterSpray = false;
                 _plantsInHand.Clear();
-                //_canInteract = false;
-                //StartCoroutine(InteractionTimer());
             }
 
             if (_interactInput.triggered && _hasWaterSpray)
@@ -301,17 +296,23 @@ public class PlayerController : MonoBehaviour
         _hud.SetActive(false);
     }
 
+    private void DropObject(GameObject go, bool throwObject = true)
+    {
+        Rigidbody _rb = go.GetComponent<Rigidbody>();
+        _rb.isKinematic = false;
+        
+        Collider collider = go.GetComponent<Collider>();
+        collider.enabled = true;
+        
+        _rb.AddForce(_camera.transform.forward*_throwForce, ForceMode.Impulse);
+    }
+
     private void ThrowObject()
     {
         _holdSocket.DetachChildren();
         if (_hasRadio)
         {
-            Rigidbody _rb = _radioGO.GetComponent<Rigidbody>();
-            _rb.isKinematic = false;
-            _rb.AddForce(_camera.transform.forward*_throwForce, ForceMode.Impulse);
-
-            Collider collider = _radioGO.GetComponent<Collider>();
-            collider.enabled = true;
+            DropObject(_radioGO);
         }
         
         if (_hasFrog)
@@ -329,22 +330,12 @@ public class PlayerController : MonoBehaviour
 
         if (_hasWaterSpray)
         {
-            Rigidbody _rb = _waterSprayGo.GetComponent<Rigidbody>();
-            _rb.isKinematic = false;
-            _rb.AddForce(_camera.transform.forward*_throwForce, ForceMode.Impulse);
-
-            Collider collider = _waterSprayGo.GetComponent<Collider>();
-            collider.enabled = true;
+            DropObject(_waterSprayGo);
         }
 
         foreach (var plantController in _plantsInHand)
         {
-            Rigidbody _rb = plantController.GetComponent<Rigidbody>();
-            _rb.isKinematic = false;
-            _rb.AddForce(_camera.transform.forward*_throwForce, ForceMode.Impulse);
-
-            Collider collider = plantController.GetComponent<Collider>();
-            collider.enabled = true;
+            DropObject(plantController.gameObject);
         }
     }
 
@@ -365,21 +356,7 @@ public class PlayerController : MonoBehaviour
             _currentSeed = null;
         }
     }
-    
-    IEnumerator InteractionTimer()
-    {
-        float time = Time.time;
-        float nextInteractionTime = time + _timeBetweenInteraction;
-        //Debug.Log($"Start Growing phase {_plantStage} at {time} and stopping at {stageTime}");
-        while (time < nextInteractionTime)
-        {
-            yield return new WaitForSeconds(1);
-            time = Time.time;
-        }
 
-        _canInteract = true;
-    }
-    
     private void PickUpFrog(GameObject frog)
     {
         Rigidbody _rb = frog.GetComponent<Rigidbody>();
@@ -464,14 +441,11 @@ public class PlayerController : MonoBehaviour
         go.transform.parent = _holdSocket;
         go.transform.position = _holdSocket.position;
         go.transform.localPosition = Vector3.zero;
-        if (facingPlayer)
-        {
-            go.transform.localRotation = Quaternion.identity;
-        }
-        else
+        go.transform.localRotation = Quaternion.identity;
+        
+        if (!facingPlayer)
         {
             go.transform.rotation *= Quaternion.Euler(0,180f,0);
-            //go.transform.localRotation = Quaternion.identity;
         }
     }
 
