@@ -89,6 +89,7 @@ MonoBehaviour:
   _likeParticlePrefab: {fileID: 5820725920080467459, guid: 0b9460cc5aa7c42418379f4e47f38f16, type: 3}
   _dislikeParticlePrefab: {fileID: 9020537810350360991, guid: dbd492e272d583e4ebfc7c6230427a2d, type: 3}
   _currentParticle: {fileID: 0}
+  _finishGrowingParticleSystem: {fileID: 6270663449581372521, guid: 3148fb6e8c1765544bcb64e36bbf644e, type: 3}
   _currentMusicType: 6
   _activeModifier: 1
 --- !u!1 &7209735778407734747
@@ -101,7 +102,7 @@ GameObject:
   m_Component:
   - component: {fileID: 333374756569351927}
   m_Layer: 3
-  m_Name: GameObject
+  m_Name: ParticleEffectPosition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -115,7 +116,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7209735778407734747}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.327, z: 0}
+  m_LocalPosition: {x: 0, y: 2.12, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 9135903874154659620}

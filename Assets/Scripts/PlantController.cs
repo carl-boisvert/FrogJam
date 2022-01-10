@@ -19,6 +19,7 @@ public class PlantController : MonoBehaviour
     [SerializeField] private GameObject _likeParticlePrefab;
     [SerializeField] private GameObject _dislikeParticlePrefab;
     [SerializeField] private GameObject _currentParticle;
+    [SerializeField] private GameObject _finishGrowingParticleSystem;
     public MusicType _currentMusicType = MusicType.None;
 
     private GameObject _currentPlantGameObject;
@@ -118,6 +119,8 @@ public class PlantController : MonoBehaviour
             isDoneGrowing = true;
             GameObject plant = Instantiate(_plantData.stages[_plantStage].prefab, transform);
             plant.GetComponentInChildren<MeshRenderer>().material.color = _plantData.color;
+            Destroy(_currentParticle);
+            Instantiate(_finishGrowingParticleSystem, _particleSpawnPoint);
         }
     }
 
