@@ -152,12 +152,15 @@ public class PlayerController : MonoBehaviour
             if (_hasFrog)
             {
                 DropObject(_frogGo, false);
+                _frogGo = null;
             } else if (_hasRadio)
             {
                 DropObject(_radioGO, false);
+                _radioGO = null;
             } else if (_hasWaterSpray)
             {
                 DropObject(_waterSprayGo, false);
+                _waterSprayGo = null;
             } else if (_plantsInHand.Count > 0)
             {
                 foreach (var plantController in _plantsInHand)
@@ -168,6 +171,8 @@ public class PlayerController : MonoBehaviour
 
 
             _hasSomethingInHand = false;
+            _hasFrog = false;
+            _hasWaterSpray = false;
             _hasRadio = false;
         }
 
@@ -349,6 +354,7 @@ public class PlayerController : MonoBehaviour
         if (_hasRadio)
         {
             DropObject(_radioGO);
+            _radioGO = null;
         }
         
         if (_hasFrog)
@@ -362,11 +368,13 @@ public class PlayerController : MonoBehaviour
             
             collider = _frogGo.GetComponent<BoxCollider>();
             collider.enabled = true;
+            _frogGo = null;
         }
 
         if (_hasWaterSpray)
         {
             DropObject(_waterSprayGo);
+            _waterSprayGo = null;
         }
 
         foreach (var plantController in _plantsInHand)
