@@ -14,19 +14,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stages:
   - stageDuration: 200
-    timeBetweenOrdersMin: 10
-    timeBetweenOrdersMax: 20
+    timeBetweenOrdersMin: 20
+    timeBetweenOrdersMax: 30
     plantThatCanSpawn:
     - {fileID: 11400000, guid: 238f2d8ce721cf947b8f4ed7d0d424cf, type: 2}
     - {fileID: 11400000, guid: 4a2b6481fc63648468a16d800c76496e, type: 2}
     - {fileID: 11400000, guid: 1fcbfd98b23189342bde67335e0b6bba, type: 2}
     maximumOfPlantPerOrder: 1
     hasColorModifier: 0
-    timeBetweenFrogsMin: 1000
-    timeBetweenFrogsMax: 1000
+    timeBetweenFrogsMin: 30
+    timeBetweenFrogsMax: 40
   - stageDuration: 200
-    timeBetweenOrdersMin: 10
-    timeBetweenOrdersMax: 20
+    timeBetweenOrdersMin: 20
+    timeBetweenOrdersMax: 30
     plantThatCanSpawn:
     - {fileID: 11400000, guid: 238f2d8ce721cf947b8f4ed7d0d424cf, type: 2}
     - {fileID: 11400000, guid: 1fcbfd98b23189342bde67335e0b6bba, type: 2}
@@ -39,8 +39,8 @@ MonoBehaviour:
     timeBetweenFrogsMin: 20
     timeBetweenFrogsMax: 25
   - stageDuration: 200
-    timeBetweenOrdersMin: 10
-    timeBetweenOrdersMax: 20
+    timeBetweenOrdersMin: 20
+    timeBetweenOrdersMax: 30
     plantThatCanSpawn:
     - {fileID: 11400000, guid: 238f2d8ce721cf947b8f4ed7d0d424cf, type: 2}
     - {fileID: 11400000, guid: 1fcbfd98b23189342bde67335e0b6bba, type: 2}
