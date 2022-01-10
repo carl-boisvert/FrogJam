@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -12,6 +13,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private List<GameObject> _frogSpawnPoint;
     [SerializeField] private float _frogTimer;
     [SerializeField] private GameObject _radio;
+    [SerializeField] private TextMeshProUGUI _scoreText;
+    [SerializeField] private int _score = 0;
     
     private float _nextOrderTime;
     private int _currentStage = 0;
@@ -22,6 +25,15 @@ public class GameManager : MonoBehaviour
     {
         Invoke("NewPhase",5);
         Invoke("StartSpawningFrog",5);
+        
+        GameEvents.OnOrderTimerExpiredEvent += OnOrderTimerExpiredEvent;
+    }
+
+    private void OnOrderTimerExpiredEvent(Order order)
+    {
+        _orders.Remove(order);
+        _score += _ordersData.stages[_currentStage].pointPerOrderExpired;
+        _scoreText.text = _score.ToString();
     }
 
     private void NewPhase()
@@ -85,6 +97,8 @@ public class GameManager : MonoBehaviour
         {
             order.plants.Add(stage.plantThatCanSpawn[Random.Range(0,stage.plantThatCanSpawn.Count-1 )]);
         }
+
+        order.time = stage.timePerOrder;
         _orders.Add(order);
         return order;
     }
@@ -119,6 +133,8 @@ public class GameManager : MonoBehaviour
         }
         
         _orders.Remove(soldOrder);
+        _score += _ordersData.stages[_currentStage].pointPerOrderDone;
+        _scoreText.text = _score.ToString();
         GameEvents.OnOrderDoneEvent(soldOrder);
     }
 }

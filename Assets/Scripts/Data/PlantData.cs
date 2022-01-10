@@ -2,12 +2,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 [CreateAssetMenu(fileName = "plant", menuName ="Data/plant" )]
 public class PlantData : ScriptableObject
 {
     public string name;
-    public Texture2D icon;
+    public Sprite icon;
     public Color color;
     public bool needWater;
     public bool needLight;

@@ -14,6 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stages:
   - stageDuration: 200
+    timePerOrder: 3
+    pointPerOrderDone: 10
+    pointPerOrderExpired: -5
     timeBetweenOrdersMin: 10
     timeBetweenOrdersMax: 20
     plantThatCanSpawn:
@@ -26,6 +29,9 @@ MonoBehaviour:
     timeBetweenFrogsMin: 30
     timeBetweenFrogsMax: 40
   - stageDuration: 200
+    timePerOrder: 0
+    pointPerOrderDone: 0
+    pointPerOrderExpired: 0
     timeBetweenOrdersMin: 20
     timeBetweenOrdersMax: 30
     plantThatCanSpawn:
@@ -40,6 +46,9 @@ MonoBehaviour:
     timeBetweenFrogsMin: 20
     timeBetweenFrogsMax: 25
   - stageDuration: 200
+    timePerOrder: 0
+    pointPerOrderDone: 0
+    pointPerOrderExpired: 0
     timeBetweenOrdersMin: 20
     timeBetweenOrdersMax: 30
     plantThatCanSpawn:

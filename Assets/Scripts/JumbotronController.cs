@@ -15,6 +15,19 @@ public class JumbotronController : MonoBehaviour
     {
         GameEvents.OnNewOrderEvent += OnNewOrderEvent;
         GameEvents.OnOrderDoneEvent += OnOrderDoneEvent;
+        GameEvents.OnOrderTimerExpiredEvent += OnOrderTimerExpiredEvent;
+    }
+
+    private void OnOrderTimerExpiredEvent(Order order)
+    {
+        GameObject go;
+        _ordersGameObjects.TryGetValue(order, out go);
+
+        if (go != null)
+        {
+            _ordersGameObjects.Remove(order);
+            Destroy(go);
+        }
     }
 
     private void OnOrderDoneEvent(Order order)
@@ -27,13 +40,13 @@ public class JumbotronController : MonoBehaviour
             _ordersGameObjects.Remove(order);
             Destroy(go);
         }
-
     }
 
     private void OnNewOrderEvent(Order order)
     {
         GameObject go = Instantiate(_orderImagePrefab, _screen.transform);
-        go.GetComponent<Image>().color = order.plants[0].color;
+        OrderUIController orderUIController = go.GetComponent<OrderUIController>();
+        orderUIController.Init(order, order.plants[0].icon, order.time);
         _ordersGameObjects.Add(order, go);
     }
 
