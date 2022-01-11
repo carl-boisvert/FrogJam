@@ -13,9 +13,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private List<GameObject> _frogSpawnPoint;
     [SerializeField] private float _frogTimer;
     [SerializeField] private GameObject _radio;
-    [SerializeField] private TextMeshProUGUI _scoreText;
     [SerializeField] private int _score = 0;
-    
+    [SerializeField] private JumbotronController _jumbotronController;
+
     private float _nextOrderTime;
     private int _currentStage = 0;
     
@@ -27,6 +27,8 @@ public class GameManager : MonoBehaviour
         Invoke("StartSpawningFrog",5);
         
         GameEvents.OnOrderTimerExpiredEvent += OnOrderTimerExpiredEvent;
+        
+        _jumbotronController.SetHappiness(_score);
     }
 
     private void OnOrderTimerExpiredEvent(Order order)
@@ -35,7 +37,7 @@ public class GameManager : MonoBehaviour
         if (_score + _ordersData.stages[_currentStage].pointPerOrderExpired > 0)
         {
             _score += _ordersData.stages[_currentStage].pointPerOrderExpired;
-            _scoreText.text = _score.ToString();   
+            _jumbotronController.SetScore(_score);   
         }
     }
 
@@ -137,7 +139,8 @@ public class GameManager : MonoBehaviour
                     }
                     _orders.Remove(soldOrder);
                     _score += _ordersData.stages[_currentStage].pointPerOrderDone;
-                    _scoreText.text = _score.ToString();
+                    _jumbotronController.SetScore(_score);
+                    _jumbotronController.SetHappiness(_score);
                     GameEvents.OnOrderDoneEvent(soldOrder);
                     break;
                 }

@@ -1,16 +1,21 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class JumbotronController : MonoBehaviour
 {
-
     [SerializeField] private GameObject _orderImagePrefab;
     [SerializeField] private GameObject _screen;
     [SerializeField] private Dictionary<Order, GameObject> _ordersGameObjects = new Dictionary<Order, GameObject>();
+    [SerializeField] private TextMeshProUGUI _scoreText;
+    [SerializeField] private float _maxHapiness;
+    [SerializeField] private Slider _slider;
     // Start is called before the first frame update
+    [SerializeField] private Image _fillImage;
+
     void Start()
     {
         GameEvents.OnNewOrderEvent += OnNewOrderEvent;
@@ -53,5 +58,15 @@ public class JumbotronController : MonoBehaviour
     private void OnDestroy()
     {
         GameEvents.OnNewOrderEvent -= OnNewOrderEvent;
+    }
+
+    public void SetScore(int score)
+    {
+        _scoreText.text = score.ToString();
+    }
+
+    public void SetHappiness(float score)
+    {
+        _slider.value = score / _maxHapiness;
     }
 }
