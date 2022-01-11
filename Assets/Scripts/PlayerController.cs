@@ -115,11 +115,7 @@ public class PlayerController : MonoBehaviour
                 _hasSomethingInHand = false;
             }
         }
-
-        if (_isLookingAtRadio)
-        {
-            
-        }
+        
 
         if (_canMove)
         {
@@ -145,6 +141,12 @@ public class PlayerController : MonoBehaviour
     private void Look()
     {
         RaycastHit hit;
+        
+        if (_interactInput.triggered && _hasWaterSpray)
+        {
+            WaterSpray waterSpray = _waterSprayGo.GetComponent<WaterSpray>();
+            waterSpray.Spray();
+        }
 
         if (_dropInput.triggered && _hasSomethingInHand)
         {
@@ -298,12 +300,6 @@ public class PlayerController : MonoBehaviour
                 _hasSomethingInHand = false;
                 _hasWaterSpray = false;
                 _plantsInHand.Clear();
-            }
-
-            if (_interactInput.triggered && _hasWaterSpray)
-            {
-                WaterSpray waterSpray = _waterSprayGo.GetComponent<WaterSpray>();
-                waterSpray.Spray();
             }
         }
     }
