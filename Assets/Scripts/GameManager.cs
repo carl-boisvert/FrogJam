@@ -135,14 +135,14 @@ public class GameManager : MonoBehaviour
                     {
                         Destroy(plantController.gameObject);
                     }
+                    _orders.Remove(soldOrder);
+                    _score += _ordersData.stages[_currentStage].pointPerOrderDone;
+                    _scoreText.text = _score.ToString();
+                    GameEvents.OnOrderDoneEvent(soldOrder);
                     break;
                 }
+
             }
         }
-        
-        _orders.Remove(soldOrder);
-        _score += _ordersData.stages[_currentStage].pointPerOrderDone;
-        _scoreText.text = _score.ToString();
-        GameEvents.OnOrderDoneEvent(soldOrder);
     }
 }
