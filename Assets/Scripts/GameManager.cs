@@ -41,7 +41,7 @@ public class GameManager : MonoBehaviour
 
     private void NewPhase()
     {
-        if (_currentStage < _ordersData.stages.Count - 1)
+        if (_currentStage < _ordersData.stages.Count)
         {
             _coroutine = StartCoroutine(CreateNextOrder(_ordersData.stages[_currentStage]));
         }
@@ -57,27 +57,24 @@ public class GameManager : MonoBehaviour
         float time = Time.time;
         float stageTime = time + stage.stageDuration;
         float nextOrder = Random.Range(stage.timeBetweenOrdersMin, stage.timeBetweenOrdersMax);
-        //Debug.Log($"Start of order phase {_currentStage} at {time} and stopping at {stageTime}");
+        Debug.Log($"Start of order phase {_currentStage} at {time} and stopping at {stageTime}");
         while (time < stageTime)
         {
-            //if (_orders.Count < 5)
-            //{
-                if (time + nextOrder > stageTime)
-                {
-                    nextOrder = stageTime - time;
-                }
-                Order order = CreateOrder(stage);
+            if (time + nextOrder > stageTime)
+            {
+                nextOrder = stageTime - time;
+            }
+            Order order = CreateOrder(stage);
 
-                GameEvents.OnNewOrderEvent(order);
-            
-                //Debug.Log($"New Order in! Next order in {nextOrder}");
-                yield return new WaitForSeconds(nextOrder);
-            
-                time = Time.time;
-                nextOrder = Random.Range(stage.timeBetweenOrdersMin, stage.timeBetweenOrdersMax);
-            //}
+            GameEvents.OnNewOrderEvent(order);
+        
+            Debug.Log($"New Order in! Next order in {nextOrder}");
+            yield return new WaitForSeconds(nextOrder);
+        
+            time = Time.time;
+            nextOrder = Random.Range(stage.timeBetweenOrdersMin, stage.timeBetweenOrdersMax);
         }
-        //Debug.Log($"End of order phase {_currentStage} at {time}");
+        Debug.Log($"End of order phase {_currentStage} at {time}");
         _currentStage++;
         NewPhase();
     }
