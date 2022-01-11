@@ -85,7 +85,7 @@ public class GameManager : MonoBehaviour
     IEnumerator SpawnFrog()
     {
         yield return new WaitForSeconds(Random.Range(_ordersData.stages[_currentStage].timeBetweenFrogsMin, _ordersData.stages[_currentStage].timeBetweenFrogsMax));
-        GameObject frog = Instantiate(_frogPrefab, _frogSpawnPoint[Random.Range(0, _frogSpawnPoint.Count - 1)].transform);
+        GameObject frog = Instantiate(_frogPrefab, _frogSpawnPoint[Random.Range(0, _frogSpawnPoint.Count)].transform);
         FrogController frogController = frog.GetComponent<FrogController>();
         frogController.Init(_radio);
         StartSpawningFrog();
@@ -98,7 +98,7 @@ public class GameManager : MonoBehaviour
         order.plants = new List<PlantData>();
         for (int i = 0; i < stage.maximumOfPlantPerOrder; i++)
         {
-            order.plants.Add(stage.plantThatCanSpawn[Random.Range(0,stage.plantThatCanSpawn.Count-1 )]);
+            order.plants.Add(stage.plantThatCanSpawn[Random.Range(0,stage.plantThatCanSpawn.Count )]);
         }
 
         order.time = stage.timePerOrder;
