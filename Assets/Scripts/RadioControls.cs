@@ -83,7 +83,7 @@ public partial class @RadioControls : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""52203bfd-9316-4063-a3d4-a38d3558cbf4"",
-                    ""path"": ""<Keyboard>/escape"",
+                    ""path"": ""<Keyboard>/e"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
