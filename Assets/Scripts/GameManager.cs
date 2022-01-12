@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float _frogTimer;
     [SerializeField] private GameObject _radio;
     [SerializeField] private int _score = 0;
+    [SerializeField] private int _hapinnessStart = 50;
     [SerializeField] private JumbotronController _jumbotronController;
 
     private float _nextOrderTime;
@@ -28,7 +29,7 @@ public class GameManager : MonoBehaviour
         
         GameEvents.OnOrderTimerExpiredEvent += OnOrderTimerExpiredEvent;
         
-        _jumbotronController.SetHappiness(_score);
+        _jumbotronController.SetHappiness(_hapinnessStart);
     }
 
     private void OnOrderTimerExpiredEvent(Order order)
