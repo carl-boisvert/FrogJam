@@ -25,7 +25,7 @@ MonoBehaviour:
   - time: 15
     prefab: {fileID: 830500233494281096, guid: dbd44f58ad6c8bc4e86c0abb9cecc8ff, type: 3}
   - time: 0
-    prefab: {fileID: 8638718984522927421, guid: ae2001ba3e654cd4bb99bcd5b231299e, type: 3}
+    prefab: {fileID: 7522469864180113815, guid: b3a82a1e2a4ca714093f87ea0203dd56, type: 3}
   musicLikeMultiplier: 2
   musicDislikeTime: 10
   musicLikes: 01000000

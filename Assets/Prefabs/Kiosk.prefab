@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3203012330461288751}
   - component: {fileID: 835301145638841829}
   - component: {fileID: 919132149552369200}
+  - component: {fileID: 7632501992196906140}
   m_Layer: 3
   m_Name: Kiosk
   m_TagString: Kiosque
@@ -95,3 +96,16 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2.406426, y: 5.821452, z: 6.0000005}
   m_Center: {x: -1.2061028, y: 2.9046655, z: 0}
+--- !u!114 &7632501992196906140
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1195540256056151088}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b87777a0b0d4cab43a315da09be0ad52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _gameManager: {fileID: 0}
