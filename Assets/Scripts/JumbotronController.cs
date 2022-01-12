@@ -51,7 +51,30 @@ public class JumbotronController : MonoBehaviour
     {
         GameObject go = Instantiate(_orderImagePrefab, _screen.transform);
         OrderUIController orderUIController = go.GetComponent<OrderUIController>();
-        orderUIController.Init(order, order.plants[0].icon, order.time);
+        Sprite icon = order.plants[0].icon;
+        if (order.colors.Count > 0)
+        {
+            switch (order.colors[0])
+            {
+                case PlantColor.Blue:
+                    icon = order.plants[0].iconBlue;
+                    break;
+                case PlantColor.Green:
+                    icon = order.plants[0].iconGreen;
+                    break;
+                case PlantColor.Pink:
+                    icon = order.plants[0].iconPink;
+                    break;
+                case PlantColor.Red:
+                    icon = order.plants[0].iconRed;
+                    break;
+                case PlantColor.Yellow:
+                    icon = order.plants[0].iconYellow;
+                    break;
+            }
+        }
+
+        orderUIController.Init(order, icon, order.time);
         _ordersGameObjects.Add(order, go);
     }
 

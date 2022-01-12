@@ -138,8 +138,10 @@ public class PlayerController : MonoBehaviour
         Vector3 movementDir = _camera.transform.forward * _dir.y + _camera.transform.right * _dir.x;
 
         movementDir.y = 0;
-
+        // Lock Y position after move
         _cc.Move(movementDir * _speed * Time.deltaTime);
+
+        transform.position = new Vector3(transform.position.x, 0, transform.position.z);
 
         transform.rotation = Quaternion.Euler(0f, _camera.transform.eulerAngles.y, 0f);
     }
