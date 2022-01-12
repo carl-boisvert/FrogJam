@@ -13,7 +13,8 @@ public class OrdersData : ScriptableObject
 public class OrderPlantDataStage
 {
     public float stageDuration;
-    public float timePerOrder;
+    public float timePerOrderMin;
+    public float timePerOrderMax;
     public int pointPerOrderDone;
     public int pointPerOrderExpired;
     public float timeBetweenOrdersMin;

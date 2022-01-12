@@ -101,7 +101,7 @@ public class GameManager : MonoBehaviour
             order.plants.Add(stage.plantThatCanSpawn[Random.Range(0,stage.plantThatCanSpawn.Count )]);
         }
 
-        order.time = stage.timePerOrder;
+        order.time = Random.Range(stage.timePerOrderMin, stage.timePerOrderMax);
         _orders.Add(order);
         return order;
     }
