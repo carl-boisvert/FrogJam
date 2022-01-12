@@ -9,6 +9,11 @@ public class PlantData : ScriptableObject
 {
     public string name;
     public Sprite icon;
+    public Sprite iconBlue;
+    public Sprite iconGreen;
+    public Sprite iconYellow;
+    public Sprite iconPink;
+    public Sprite iconRed;
     public Color color;
     public bool needWater;
     public bool needLight;
@@ -28,6 +33,16 @@ public enum MusicType
     HipHop,
     Frog,
     None
+}
+
+[Serializable]
+public enum PlantColor
+{
+    Blue,
+    Green,
+    Yellow,
+    Pink,
+    Red
 }
 
 [Serializable]

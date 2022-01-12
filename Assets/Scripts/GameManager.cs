@@ -96,9 +96,22 @@ public class GameManager : MonoBehaviour
         Order order = new Order();
         //Select a plant randomly;
         order.plants = new List<PlantData>();
+        order.colors = new List<PlantColor>();
         for (int i = 0; i < stage.maximumOfPlantPerOrder; i++)
         {
-            order.plants.Add(stage.plantThatCanSpawn[Random.Range(0,stage.plantThatCanSpawn.Count )]);
+            PlantData plant = stage.plantThatCanSpawn[Random.Range(0, stage.plantThatCanSpawn.Count)];
+            if (stage.hasColorModifier)
+            {
+                int roll = Random.Range(0, 100);
+                if (roll <= stage.percentageOfChanceToGetColor)
+                {
+                    int color = Random.Range(0, 4);
+                    Array values = Enum.GetValues(typeof(PlantColor));
+                    order.colors.Add((PlantColor)values.GetValue(color));
+                }
+            }
+
+            order.plants.Add(plant);
         }
 
         order.time = Random.Range(stage.timePerOrderMin, stage.timePerOrderMax);
