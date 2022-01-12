@@ -141,7 +141,7 @@ public class PlayerController : MonoBehaviour
         // Lock Y position after move
         _cc.Move(movementDir * _speed * Time.deltaTime);
 
-        transform.position = new Vector3(transform.position.x, 0, transform.position.z);
+        //transform.position = new Vector3(transform.position.x, 0, transform.position.z);
 
         transform.rotation = Quaternion.Euler(0f, _camera.transform.eulerAngles.y, 0f);
     }
