@@ -192,7 +192,11 @@ public class PlayerController : MonoBehaviour
             //Pick Up Interaction
             if (hit.collider.tag == "GardenSlot")
             {
-                ShowTooltips("GardenSlot");
+                if (_currentSeed != null)
+                {
+                    ShowTooltips("GardenSlot");
+                }
+                
                 if (_interactInput.triggered && _currentSeed != null)
                 {
                     GardenSlot gs = hit.collider.gameObject.GetComponent<GardenSlot>();
@@ -269,7 +273,11 @@ public class PlayerController : MonoBehaviour
                 }
             } else if (hit.collider.tag == "Bin")
             {
-                ShowTooltips("Bin");
+                if (_plantsInHand.Count > 0)
+                {
+                    ShowTooltips("Bin"); 
+                }
+
                 if (_interactInput.triggered)
                 {
                     if (_plantsInHand.Count > 0)
@@ -298,7 +306,11 @@ public class PlayerController : MonoBehaviour
                 }
             } else if (hit.collider.tag == "Sink")
             {
-                ShowTooltips("Sink");
+                if (_hasWaterSpray)
+                {
+                    ShowTooltips("Sink");
+                }
+                
                 if (_interactInput.triggered && _hasWaterSpray)
                 {
                     WaterSpray waterSpray =_waterSprayGo.GetComponent<WaterSpray>();
