@@ -16,11 +16,14 @@ public class JumbotronController : MonoBehaviour
     // Start is called before the first frame update
     [SerializeField] private Image _fillImage;
 
+    [SerializeField] private float _happiness;
+
     void Start()
     {
         GameEvents.OnNewOrderEvent += OnNewOrderEvent;
         GameEvents.OnOrderDoneEvent += OnOrderDoneEvent;
         GameEvents.OnOrderTimerExpiredEvent += OnOrderTimerExpiredEvent;
+        _happiness = 0;
     }
 
     private void OnOrderTimerExpiredEvent(Order order)
@@ -88,8 +91,15 @@ public class JumbotronController : MonoBehaviour
         _scoreText.text = score.ToString();
     }
 
-    public void SetHappiness(float score)
+    public void IncreaseHappiness(float hapiness)
     {
-        _slider.value = score / _maxHapiness;
+        _happiness += hapiness;
+        _slider.value = _happiness / _maxHapiness;
+    }
+    
+    public void DecreaseHappiness(float hapiness)
+    {
+        _happiness -= hapiness;
+        _slider.value = _happiness / _maxHapiness;
     }
 }

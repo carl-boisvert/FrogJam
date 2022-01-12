@@ -29,7 +29,7 @@ public class GameManager : MonoBehaviour
         
         GameEvents.OnOrderTimerExpiredEvent += OnOrderTimerExpiredEvent;
         
-        _jumbotronController.SetHappiness(_hapinnessStart);
+        _jumbotronController.IncreaseHappiness(_hapinnessStart);
     }
 
     private void OnOrderTimerExpiredEvent(Order order)
@@ -38,7 +38,8 @@ public class GameManager : MonoBehaviour
         if (_score + _ordersData.stages[_currentStage].pointPerOrderExpired > 0)
         {
             _score += _ordersData.stages[_currentStage].pointPerOrderExpired;
-            _jumbotronController.SetScore(_score);   
+            _jumbotronController.SetScore(_score);
+            _jumbotronController.DecreaseHappiness(_ordersData.stages[_currentStage].pointPerOrderExpired);
         }
     }
 
@@ -154,7 +155,7 @@ public class GameManager : MonoBehaviour
                     _orders.Remove(soldOrder);
                     _score += _ordersData.stages[_currentStage].pointPerOrderDone;
                     _jumbotronController.SetScore(_score);
-                    _jumbotronController.SetHappiness(_score);
+                    _jumbotronController.IncreaseHappiness(_ordersData.stages[_currentStage].pointPerOrderDone);
                     GameEvents.OnOrderDoneEvent(soldOrder);
                     break;
                 }
