@@ -16,7 +16,7 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: d1bdaba537ca32c4e852ee6680e1f326, type: 3}
   color: {r: 0.033406895, g: 0.6886792, b: 0, a: 0}
   needWater: 0
-  needLight: 0
+  needLight: 1
   stages:
   - time: 15
     prefab: {fileID: 3018450324503860379, guid: bb49512f679c7dd4cb6bcf4e7dbb7156, type: 3}

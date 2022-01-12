@@ -14,36 +14,60 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stages:
   - stageDuration: 60
-    timePerOrder: 60
+    timePerOrderMin: 80
+    timePerOrderMax: 80
     pointPerOrderDone: 10
-    pointPerOrderExpired: -5
-    timeBetweenOrdersMin: 20
-    timeBetweenOrdersMax: 25
+    pointPerOrderExpired: -1
+    timeBetweenOrdersMin: 50
+    timeBetweenOrdersMax: 50
     plantThatCanSpawn:
     - {fileID: 11400000, guid: 238f2d8ce721cf947b8f4ed7d0d424cf, type: 2}
     - {fileID: 11400000, guid: 4a2b6481fc63648468a16d800c76496e, type: 2}
     maximumOfPlantPerOrder: 1
     hasColorModifier: 0
-    timeBetweenFrogsMin: 120
-    timeBetweenFrogsMax: 120
+    percentageOfChanceToGetColor: 0
+    timeBetweenFrogsMin: 150
+    timeBetweenFrogsMax: 150
   - stageDuration: 200
-    timePerOrder: 70
-    pointPerOrderDone: 10
+    timePerOrderMin: 50
+    timePerOrderMax: 55
+    pointPerOrderDone: 15
     pointPerOrderExpired: -5
-    timeBetweenOrdersMin: 20
-    timeBetweenOrdersMax: 30
+    timeBetweenOrdersMin: 30
+    timeBetweenOrdersMax: 35
     plantThatCanSpawn:
     - {fileID: 11400000, guid: 238f2d8ce721cf947b8f4ed7d0d424cf, type: 2}
     - {fileID: 11400000, guid: 1fcbfd98b23189342bde67335e0b6bba, type: 2}
     - {fileID: 11400000, guid: 4a2b6481fc63648468a16d800c76496e, type: 2}
     maximumOfPlantPerOrder: 1
     hasColorModifier: 0
-    timeBetweenFrogsMin: 30
-    timeBetweenFrogsMax: 35
+    percentageOfChanceToGetColor: 0
+    timeBetweenFrogsMin: 45
+    timeBetweenFrogsMax: 60
   - stageDuration: 200
-    timePerOrder: 75
-    pointPerOrderDone: 10
-    pointPerOrderExpired: -5
+    timePerOrderMin: 40
+    timePerOrderMax: 50
+    pointPerOrderDone: 20
+    pointPerOrderExpired: -10
+    timeBetweenOrdersMin: 20
+    timeBetweenOrdersMax: 30
+    plantThatCanSpawn:
+    - {fileID: 11400000, guid: 238f2d8ce721cf947b8f4ed7d0d424cf, type: 2}
+    - {fileID: 11400000, guid: 1fcbfd98b23189342bde67335e0b6bba, type: 2}
+    - {fileID: 11400000, guid: 4a2b6481fc63648468a16d800c76496e, type: 2}
+    - {fileID: 11400000, guid: 7675694b6ea0b9040a5938b1455bbc48, type: 2}
+    - {fileID: 11400000, guid: d63e83505175087409433eed775acf97, type: 2}
+    - {fileID: 11400000, guid: 4e9f5a68353611740a5e20c1ad823725, type: 2}
+    maximumOfPlantPerOrder: 1
+    hasColorModifier: 0
+    percentageOfChanceToGetColor: 0
+    timeBetweenFrogsMin: 40
+    timeBetweenFrogsMax: 50
+  - stageDuration: 200
+    timePerOrderMin: 50
+    timePerOrderMax: 60
+    pointPerOrderDone: 30
+    pointPerOrderExpired: -15
     timeBetweenOrdersMin: 20
     timeBetweenOrdersMax: 30
     plantThatCanSpawn:
@@ -55,10 +79,12 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 4e9f5a68353611740a5e20c1ad823725, type: 2}
     maximumOfPlantPerOrder: 1
     hasColorModifier: 1
-    timeBetweenFrogsMin: 15
-    timeBetweenFrogsMax: 25
+    percentageOfChanceToGetColor: 60
+    timeBetweenFrogsMin: 40
+    timeBetweenFrogsMax: 50
   - stageDuration: 200
-    timePerOrder: 0
+    timePerOrderMin: 0
+    timePerOrderMax: 0
     pointPerOrderDone: 0
     pointPerOrderExpired: 0
     timeBetweenOrdersMin: 20
@@ -72,22 +98,6 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 4e9f5a68353611740a5e20c1ad823725, type: 2}
     maximumOfPlantPerOrder: 1
     hasColorModifier: 1
-    timeBetweenFrogsMin: 15
-    timeBetweenFrogsMax: 25
-  - stageDuration: 200
-    timePerOrder: 0
-    pointPerOrderDone: 0
-    pointPerOrderExpired: 0
-    timeBetweenOrdersMin: 20
-    timeBetweenOrdersMax: 30
-    plantThatCanSpawn:
-    - {fileID: 11400000, guid: 238f2d8ce721cf947b8f4ed7d0d424cf, type: 2}
-    - {fileID: 11400000, guid: 1fcbfd98b23189342bde67335e0b6bba, type: 2}
-    - {fileID: 11400000, guid: 4a2b6481fc63648468a16d800c76496e, type: 2}
-    - {fileID: 11400000, guid: 7675694b6ea0b9040a5938b1455bbc48, type: 2}
-    - {fileID: 11400000, guid: d63e83505175087409433eed775acf97, type: 2}
-    - {fileID: 11400000, guid: 4e9f5a68353611740a5e20c1ad823725, type: 2}
-    maximumOfPlantPerOrder: 1
-    hasColorModifier: 1
+    percentageOfChanceToGetColor: 0
     timeBetweenFrogsMin: 15
     timeBetweenFrogsMax: 25
