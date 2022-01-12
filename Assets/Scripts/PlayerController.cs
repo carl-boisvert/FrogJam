@@ -230,7 +230,6 @@ public class PlayerController : MonoBehaviour
             } else if (hit.collider.tag == "Radio")
             {
                 ShowTooltips("Radio");
-                _tooltipGo.SetActive(true);
                 if (_interactInput.triggered && !_hasSomethingInHand)
                 {
                     if (_currentRadioSpot != null)
@@ -261,10 +260,6 @@ public class PlayerController : MonoBehaviour
             } else if (hit.collider.tag == "Frog")
             {
                 ShowTooltips("Frog");
-                List<TooltipInfo> datas = _tooltipData.tooltips.FindAll(tooltipInfo => tooltipInfo.tag == "Frog");
-                _tooltipController.SetInfoTooltip1(datas[0]);
-                _tooltipController.SetInfoTooltip2(datas[1]);
-                _tooltipGo.SetActive(true);
                 if (_interactInput.triggered && !_hasSomethingInHand)
                 {
                     PickUpFrog(hit.collider.gameObject);
@@ -275,10 +270,6 @@ public class PlayerController : MonoBehaviour
             } else if (hit.collider.tag == "Bin")
             {
                 ShowTooltips("Bin");
-                List<TooltipInfo> datas = _tooltipData.tooltips.FindAll(tooltipInfo => tooltipInfo.tag == "Bin");
-                _tooltipController.SetInfoTooltip1(datas[0]);
-                _tooltipController.SetInfoTooltip2(datas[1]);
-                _tooltipGo.SetActive(true);
                 if (_interactInput.triggered)
                 {
                     if (_plantsInHand.Count > 0)
@@ -343,6 +334,7 @@ public class PlayerController : MonoBehaviour
         {
             _tooltipController.SetInfoTooltip2(datas[1]);
         }
+        _tooltipGo.SetActive(true);
     }
 
     private void PickUpWaterSpray(GameObject waterSpray)
