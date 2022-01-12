@@ -110,7 +110,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _gameManager: {fileID: 0}
-  _pointsPrefab: {fileID: 295627537736660778, guid: 9eff29e825310e04684c859be2a9d164, type: 3}
+  _pointsPrefab: {fileID: 2620698805497582334, guid: dcde4edef44541c4e80ac3df9da72560, type: 3}
   _pointsSpawnpoint: {fileID: 2841406818361505582}
 --- !u!1 &3003340481672291381
 GameObject:
