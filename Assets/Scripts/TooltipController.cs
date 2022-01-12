@@ -7,48 +7,32 @@ using UnityEngine.UI;
 
 public class TooltipController : MonoBehaviour
 {
-    [SerializeField] private Sprite _button;
-    [SerializeField] private string _text;
-    [SerializeField] private Transform _player;
-    [SerializeField] private TextMeshProUGUI _textMeshProUGUI;
-    [SerializeField] private Image _keyImage;
-    [SerializeField] private bool _isActive;
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private TextMeshProUGUI _tooltip1Text;
+    [SerializeField] private Image _tooltip1keyImage;
+    [SerializeField] private TextMeshProUGUI _tooltip2Text;
+    [SerializeField] private Image _tooltip2keyImage;
+
+    public void hideToolTips()
     {
-        _textMeshProUGUI.text = _text;
-        _keyImage.sprite = _button;
+        _tooltip1Text.enabled = false;
+        _tooltip1keyImage.enabled = false;
+        _tooltip2Text.enabled = false;
+        _tooltip2keyImage.enabled = false;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void SetInfoTooltip1(TooltipInfo info)
     {
-        if (_isActive)
-        {
-            _textMeshProUGUI.enabled = true;
-            _keyImage.enabled = true;
-            transform.LookAt(_player.position);
-        }
-        else
-        {
-            _textMeshProUGUI.enabled = false;
-            _keyImage.enabled = false;
-        }
+        _tooltip1Text.enabled = true;
+        _tooltip1keyImage.enabled = true;
+        _tooltip1Text.text = info.text;
+        _tooltip1keyImage.sprite = info.icon;
     }
-
-    private void OnTriggerEnter(Collider other)
+    
+    public void SetInfoTooltip2(TooltipInfo info)
     {
-        if (other.tag == "Player")
-        {
-            _isActive = true;
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.tag == "Player")
-        {
-            _isActive = false;
-        }
+        _tooltip2Text.enabled = true;
+        _tooltip2keyImage.enabled = true;
+        _tooltip2Text.text = info.text;
+        _tooltip2keyImage.sprite = info.icon;
     }
 }
