@@ -43,7 +43,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private RadioSpot _currentRadioSpot;
     [SerializeField] private bool _canMove = true;
     [SerializeField] private bool _isLookingAtRadio = false;
-
+    [SerializeField] private GameObject _tooltipGo;
+    [SerializeField] private TooltipData _tooltipData;
+    
+    
+    private TooltipController _tooltipController;
     private MovementControl _moveControl;
     private LookControl _lookControl;
     private InputAction _moveInput;
@@ -75,6 +79,8 @@ public class PlayerController : MonoBehaviour
 
         _dropInput = _moveControl.Player.Drop;
         _dropInput.Enable();
+
+        _tooltipController = _tooltipGo.GetComponent<TooltipController>();
 
         GameEvents.OnOrderDoneEvent += OnOrderDoneEvent;
         GameEvents.OnStopLookAtRadioEvent += OnStopLookAtRadioEvent;
@@ -142,6 +148,9 @@ public class PlayerController : MonoBehaviour
     {
         RaycastHit hit;
         
+        _tooltipController.hideToolTips();
+        _tooltipGo.SetActive(false);
+        
         if (_interactInput.triggered && _hasWaterSpray)
         {
             WaterSpray waterSpray = _waterSprayGo.GetComponent<WaterSpray>();
@@ -183,6 +192,7 @@ public class PlayerController : MonoBehaviour
             //Pick Up Interaction
             if (hit.collider.tag == "GardenSlot")
             {
+                ShowTooltips("GardenSlot");
                 if (_interactInput.triggered && _currentSeed != null)
                 {
                     GardenSlot gs = hit.collider.gameObject.GetComponent<GardenSlot>();
@@ -191,6 +201,7 @@ public class PlayerController : MonoBehaviour
                 }
             } else if (hit.collider.tag == "SeedBag")
             {
+                ShowTooltips("SeedBag");
                 if (_interactInput.triggered)
                 {
                     SeedBag bag = hit.collider.gameObject.GetComponent<SeedBag>();
@@ -199,6 +210,7 @@ public class PlayerController : MonoBehaviour
                 }
             } else if (hit.collider.tag == "Plant")
             {
+                ShowTooltips("Plant");
                 if (_interactInput.triggered && !_hasSomethingInHand)
                 {
                     GameObject plant = hit.collider.gameObject;
@@ -207,6 +219,7 @@ public class PlayerController : MonoBehaviour
                 }
             } else if (hit.collider.tag == "Kiosque")
             {
+                ShowTooltips("Kiosque");
                 if (_interactInput.triggered)
                 {
                     if (_plantsInHand.Count > 0)
@@ -216,6 +229,8 @@ public class PlayerController : MonoBehaviour
                 }
             } else if (hit.collider.tag == "Radio")
             {
+                ShowTooltips("Radio");
+                _tooltipGo.SetActive(true);
                 if (_interactInput.triggered && !_hasSomethingInHand)
                 {
                     if (_currentRadioSpot != null)
@@ -245,6 +260,11 @@ public class PlayerController : MonoBehaviour
                 }
             } else if (hit.collider.tag == "Frog")
             {
+                ShowTooltips("Frog");
+                List<TooltipInfo> datas = _tooltipData.tooltips.FindAll(tooltipInfo => tooltipInfo.tag == "Frog");
+                _tooltipController.SetInfoTooltip1(datas[0]);
+                _tooltipController.SetInfoTooltip2(datas[1]);
+                _tooltipGo.SetActive(true);
                 if (_interactInput.triggered && !_hasSomethingInHand)
                 {
                     PickUpFrog(hit.collider.gameObject);
@@ -254,6 +274,11 @@ public class PlayerController : MonoBehaviour
                 }
             } else if (hit.collider.tag == "Bin")
             {
+                ShowTooltips("Bin");
+                List<TooltipInfo> datas = _tooltipData.tooltips.FindAll(tooltipInfo => tooltipInfo.tag == "Bin");
+                _tooltipController.SetInfoTooltip1(datas[0]);
+                _tooltipController.SetInfoTooltip2(datas[1]);
+                _tooltipGo.SetActive(true);
                 if (_interactInput.triggered)
                 {
                     if (_plantsInHand.Count > 0)
@@ -269,6 +294,7 @@ public class PlayerController : MonoBehaviour
                 }
             } else if (hit.collider.tag == "WaterSpray")
             {
+                ShowTooltips("WaterSpray");
                 if (_interactInput.triggered && !_hasSomethingInHand)
                 {
                     GameObject waterSpray = hit.collider.gameObject;
@@ -281,6 +307,7 @@ public class PlayerController : MonoBehaviour
                 }
             } else if (hit.collider.tag == "Sink")
             {
+                ShowTooltips("Sink");
                 if (_interactInput.triggered && _hasWaterSpray)
                 {
                     WaterSpray waterSpray =_waterSprayGo.GetComponent<WaterSpray>();
@@ -301,6 +328,20 @@ public class PlayerController : MonoBehaviour
                 _hasWaterSpray = false;
                 _plantsInHand.Clear();
             }
+        }
+    }
+
+    private void ShowTooltips(string key)
+    {
+        List<TooltipInfo> datas = _tooltipData.tooltips.FindAll(tooltipInfo => tooltipInfo.tag == key);
+        if (datas.Count > 0)
+        {
+            _tooltipController.SetInfoTooltip1(datas[0]);
+        }
+
+        if (datas.Count > 1)
+        {
+            _tooltipController.SetInfoTooltip2(datas[1]);
         }
     }
 
