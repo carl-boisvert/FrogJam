@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
 
     private float _nextOrderTime;
     private int _currentStage = 0;
+    private bool _hasPhaseEnded = false;
     
     private Coroutine _coroutine;
 
@@ -32,6 +33,14 @@ public class GameManager : MonoBehaviour
         _jumbotronController.IncreaseHappiness(_hapinnessStart);
     }
 
+    private void Update()
+    {
+        if (_hasPhaseEnded && _orders.Count == 0)
+        {
+            GameEvents.OnGameEndEvent();
+        }
+    }
+
     private void OnOrderTimerExpiredEvent(Order order)
     {
         _orders.Remove(order);
@@ -39,12 +48,13 @@ public class GameManager : MonoBehaviour
         {
             _score += _ordersData.stages[_currentStage].pointPerOrderExpired;
             _jumbotronController.SetScore(_score);
-            _jumbotronController.DecreaseHappiness(_ordersData.stages[_currentStage].pointPerOrderExpired);
         }
+        _jumbotronController.DecreaseHappiness(_ordersData.stages[_currentStage].pointPerOrderExpired);
     }
 
     private void NewPhase()
     {
+        _hasPhaseEnded = false;
         if (_currentStage < _ordersData.stages.Count)
         {
             _coroutine = StartCoroutine(CreateNextOrder(_ordersData.stages[_currentStage]));
@@ -80,7 +90,7 @@ public class GameManager : MonoBehaviour
         }
         Debug.Log($"End of order phase {_currentStage} at {time}");
         _currentStage++;
-        GameEvents.OnGameEndEvent();
+        _hasPhaseEnded = true;
     }
     
     IEnumerator SpawnFrog()
