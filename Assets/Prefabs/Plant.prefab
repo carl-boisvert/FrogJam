@@ -90,6 +90,17 @@ MonoBehaviour:
   _dislikeParticlePrefab: {fileID: 9020537810350360991, guid: dbd492e272d583e4ebfc7c6230427a2d, type: 3}
   _currentParticle: {fileID: 0}
   _finishGrowingParticleSystem: {fileID: 6270663449581372521, guid: 3148fb6e8c1765544bcb64e36bbf644e, type: 3}
+  _plantPaintedMaterial:
+  - color: 0
+    material: {fileID: 2100000, guid: 2f097e8abe91f064282202aee9969269, type: 2}
+  - color: 1
+    material: {fileID: 2100000, guid: eb57e7ac45d4498488ef7ffd2fadfc47, type: 2}
+  - color: 2
+    material: {fileID: 2100000, guid: 8f549b5461bcb85439eb7f479c94b06f, type: 2}
+  - color: 3
+    material: {fileID: 2100000, guid: c635b6b566e8ac545b97a0be6aa37dcb, type: 2}
+  - color: 4
+    material: {fileID: 2100000, guid: ac2d2028ad8480746a0f230fcf0e62ec, type: 2}
   _currentMusicType: 6
   _activeModifier: 1
 --- !u!1 &7209735778407734747

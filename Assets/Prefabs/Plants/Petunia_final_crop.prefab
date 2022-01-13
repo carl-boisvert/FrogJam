@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 107735064354391356}
+  - component: {fileID: 3512487016530779534}
   m_Layer: 0
   m_Name: Petunia_final_crop
   m_TagString: Untagged
@@ -32,6 +33,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3512487016530779534
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2234299298159722680}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 805711d290a36d44492b872042849c08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  renderer: {fileID: 6660366303272860823}
 --- !u!1001 &4090727609010462154
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -158,5 +172,10 @@ PrefabInstance:
 --- !u!4 &5486918173188982776 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 2a5ff99b382811f47ba3f9011a5b285e, type: 3}
+  m_PrefabInstance: {fileID: 5453800310079086611}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &6660366303272860823 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: 2a5ff99b382811f47ba3f9011a5b285e, type: 3}
   m_PrefabInstance: {fileID: 5453800310079086611}
   m_PrefabAsset: {fileID: 0}

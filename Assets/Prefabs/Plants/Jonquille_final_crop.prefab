@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1337136091559750660}
+  - component: {fileID: 9086989598583522482}
   m_Layer: 0
   m_Name: Jonquille_final_crop
   m_TagString: Untagged
@@ -32,6 +33,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &9086989598583522482
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1337136091559750661}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 805711d290a36d44492b872042849c08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  renderer: {fileID: 382774705784193552}
 --- !u!1001 &1337136091360599700
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -96,6 +110,11 @@ PrefabInstance:
 --- !u!4 &1514563307331811711 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 721a98c31b3f61a4da2ef9f67d246c06, type: 3}
+  m_PrefabInstance: {fileID: 1337136091360599700}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &382774705784193552 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: 721a98c31b3f61a4da2ef9f67d246c06, type: 3}
   m_PrefabInstance: {fileID: 1337136091360599700}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7273603373401457791

@@ -318,6 +318,17 @@ public class PlayerController : MonoBehaviour
                     WaterSpray waterSpray =_waterSprayGo.GetComponent<WaterSpray>();
                     waterSpray.Refill();
                 }
+            } else if (hit.collider.tag == "Paint")
+            {
+                if (_plantsInHand.Count > 0)
+                {
+                    ShowTooltips("Paint");
+                    if (_interactInput.triggered)
+                    {
+                        Paint paint = hit.collider.gameObject.GetComponent<Paint>();
+                        _plantsInHand[0].Paint(paint.color);
+                    }
+                }
             }
         }
         else
@@ -482,7 +493,7 @@ public class PlayerController : MonoBehaviour
         _rb.isKinematic = true;
         
         //Parent to hand
-        AttacheToHand(plant);
+        AttacheToHand(plant, false);
         
         // Deactivate Collider
         Collider collider = plant.GetComponent<Collider>();

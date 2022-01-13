@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 681576193326576469}
+  - component: {fileID: 1917441238351707423}
   m_Layer: 0
   m_Name: Rose_final_crop
   m_TagString: Untagged
@@ -32,6 +33,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1917441238351707423
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7522469864180113815}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 805711d290a36d44492b872042849c08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  renderer: {fileID: 6011302572316252909}
 --- !u!1001 &3125302768763408950
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -158,5 +172,10 @@ PrefabInstance:
 --- !u!4 &4838910042114793858 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 975b82e158a5ff14bb65514b574aa37b, type: 3}
+  m_PrefabInstance: {fileID: 4948886953734948457}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &6011302572316252909 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: 975b82e158a5ff14bb65514b574aa37b, type: 3}
   m_PrefabInstance: {fileID: 4948886953734948457}
   m_PrefabAsset: {fileID: 0}

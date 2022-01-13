@@ -20,6 +20,7 @@ public class PlantController : MonoBehaviour
     [SerializeField] private GameObject _dislikeParticlePrefab;
     [SerializeField] private GameObject _currentParticle;
     [SerializeField] private GameObject _finishGrowingParticleSystem;
+    [SerializeField] private List<PlantPaintMaterial> _plantPaintedMaterial;
     public MusicType _currentMusicType = MusicType.None;
 
     private GameObject _currentPlantGameObject;
@@ -62,7 +63,7 @@ public class PlantController : MonoBehaviour
 
     private void Update()
     {
-        if (!isDead)
+        if (!isDead && !isDoneGrowing)
         {
             if (_plantData.needWater)
             {
@@ -136,8 +137,8 @@ public class PlantController : MonoBehaviour
         else
         {
             isDoneGrowing = true;
-            GameObject plant = Instantiate(_plantData.stages[_plantStage].prefab, transform);
-            plant.GetComponentInChildren<MeshRenderer>().material.color = _plantData.color;
+            _currentPlantGameObject  = Instantiate(_plantData.stages[_plantStage].prefab, transform);
+            _currentPlantGameObject.GetComponentInChildren<MeshRenderer>().material.color = _plantData.color;
             Destroy(_currentParticle);
             Instantiate(_finishGrowingParticleSystem, _particleSpawnPoint);
         }
@@ -212,6 +213,19 @@ public class PlantController : MonoBehaviour
             Growth();
         }
     }
+
+    public void Paint(PlantColor paintColor)
+    {
+        GrownPlant grownPlant = _currentPlantGameObject.GetComponentInChildren<GrownPlant>();
+        grownPlant.renderer.material = _plantPaintedMaterial.Find(paint => paint.color == paintColor).material;
+    }
+}
+
+[Serializable]
+public class PlantPaintMaterial
+{
+    public PlantColor color;
+    public Material material;
 }
 
 
