@@ -41,6 +41,11 @@ public class RadioController : MonoBehaviour
 
     private void OnExitMusicChannel()
     {
+        if (_musicTypePlaying == MusicType.Frog)
+        {
+            GameEvents.OnStoppedFrogMusic();
+        }
+
         _musicTypePlaying = MusicType.None;
         _speaker.clip = _whiteNoise;
         _speaker.Play();
@@ -48,6 +53,10 @@ public class RadioController : MonoBehaviour
 
     private void OnEnterMusicChannel(MusicType type)
     {
+        if (_musicTypePlaying == MusicType.Frog)
+        {
+            GameEvents.OnStoppedFrogMusic();
+        }
         _musicTypePlaying = type;
         AudioClip clip = _musicTypeAudioClips.Find(musicType => musicType._type == type)._audio;
         _speaker.clip = clip;
