@@ -28,4 +28,7 @@ public static class GameEvents
     public delegate void FrogChangedMusic();
     public static FrogChangedMusic OnFrogChangedMusic;
     
+    public delegate void StoppedFrogMusic();
+    public static StoppedFrogMusic OnStoppedFrogMusic;
+    
 }

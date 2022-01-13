@@ -10,6 +10,12 @@ public class GardenSlot : MonoBehaviour
     private void Start()
     {
         GameEvents.OnFrogChangedMusic += OnFrogChangedMusic;
+        GameEvents.OnStoppedFrogMusic += OnStoppedFrogMusic;
+    }
+
+    private void OnStoppedFrogMusic()
+    {
+        MusicPlaying(MusicType.None);
     }
 
     private void OnFrogChangedMusic()
