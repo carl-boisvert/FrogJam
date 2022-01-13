@@ -14,7 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Watch
   icon: {fileID: 21300000, guid: 55008dbcae0d01c4a83fd49654bf7c20, type: 3}
-  color: {r: 0, g: 0.16973758, b: 1, a: 0}
+  iconBlue: {fileID: 0}
+  iconGreen: {fileID: 0}
+  iconYellow: {fileID: 0}
+  iconPink: {fileID: 0}
+  iconRed: {fileID: 0}
+  color: {r: 1, g: 1, b: 1, a: 0}
   needWater: 0
   needLight: 1
   stages:
@@ -25,7 +30,7 @@ MonoBehaviour:
   - time: 15
     prefab: {fileID: 830500233494281096, guid: dbd44f58ad6c8bc4e86c0abb9cecc8ff, type: 3}
   - time: 0
-    prefab: {fileID: 8638718984522927421, guid: ae2001ba3e654cd4bb99bcd5b231299e, type: 3}
+    prefab: {fileID: 2605508798335190081, guid: c15e3dd73b3073d42a59a36ab5e5ceb9, type: 3}
   musicLikeMultiplier: 2
   musicDislikeTime: 10
   musicLikes: 0300000000000000

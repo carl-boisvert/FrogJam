@@ -14,18 +14,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Boots
   icon: {fileID: 21300000, guid: d751d0130a929ef40a9bb1210f1b0f0e, type: 3}
-  color: {r: 0.5849056, g: 0.26577863, b: 0, a: 0}
+  iconBlue: {fileID: 0}
+  iconGreen: {fileID: 0}
+  iconYellow: {fileID: 0}
+  iconPink: {fileID: 0}
+  iconRed: {fileID: 0}
+  color: {r: 1, g: 1, b: 1, a: 0}
   needWater: 1
   needLight: 0
   stages:
   - time: 15
-    prefab: {fileID: 3018450324503860379, guid: bb49512f679c7dd4cb6bcf4e7dbb7156, type: 3}
+    prefab: {fileID: 919132149155446097, guid: 9e2bfc8607e31db4c8c7d25527e18a2b, type: 3}
   - time: 20
     prefab: {fileID: 3709799888909398600, guid: d1107d082bd68b84796c793a048d22ca, type: 3}
   - time: 15
     prefab: {fileID: 830500233494281096, guid: dbd44f58ad6c8bc4e86c0abb9cecc8ff, type: 3}
   - time: 0
-    prefab: {fileID: 8638718984522927421, guid: ae2001ba3e654cd4bb99bcd5b231299e, type: 3}
+    prefab: {fileID: 1858802132905019425, guid: 3d8031ee5ce045149bb3ae1959d28b26, type: 3}
   musicLikeMultiplier: 2
   musicDislikeTime: 10
   musicLikes: 02000000
