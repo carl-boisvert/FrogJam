@@ -31,4 +31,7 @@ public static class GameEvents
     public delegate void StoppedFrogMusic();
     public static StoppedFrogMusic OnStoppedFrogMusic;
     
+    public delegate void StopLookAtPlantopediaEvent();
+    public static StopLookAtPlantopediaEvent OnStopLookAtPlantopediaEvent;
+    
 }

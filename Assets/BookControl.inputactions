@@ -1,0 +1,34 @@
+{
+    "name": "BookControl",
+    "maps": [
+        {
+            "name": "Book",
+            "id": "0be4a00a-9fb1-4b02-881a-22db017dfdb8",
+            "actions": [
+                {
+                    "name": "Exit",
+                    "type": "Button",
+                    "id": "bfedf89e-0886-4edc-84bd-e5eecf6c1117",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "b205a4d8-1ff9-4e9e-8155-d102a4a734ef",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Exit",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
