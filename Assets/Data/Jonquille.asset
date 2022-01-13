@@ -14,9 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Jonquille
   icon: {fileID: 21300000, guid: 9dd7f8c0b6d22e14582a07175117a0e7, type: 3}
-  color: {r: 0.9716981, g: 0.8917692, b: 0.068752214, a: 1}
+  iconBlue: {fileID: 21300000, guid: 6e193e7ff95c69441bbfb071e965412c, type: 3}
+  iconGreen: {fileID: 21300000, guid: a78537ecfbfcc45498e69fb4c19bd17e, type: 3}
+  iconYellow: {fileID: 0}
+  iconPink: {fileID: 21300000, guid: 33f59200dfe4430438efd22ec6f5d860, type: 3}
+  iconRed: {fileID: 21300000, guid: 81c1448c56532a44286829b2d26736de, type: 3}
+  color: {r: 1, g: 1, b: 1, a: 1}
   needWater: 1
-  needLight: 0
+  needLight: 1
   stages:
   - time: 10
     prefab: {fileID: 3018450324503860379, guid: bb49512f679c7dd4cb6bcf4e7dbb7156, type: 3}

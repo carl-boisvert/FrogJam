@@ -14,9 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Rose
   icon: {fileID: 21300000, guid: 9cbcc5909c29cf2428d7c4dbdcfed60a, type: 3}
-  color: {r: 0.8679245, g: 0.045033824, b: 0.14007924, a: 1}
+  iconBlue: {fileID: 21300000, guid: 45187ac70f5c7ae489db276d6e70ce36, type: 3}
+  iconGreen: {fileID: 21300000, guid: 2de66cb1e03968a40ae976c2467be53b, type: 3}
+  iconYellow: {fileID: 21300000, guid: cf8476236de35ab4c82e3f0698fb8859, type: 3}
+  iconPink: {fileID: 21300000, guid: cbb5455a80dc24e478f0ea070e60769d, type: 3}
+  iconRed: {fileID: 0}
+  color: {r: 1, g: 1, b: 1, a: 1}
   needWater: 1
-  needLight: 0
+  needLight: 1
   stages:
   - time: 10
     prefab: {fileID: 3018450324503860379, guid: bb49512f679c7dd4cb6bcf4e7dbb7156, type: 3}

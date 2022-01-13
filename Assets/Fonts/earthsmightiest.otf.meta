@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 6b836ca381885dc4db1336b12122e673
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Earth's Mightiest
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 8c614c7550144884bb9f424e3a60a062, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

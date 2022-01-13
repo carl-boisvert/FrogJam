@@ -14,9 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Petunia
   icon: {fileID: 21300000, guid: 9ecb248ca0fc9dd459d033e6cddf6e94, type: 3}
-  color: {r: 0.43799698, g: 0.40744036, b: 0.7924528, a: 1}
+  iconBlue: {fileID: 0}
+  iconGreen: {fileID: 21300000, guid: db7eb0d1e36935d429db16c2c88179d6, type: 3}
+  iconYellow: {fileID: 21300000, guid: 775339922faa66d46b7f7aae642f9dbb, type: 3}
+  iconPink: {fileID: 21300000, guid: 2f2c610d04fe43b49b4872304f48ac96, type: 3}
+  iconRed: {fileID: 21300000, guid: 621e4ae3e247623428f470e25e45bfd7, type: 3}
+  color: {r: 1, g: 1, b: 1, a: 1}
   needWater: 1
-  needLight: 0
+  needLight: 1
   stages:
   - time: 10
     prefab: {fileID: 3018450324503860379, guid: bb49512f679c7dd4cb6bcf4e7dbb7156, type: 3}

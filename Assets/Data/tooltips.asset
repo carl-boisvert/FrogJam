@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tooltips:
   - tag: Radio
-    icon: {fileID: 21300000, guid: 3a986204ef252274180df81d3e067a05, type: 3}
+    icon: {fileID: 21300000, guid: 800a55c2dbb321a439ace89e1256b682, type: 3}
     text: Pick up Radio
   - tag: Radio
     icon: {fileID: 21300000, guid: c97c03e912b7c6c43a77545180472132, type: 3}
@@ -24,4 +24,28 @@ MonoBehaviour:
     text: Pick up frog
   - tag: WaterSpray
     icon: {fileID: 21300000, guid: 3a986204ef252274180df81d3e067a05, type: 3}
-    text: Pick up frog
+    text: Pick up
+  - tag: SeedBag
+    icon: {fileID: 21300000, guid: 3a986204ef252274180df81d3e067a05, type: 3}
+    text: Pick up
+  - tag: Paint
+    icon: {fileID: 21300000, guid: 3a986204ef252274180df81d3e067a05, type: 3}
+    text: Dip flower
+  - tag: Bin
+    icon: {fileID: 21300000, guid: 3a986204ef252274180df81d3e067a05, type: 3}
+    text: Compost
+  - tag: Sink
+    icon: {fileID: 21300000, guid: 3a986204ef252274180df81d3e067a05, type: 3}
+    text: Refill spray
+  - tag: Kiosque
+    icon: {fileID: 21300000, guid: 3a986204ef252274180df81d3e067a05, type: 3}
+    text: Sell
+  - tag: Book
+    icon: {fileID: 21300000, guid: c97c03e912b7c6c43a77545180472132, type: 3}
+    text: Read Plantopedia
+  - tag: GardenSlot
+    icon: {fileID: 21300000, guid: 3a986204ef252274180df81d3e067a05, type: 3}
+    text: Plant seed
+  - tag: Plant
+    icon: {fileID: 21300000, guid: 3a986204ef252274180df81d3e067a05, type: 3}
+    text: Grab plant
