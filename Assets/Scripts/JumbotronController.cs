@@ -9,6 +9,8 @@ public class JumbotronController : MonoBehaviour
 {
     [SerializeField] private GameObject _orderImagePrefab;
     [SerializeField] private GameObject _screen;
+    [SerializeField] private GameObject _ingameUI;
+    [SerializeField] private GameObject _phaseSummary;
     [SerializeField] private Dictionary<Order, GameObject> _ordersGameObjects = new Dictionary<Order, GameObject>();
     [SerializeField] private TextMeshProUGUI _scoreText;
     [SerializeField] private float _maxHapiness;
@@ -107,6 +109,8 @@ public class JumbotronController : MonoBehaviour
 
         if (_happiness <= 0)
         {
+            _ingameUI.SetActive(false);
+            _phaseSummary.SetActive(true);
             GameEvents.OnGameEndEvent();
             _happiness = 0;
         }

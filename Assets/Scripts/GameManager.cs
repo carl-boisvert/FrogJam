@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Cinemachine;
 using TMPro;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -16,6 +17,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int _score = 0;
     [SerializeField] private int _hapinnessStart = 50;
     [SerializeField] private JumbotronController _jumbotronController;
+    
+    [SerializeField] private CinemachineVirtualCamera _dolly;
+    [SerializeField] private CinemachineVirtualCamera _mainMenu;
 
     private float _nextOrderTime;
     private int _currentStage = 0;
@@ -25,12 +29,21 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        /*
         Invoke("NewPhase",5);
         Invoke("StartSpawningFrog",5);
-        
+        */
         GameEvents.OnOrderTimerExpiredEvent += OnOrderTimerExpiredEvent;
         
         _jumbotronController.IncreaseHappiness(_hapinnessStart);
+
+        MainMenu();
+    }
+
+    private void MainMenu()
+    {
+        //Set Camera to doly with canvas for the menu
+        _dolly.Priority = 4;
     }
 
     private void Update()
