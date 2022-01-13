@@ -72,7 +72,7 @@ public class GameManager : MonoBehaviour
 
             GameEvents.OnNewOrderEvent(order);
         
-            Debug.Log($"New Order in! Next order in {nextOrder}");
+            //Debug.Log($"New Order in! Next order in {nextOrder}");
             yield return new WaitForSeconds(nextOrder);
         
             time = Time.time;
@@ -80,7 +80,7 @@ public class GameManager : MonoBehaviour
         }
         Debug.Log($"End of order phase {_currentStage} at {time}");
         _currentStage++;
-        NewPhase();
+        GameEvents.OnGameEndEvent();
     }
     
     IEnumerator SpawnFrog()

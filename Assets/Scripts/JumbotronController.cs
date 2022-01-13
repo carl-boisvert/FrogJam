@@ -94,12 +94,22 @@ public class JumbotronController : MonoBehaviour
     public void IncreaseHappiness(float hapiness)
     {
         _happiness += hapiness;
+        if (_happiness >= _maxHapiness)
+        {
+            _happiness = _maxHapiness;
+        }
         _slider.value = _happiness / _maxHapiness;
     }
     
     public void DecreaseHappiness(float hapiness)
     {
         _happiness -= hapiness;
+
+        if (_happiness <= 0)
+        {
+            GameEvents.OnGameEndEvent();
+            _happiness = 0;
+        }
         _slider.value = _happiness / _maxHapiness;
     }
 }

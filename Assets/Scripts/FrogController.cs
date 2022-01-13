@@ -9,6 +9,7 @@ public class FrogController : MonoBehaviour
     [SerializeField] private NavMeshAgent _agent;
     [SerializeField] private Animator _anim;
     [SerializeField] private GameObject _radio;
+
     // Start is called before the first frame update
     public void Init(GameObject radio)
     {

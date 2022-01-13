@@ -25,6 +25,8 @@ public class PlantController : MonoBehaviour
     [SerializeField] private GameObject _currentParticle;
     [SerializeField] private GameObject _finishGrowingParticleSystem;
     [SerializeField] private List<PlantPaintMaterial> _plantPaintedMaterial;
+    [SerializeField] private AudioSource _audioSource;
+    [SerializeField] private AudioClip _bloomingAudioClip;
 
     private GameObject _currentPlantGameObject;
     [SerializeField] private float _activeModifier = 1;
@@ -144,6 +146,7 @@ public class PlantController : MonoBehaviour
             _currentPlantGameObject.GetComponentInChildren<MeshRenderer>().material.color = _plantData.color;
             Destroy(_currentParticle);
             Instantiate(_finishGrowingParticleSystem, _particleSpawnPoint);
+            _audioSource.PlayOneShot(_bloomingAudioClip);
         }
     }
 
@@ -194,14 +197,14 @@ public class PlantController : MonoBehaviour
         float time = Time.time;
         float stageTime = time + stage.time;
         _currentPlantGameObject = Instantiate(stage.prefab, transform);
-        Debug.Log($"Start Growing phase {_plantStage} at {time} and stopping at {stageTime}");
+        //Debug.Log($"Start Growing phase {_plantStage} at {time} and stopping at {stageTime}");
         while (time < stageTime)
         {
             yield return new WaitForSeconds(1);
             time += 1 * _activeModifier;
-            Debug.Log(_activeModifier);
+            //Debug.Log(_activeModifier);
         }
-        Debug.Log($"Stop Growing phase {_plantStage} at {time}. Real time is {Time.time}");
+        //Debug.Log($"Stop Growing phase {_plantStage} at {time}. Real time is {Time.time}");
         Destroy(_currentPlantGameObject);
         _plantStage++;
         Growth();
