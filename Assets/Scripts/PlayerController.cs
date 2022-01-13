@@ -42,6 +42,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private RadioSpot _radioSpot;
     [SerializeField] private RadioSpot _currentRadioSpot;
     [SerializeField] private bool _canMove = true;
+    [SerializeField] private bool _inputDisabled = false;
     [SerializeField] private bool _isLookingAtRadio = false;
     [SerializeField] private GameObject _tooltipGo;
     [SerializeField] private TooltipData _tooltipData;
@@ -84,6 +85,12 @@ public class PlayerController : MonoBehaviour
 
         GameEvents.OnOrderDoneEvent += OnOrderDoneEvent;
         GameEvents.OnStopLookAtRadioEvent += OnStopLookAtRadioEvent;
+        GameEvents.OnStopLookAtPlantopediaEvent += OnStopLookAtPlantopediaEvent;
+    }
+
+    private void OnStopLookAtPlantopediaEvent()
+    {
+        EnableInputs();
     }
 
     private void OnOrderDoneEvent(Order order)
@@ -152,8 +159,10 @@ public class PlayerController : MonoBehaviour
         
         _tooltipController.hideToolTips();
         _tooltipGo.SetActive(false);
-        
-        if (_interactInput.triggered && _hasWaterSpray)
+
+        if (!_inputDisabled)
+        {
+            if (_interactInput.triggered && _hasWaterSpray)
         {
             WaterSpray waterSpray = _waterSprayGo.GetComponent<WaterSpray>();
             waterSpray.Spray();
@@ -254,13 +263,10 @@ public class PlayerController : MonoBehaviour
                     GameObject radio = hit.collider.gameObject;
 
                     GameEvents.OnLookAtRadioEvent();
-
-                    _canMove = false;
+                    
                     _isLookingAtRadio = true;
                     
-                    _moveInput.Disable();
-                    _useInput.Disable();
-                    _interactInput.Disable();
+                    DisableInputs();
                     SwitchToRadioUI();
                 }
             } else if (hit.collider.tag == "Frog")
@@ -325,9 +331,19 @@ public class PlayerController : MonoBehaviour
                     ShowTooltips("Paint");
                     if (_interactInput.triggered)
                     {
+                        DisableInputs();
                         Paint paint = hit.collider.gameObject.GetComponent<Paint>();
                         _plantsInHand[0].Paint(paint.color);
                     }
+                }
+            } else if (hit.collider.tag == "Book")
+            {
+                ShowTooltips("Book");
+                if (_useInput.triggered)
+                {
+                    DisableInputs();
+                    PlantopediaController plantopedia = hit.collider.gameObject.GetComponent<PlantopediaController>();
+                    plantopedia.ShowPlantopedia();
                 }
             }
         }
@@ -345,6 +361,29 @@ public class PlayerController : MonoBehaviour
                 _plantsInHand.Clear();
             }
         }
+        }
+    }
+
+    private void DisableInputs()
+    {
+        _canMove = false;
+        _inputDisabled = true;
+        _moveInput.Disable();
+        _interactInput.Disable();
+        _useInput.Disable();
+        _throwInput.Disable();
+        _dropInput.Disable();
+    }
+    
+    private void EnableInputs()
+    {
+        _canMove = true;
+        _inputDisabled = false;
+        _moveInput.Enable();
+        _interactInput.Enable();
+        _useInput.Enable();
+        _throwInput.Enable();
+        _dropInput.Enable();
     }
 
     private void ShowTooltips(string key)
@@ -537,9 +576,7 @@ public class PlayerController : MonoBehaviour
         _camera.enabled = true;
         _hud.SetActive(true);
                     
-        _moveInput.Enable();
-        _useInput.Enable();
-        _interactInput.Enable();
+        EnableInputs();
     }
 
     private void AttacheToHand(GameObject go, bool facingPlayer = true)
