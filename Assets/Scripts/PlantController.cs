@@ -5,6 +5,10 @@ using UnityEngine;
 
 public class PlantController : MonoBehaviour
 {
+    public MusicType _currentMusicType = MusicType.None;
+    public bool isPainted = false;
+    public PlantColor plantColor;
+    
     [SerializeField] private GardenSlot _slot;
     [SerializeField] private PlantData _plantData;
     [SerializeField] private GameObject _deadPlantPrefab;
@@ -21,7 +25,6 @@ public class PlantController : MonoBehaviour
     [SerializeField] private GameObject _currentParticle;
     [SerializeField] private GameObject _finishGrowingParticleSystem;
     [SerializeField] private List<PlantPaintMaterial> _plantPaintedMaterial;
-    public MusicType _currentMusicType = MusicType.None;
 
     private GameObject _currentPlantGameObject;
     [SerializeField] private float _activeModifier = 1;
@@ -216,6 +219,8 @@ public class PlantController : MonoBehaviour
 
     public void Paint(PlantColor paintColor)
     {
+        isPainted = true;
+        plantColor = paintColor;
         GrownPlant grownPlant = _currentPlantGameObject.GetComponentInChildren<GrownPlant>();
         grownPlant.renderer.material = _plantPaintedMaterial.Find(paint => paint.color == paintColor).material;
     }

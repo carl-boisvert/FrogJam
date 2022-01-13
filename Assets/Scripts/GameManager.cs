@@ -145,6 +145,17 @@ public class GameManager : MonoBehaviour
                     }
                 }
 
+                if (order.colors.Count > 0)
+                {
+                    foreach (var plantController in plantsInHand)
+                    {
+                        if (plantController.plantColor != order.colors[0])
+                        {
+                            orderIsDone = false;
+                        }
+                    } 
+                }
+
                 if (orderIsDone)
                 {
                     soldOrder = order;
