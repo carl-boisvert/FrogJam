@@ -1,0 +1,122 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ff72c857331f00418affd899767b1fe, type: 3}
+  m_Name: orders
+  m_EditorClassIdentifier: 
+  stages:
+  - stageDuration: 60
+    timePerOrderMin: 90
+    timePerOrderMax: 90
+    pointPerOrderDone: 10
+    pointPerOrderExpired: -1
+    timeBetweenOrdersMin: 30
+    timeBetweenOrdersMax: 35
+    plantThatCanSpawn:
+    - {fileID: 11400000, guid: 238f2d8ce721cf947b8f4ed7d0d424cf, type: 2}
+    - {fileID: 11400000, guid: 4a2b6481fc63648468a16d800c76496e, type: 2}
+    maximumOfPlantPerOrder: 1
+    hasColorModifier: 0
+    percentageOfChanceToGetColor: 0
+    timeBetweenFrogsMin: 100
+    timeBetweenFrogsMax: 100
+  - stageDuration: 120
+    timePerOrderMin: 50
+    timePerOrderMax: 60
+    pointPerOrderDone: 15
+    pointPerOrderExpired: -5
+    timeBetweenOrdersMin: 10
+    timeBetweenOrdersMax: 20
+    plantThatCanSpawn:
+    - {fileID: 11400000, guid: 238f2d8ce721cf947b8f4ed7d0d424cf, type: 2}
+    - {fileID: 11400000, guid: 1fcbfd98b23189342bde67335e0b6bba, type: 2}
+    - {fileID: 11400000, guid: 4a2b6481fc63648468a16d800c76496e, type: 2}
+    maximumOfPlantPerOrder: 1
+    hasColorModifier: 0
+    percentageOfChanceToGetColor: 0
+    timeBetweenFrogsMin: 30
+    timeBetweenFrogsMax: 40
+  - stageDuration: 120
+    timePerOrderMin: 50
+    timePerOrderMax: 60
+    pointPerOrderDone: 20
+    pointPerOrderExpired: -10
+    timeBetweenOrdersMin: 10
+    timeBetweenOrdersMax: 20
+    plantThatCanSpawn:
+    - {fileID: 11400000, guid: d63e83505175087409433eed775acf97, type: 2}
+    - {fileID: 11400000, guid: 4e9f5a68353611740a5e20c1ad823725, type: 2}
+    - {fileID: 11400000, guid: 7675694b6ea0b9040a5938b1455bbc48, type: 2}
+    - {fileID: 11400000, guid: 238f2d8ce721cf947b8f4ed7d0d424cf, type: 2}
+    - {fileID: 11400000, guid: 4a2b6481fc63648468a16d800c76496e, type: 2}
+    - {fileID: 11400000, guid: 1fcbfd98b23189342bde67335e0b6bba, type: 2}
+    maximumOfPlantPerOrder: 1
+    hasColorModifier: 0
+    percentageOfChanceToGetColor: 0
+    timeBetweenFrogsMin: 25
+    timeBetweenFrogsMax: 35
+  - stageDuration: 80
+    timePerOrderMin: 50
+    timePerOrderMax: 60
+    pointPerOrderDone: 20
+    pointPerOrderExpired: -10
+    timeBetweenOrdersMin: 10
+    timeBetweenOrdersMax: 20
+    plantThatCanSpawn:
+    - {fileID: 11400000, guid: 238f2d8ce721cf947b8f4ed7d0d424cf, type: 2}
+    - {fileID: 11400000, guid: 1fcbfd98b23189342bde67335e0b6bba, type: 2}
+    - {fileID: 11400000, guid: 4a2b6481fc63648468a16d800c76496e, type: 2}
+    - {fileID: 11400000, guid: 7675694b6ea0b9040a5938b1455bbc48, type: 2}
+    - {fileID: 11400000, guid: d63e83505175087409433eed775acf97, type: 2}
+    - {fileID: 11400000, guid: 4e9f5a68353611740a5e20c1ad823725, type: 2}
+    maximumOfPlantPerOrder: 1
+    hasColorModifier: 0
+    percentageOfChanceToGetColor: 0
+    timeBetweenFrogsMin: 20
+    timeBetweenFrogsMax: 30
+  - stageDuration: 120
+    timePerOrderMin: 55
+    timePerOrderMax: 65
+    pointPerOrderDone: 30
+    pointPerOrderExpired: -15
+    timeBetweenOrdersMin: 20
+    timeBetweenOrdersMax: 30
+    plantThatCanSpawn:
+    - {fileID: 11400000, guid: 238f2d8ce721cf947b8f4ed7d0d424cf, type: 2}
+    - {fileID: 11400000, guid: 1fcbfd98b23189342bde67335e0b6bba, type: 2}
+    - {fileID: 11400000, guid: 4a2b6481fc63648468a16d800c76496e, type: 2}
+    - {fileID: 11400000, guid: 7675694b6ea0b9040a5938b1455bbc48, type: 2}
+    - {fileID: 11400000, guid: d63e83505175087409433eed775acf97, type: 2}
+    - {fileID: 11400000, guid: 4e9f5a68353611740a5e20c1ad823725, type: 2}
+    maximumOfPlantPerOrder: 1
+    hasColorModifier: 1
+    percentageOfChanceToGetColor: 90
+    timeBetweenFrogsMin: 25
+    timeBetweenFrogsMax: 30
+  - stageDuration: 100
+    timePerOrderMin: 55
+    timePerOrderMax: 65
+    pointPerOrderDone: 30
+    pointPerOrderExpired: -15
+    timeBetweenOrdersMin: 20
+    timeBetweenOrdersMax: 30
+    plantThatCanSpawn:
+    - {fileID: 11400000, guid: 238f2d8ce721cf947b8f4ed7d0d424cf, type: 2}
+    - {fileID: 11400000, guid: 1fcbfd98b23189342bde67335e0b6bba, type: 2}
+    - {fileID: 11400000, guid: 4a2b6481fc63648468a16d800c76496e, type: 2}
+    - {fileID: 11400000, guid: 7675694b6ea0b9040a5938b1455bbc48, type: 2}
+    - {fileID: 11400000, guid: d63e83505175087409433eed775acf97, type: 2}
+    - {fileID: 11400000, guid: 4e9f5a68353611740a5e20c1ad823725, type: 2}
+    maximumOfPlantPerOrder: 1
+    hasColorModifier: 1
+    percentageOfChanceToGetColor: 90
+    timeBetweenFrogsMin: 25
+    timeBetweenFrogsMax: 30

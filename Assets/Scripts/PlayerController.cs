@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 public class PlayerController : MonoBehaviour
@@ -71,6 +72,7 @@ public class PlayerController : MonoBehaviour
     private InputAction _useInput;
     private InputAction _throwInput;
     private InputAction _dropInput;
+    private InputAction _mainMenuInput;
 
     private Vector2 _dir;
 
@@ -96,17 +98,30 @@ public class PlayerController : MonoBehaviour
         _dropInput = _moveControl.Player.Drop;
         _dropInput.Enable();
 
+        _mainMenuInput = _lookControl.Mouse.MainMenu;
+        _mainMenuInput.Enable();
+
         _tooltipController = _tooltipGo.GetComponent<TooltipController>();
 
         GameEvents.OnOrderDoneEvent += OnOrderDoneEvent;
         GameEvents.OnStopLookAtRadioEvent += OnStopLookAtRadioEvent;
         GameEvents.OnStopLookAtPlantopediaEvent += OnStopLookAtPlantopediaEvent;
         GameEvents.OnGameEndEvent += OnGameEndEvent;
+        GameEvents.OnGameContinueEvent += OnGameContinueEvent;
+    }
+
+    private void OnGameContinueEvent()
+    {
+        SwitchToPlayerCamera();
+        Cursor.lockState = CursorLockMode.Locked;
+        _hud.SetActive(true);
     }
 
     private void OnGameEndEvent()
     {
-        SwitchCamera();
+        SwitchToJumbotronCamera();
+        Cursor.lockState = CursorLockMode.Confined;
+        _hud.SetActive(false);
     }
 
     private void OnStopLookAtPlantopediaEvent()
@@ -122,6 +137,13 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        if (_mainMenuInput.enabled && _mainMenuInput.triggered)
+        {
+            _playerCamera.Priority = 5;
+            _mainMenuInput.Disable();
+            GameEvents.OnGameStartEvent();
+        }
+
         if (_inGardenBoxZone)
         {
             //Show placeholder mesh
@@ -411,16 +433,20 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void SwitchCamera()
+    private void SwitchToJumbotronCamera()
     {
         DisableInputs();
-        CinemachineInputProvider input = _playerCamera.GetComponent<CinemachineInputProvider>();
-        input.XYAxis.asset.Disable();
-        input.XYAxis.ToInputAction().Disable();
-        input.enabled = false;
-        
+
         _playerCamera.Priority = 0;
-        _jumbotronCamera.Priority = 1;
+        _jumbotronCamera.Priority = 5;
+    }
+    
+    private void SwitchToPlayerCamera()
+    {
+        EnableInputs();
+
+        _playerCamera.Priority = 5;
+        _jumbotronCamera.Priority = 0;
     }
 
     private void DisableInputs()

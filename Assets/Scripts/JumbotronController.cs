@@ -25,7 +25,21 @@ public class JumbotronController : MonoBehaviour
         GameEvents.OnNewOrderEvent += OnNewOrderEvent;
         GameEvents.OnOrderDoneEvent += OnOrderDoneEvent;
         GameEvents.OnOrderTimerExpiredEvent += OnOrderTimerExpiredEvent;
+        GameEvents.OnGameEndEvent += OnGameEndEvent;
+        GameEvents.OnGameContinueEvent += OnGameContinueEvent;
         _happiness = 0;
+    }
+
+    private void OnGameContinueEvent()
+    {
+        _ingameUI.SetActive(true);
+        _phaseSummary.SetActive(false);
+    }
+
+    private void OnGameEndEvent()
+    {
+        _ingameUI.SetActive(false);
+        _phaseSummary.SetActive(true);
     }
 
     private void OnOrderTimerExpiredEvent(Order order)
