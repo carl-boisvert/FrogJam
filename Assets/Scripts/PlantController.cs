@@ -143,7 +143,7 @@ public class PlantController : MonoBehaviour
         {
             isDoneGrowing = true;
             _currentPlantGameObject  = Instantiate(_plantData.stages[_plantStage].prefab, transform);
-            _currentPlantGameObject.GetComponentInChildren<MeshRenderer>().material.color = _plantData.color;
+            //_currentPlantGameObject.GetComponentInChildren<MeshRenderer>().material.color = _plantData.color;
             Destroy(_currentParticle);
             Instantiate(_finishGrowingParticleSystem, _particleSpawnPoint);
             _audioSource.PlayOneShot(_bloomingAudioClip);
