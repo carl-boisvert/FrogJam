@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Boots
   m_EditorClassIdentifier: 
   name: Boots
-  icon: {fileID: 21300000, guid: d751d0130a929ef40a9bb1210f1b0f0e, type: 3}
+  icon: {fileID: 21300000, guid: b0308c35402e81b43be0d911c82ce618, type: 3}
   iconBlue: {fileID: 0}
   iconGreen: {fileID: 0}
   iconYellow: {fileID: 0}

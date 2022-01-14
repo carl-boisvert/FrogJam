@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Petunia
   m_EditorClassIdentifier: 
   name: Petunia
-  icon: {fileID: 21300000, guid: 9ecb248ca0fc9dd459d033e6cddf6e94, type: 3}
+  icon: {fileID: 21300000, guid: 80202b40968e0ba40a12beba82c4075c, type: 3}
   iconBlue: {fileID: 0}
   iconGreen: {fileID: 21300000, guid: db7eb0d1e36935d429db16c2c88179d6, type: 3}
   iconYellow: {fileID: 21300000, guid: 775339922faa66d46b7f7aae642f9dbb, type: 3}
