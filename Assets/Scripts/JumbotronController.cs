@@ -9,6 +9,8 @@ public class JumbotronController : MonoBehaviour
 {
     [SerializeField] private GameObject _orderImagePrefab;
     [SerializeField] private GameObject _screen;
+    [SerializeField] private GameObject _ingameUI;
+    [SerializeField] private GameObject _phaseSummary;
     [SerializeField] private Dictionary<Order, GameObject> _ordersGameObjects = new Dictionary<Order, GameObject>();
     [SerializeField] private TextMeshProUGUI _scoreText;
     [SerializeField] private float _maxHapiness;
@@ -23,7 +25,21 @@ public class JumbotronController : MonoBehaviour
         GameEvents.OnNewOrderEvent += OnNewOrderEvent;
         GameEvents.OnOrderDoneEvent += OnOrderDoneEvent;
         GameEvents.OnOrderTimerExpiredEvent += OnOrderTimerExpiredEvent;
+        GameEvents.OnGameEndEvent += OnGameEndEvent;
+        GameEvents.OnGameContinueEvent += OnGameContinueEvent;
         _happiness = 0;
+    }
+
+    private void OnGameContinueEvent()
+    {
+        _ingameUI.SetActive(true);
+        _phaseSummary.SetActive(false);
+    }
+
+    private void OnGameEndEvent()
+    {
+        _ingameUI.SetActive(false);
+        _phaseSummary.SetActive(true);
     }
 
     private void OnOrderTimerExpiredEvent(Order order)
@@ -94,12 +110,24 @@ public class JumbotronController : MonoBehaviour
     public void IncreaseHappiness(float hapiness)
     {
         _happiness += hapiness;
+        if (_happiness >= _maxHapiness)
+        {
+            _happiness = _maxHapiness;
+        }
         _slider.value = _happiness / _maxHapiness;
     }
     
     public void DecreaseHappiness(float hapiness)
     {
         _happiness -= hapiness;
+
+        if (_happiness <= 0)
+        {
+            _ingameUI.SetActive(false);
+            _phaseSummary.SetActive(true);
+            GameEvents.OnGameEndEvent();
+            _happiness = 0;
+        }
         _slider.value = _happiness / _maxHapiness;
     }
 }

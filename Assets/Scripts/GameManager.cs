@@ -1,8 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Cinemachine;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour
@@ -16,20 +18,50 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int _score = 0;
     [SerializeField] private int _hapinnessStart = 50;
     [SerializeField] private JumbotronController _jumbotronController;
+    
+    [SerializeField] private CinemachineVirtualCamera _dolly;
+    [SerializeField] private CinemachineVirtualCamera _mainMenu;
+    [SerializeField] private GameObject _mainMenuCanvas;
+    [SerializeField] private Button _continueButton;
 
     private float _nextOrderTime;
     private int _currentStage = 0;
+    private bool _hasPhaseEnded = false;
+    private int _phaseDone = 0;
     
     private Coroutine _coroutine;
 
     private void Start()
     {
-        Invoke("NewPhase",5);
-        Invoke("StartSpawningFrog",5);
-        
         GameEvents.OnOrderTimerExpiredEvent += OnOrderTimerExpiredEvent;
+        GameEvents.OnGameStartEvent += OnGameStartEvent;
+        _continueButton.onClick.AddListener(OnclickedContinueButton);
         
         _jumbotronController.IncreaseHappiness(_hapinnessStart);
+
+        //MainMenu();
+    }
+
+    private void OnclickedContinueButton()
+    {
+        Invoke("NewPhase", 10);
+        _hasPhaseEnded = false;
+        GameEvents.OnGameContinueEvent();
+    }
+
+    private void OnGameStartEvent()
+    {
+        _mainMenuCanvas.SetActive(false);
+        Invoke("NewPhase",5);
+        Invoke("StartSpawningFrog",5);
+    }
+
+    private void Update()
+    {
+        if (_hasPhaseEnded && _orders.Count == 0)
+        {
+            GameEvents.OnGameEndEvent();
+        }
     }
 
     private void OnOrderTimerExpiredEvent(Order order)
@@ -39,12 +71,13 @@ public class GameManager : MonoBehaviour
         {
             _score += _ordersData.stages[_currentStage].pointPerOrderExpired;
             _jumbotronController.SetScore(_score);
-            _jumbotronController.DecreaseHappiness(_ordersData.stages[_currentStage].pointPerOrderExpired);
         }
+        _jumbotronController.DecreaseHappiness(_ordersData.stages[_currentStage].pointPerOrderExpired);
     }
 
     private void NewPhase()
     {
+        _hasPhaseEnded = false;
         if (_currentStage < _ordersData.stages.Count)
         {
             _coroutine = StartCoroutine(CreateNextOrder(_ordersData.stages[_currentStage]));
@@ -72,7 +105,7 @@ public class GameManager : MonoBehaviour
 
             GameEvents.OnNewOrderEvent(order);
         
-            Debug.Log($"New Order in! Next order in {nextOrder}");
+            //Debug.Log($"New Order in! Next order in {nextOrder}");
             yield return new WaitForSeconds(nextOrder);
         
             time = Time.time;
@@ -80,7 +113,15 @@ public class GameManager : MonoBehaviour
         }
         Debug.Log($"End of order phase {_currentStage} at {time}");
         _currentStage++;
-        NewPhase();
+        _phaseDone++;
+        if (_phaseDone == 2)
+        {
+            _hasPhaseEnded = true;
+        }
+        else
+        {
+            NewPhase();
+        }
     }
     
     IEnumerator SpawnFrog()

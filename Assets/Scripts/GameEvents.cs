@@ -34,4 +34,13 @@ public static class GameEvents
     public delegate void StopLookAtPlantopediaEvent();
     public static StopLookAtPlantopediaEvent OnStopLookAtPlantopediaEvent;
     
+    public delegate void GameEndEvent();
+    public static GameEndEvent OnGameEndEvent;
+    
+    public delegate void GameStartEvent();
+    public static GameStartEvent OnGameStartEvent;
+    
+    public delegate void GameContinueEvent();
+    public static GameContinueEvent OnGameContinueEvent;
+    
 }

@@ -14,18 +14,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Glasses
   icon: {fileID: 21300000, guid: d1bdaba537ca32c4e852ee6680e1f326, type: 3}
-  color: {r: 0.033406895, g: 0.6886792, b: 0, a: 0}
+  iconBlue: {fileID: 0}
+  iconGreen: {fileID: 0}
+  iconYellow: {fileID: 0}
+  iconPink: {fileID: 0}
+  iconRed: {fileID: 0}
+  color: {r: 1, g: 1, b: 1, a: 0}
   needWater: 0
   needLight: 1
   stages:
   - time: 15
-    prefab: {fileID: 3018450324503860379, guid: bb49512f679c7dd4cb6bcf4e7dbb7156, type: 3}
+    prefab: {fileID: 919132149155446097, guid: 9b8391b5520ef484c880722a4a96f009, type: 3}
   - time: 20
     prefab: {fileID: 3709799888909398600, guid: d1107d082bd68b84796c793a048d22ca, type: 3}
   - time: 15
     prefab: {fileID: 830500233494281096, guid: dbd44f58ad6c8bc4e86c0abb9cecc8ff, type: 3}
   - time: 0
-    prefab: {fileID: 8638718984522927421, guid: ae2001ba3e654cd4bb99bcd5b231299e, type: 3}
+    prefab: {fileID: 7008406720170542214, guid: 05e01abad5fe44c459795ff38ff1f2ec, type: 3}
   musicLikeMultiplier: 2
   musicDislikeTime: 10
   musicLikes: 01000000
