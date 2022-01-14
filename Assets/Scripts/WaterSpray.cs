@@ -10,6 +10,7 @@ public class WaterSpray : MonoBehaviour
     [SerializeField] private int _waterLevel = 0;
     [SerializeField] private AudioSource _audioSource;
     [SerializeField] private AudioClip _sprayAudioClip;
+    [SerializeField] private Animator _sprayAnim;
 
     public void Refill()
     {
@@ -21,6 +22,7 @@ public class WaterSpray : MonoBehaviour
         if (_waterLevel > 0)
         {
             _waterLevel--;
+            _sprayAnim.SetTrigger("Spray");
             _particle.Play();
             _audioSource.PlayOneShot(_sprayAudioClip);
         }
