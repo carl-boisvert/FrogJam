@@ -38,6 +38,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("Plant")] 
     [SerializeField] private GameObject _plantPrefab;
+    [SerializeField] private GameObject _seedPrefab;
 
     [Header("Camera")] 
     [SerializeField] private Camera _camera;
@@ -48,6 +49,7 @@ public class PlayerController : MonoBehaviour
     private bool _hasSomethingInHand;
 
     [SerializeField] private PlantData _currentSeed;
+    [SerializeField] private GameObject _currentSeedGo;
     [SerializeField] private List<PlantController> _plantsInHand = new List<PlantController>();
     [SerializeField] private bool _hasWaterSpray;
     [SerializeField] private GameObject _waterSprayGo;
@@ -234,6 +236,7 @@ public class PlayerController : MonoBehaviour
                         GardenSlot gs = hit.collider.gameObject.GetComponent<GardenSlot>();
                         Plant(gs);
                         _hasSomethingInHand = false;
+                        Destroy(_currentSeedGo);
                     }
                 }
                 else if (hit.collider.tag == "SeedBag")
@@ -245,6 +248,8 @@ public class PlayerController : MonoBehaviour
                         SeedBag bag = hit.collider.gameObject.GetComponent<SeedBag>();
                         _currentSeed = bag.plantData;
                         _hasSomethingInHand = true;
+                        _currentSeedGo = Instantiate(_seedPrefab);
+                        AttacheToHand(_currentSeedGo);
                     }
                 }
                 else if (hit.collider.tag == "Plant")

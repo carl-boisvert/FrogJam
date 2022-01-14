@@ -5,6 +5,7 @@ using UnityEngine;
 public class RadioDataController : MonoBehaviour
 {
     public MusicType _musicPlaying = MusicType.None;
+    [SerializeField] private List<ParticleSystem> _particleMusicsPlaying;
     
 
     public RadioSpot radioSpot;
@@ -20,6 +21,24 @@ public class RadioDataController : MonoBehaviour
         if (radioSpot != null)
         {
             radioSpot.MusicPlaying(musicTypePlaying);
+        }
+        
+        if (_musicPlaying != MusicType.None)
+        {
+            if (_particleMusicsPlaying[0].isStopped)
+            {
+                foreach (var system in _particleMusicsPlaying)
+                {
+                    system.Play();
+                }
+            }
+        }
+        else
+        {
+            foreach (var system in _particleMusicsPlaying)
+            {
+                system.Stop();
+            }
         }
     }
 
