@@ -11,6 +11,8 @@ public class PlayerController : MonoBehaviour
 {
     [Header("Movement")] 
     [SerializeField] private float _speed;
+    [SerializeField] private Transform _groundCheck;
+    [SerializeField] private LayerMask _groundLayer;
 
     [Header("Interaction")] 
     [SerializeField]
@@ -172,6 +174,7 @@ public class PlayerController : MonoBehaviour
             }
         }
 
+        _holdSocket.forward = -_camera.transform.forward;
 
         if (_canMove)
         {
@@ -186,11 +189,10 @@ public class PlayerController : MonoBehaviour
 
         Vector3 movementDir = _camera.transform.forward * _dir.y + _camera.transform.right * _dir.x;
 
-        movementDir.y = 0;
+        movementDir.y = -9.61f;
+
         // Lock Y position after move
         _cc.Move(movementDir * _speed * Time.deltaTime);
-
-        //transform.position = new Vector3(transform.position.x, 0, transform.position.z);
 
         transform.rotation = Quaternion.Euler(0f, _camera.transform.eulerAngles.y, 0f);
     }
