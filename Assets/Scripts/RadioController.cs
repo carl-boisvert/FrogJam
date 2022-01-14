@@ -50,12 +50,7 @@ public class RadioController : MonoBehaviour
             _aiguilleInput.Disable();
             _escapeInput.Disable();
 
-            if (_musicTypePlaying == MusicType.None)
-            {
-                _speaker.Stop();
-            }
-
-            GameEvents.OnStopLookAtRadioEvent(_musicTypePlaying);
+            GameEvents.OnStopLookAtRadioEvent();
         }
     }
 }

@@ -33,12 +33,11 @@ public class RadioDataController : MonoBehaviour
         }
     }
 
-    private void OnStopLookAtRadioEvent(MusicType musicTypePlaying)
+    private void OnStopLookAtRadioEvent()
     {
-        _musicPlaying = musicTypePlaying;
         if (radioSpot != null)
         {
-            radioSpot.MusicPlaying(musicTypePlaying);
+            radioSpot.MusicPlaying(_musicPlaying);
         }
         
         if (_musicPlaying != MusicType.None)
@@ -53,6 +52,7 @@ public class RadioDataController : MonoBehaviour
         }
         else
         {
+            _speaker.Stop();
             foreach (var system in _particleMusicsPlaying)
             {
                 system.Stop();
