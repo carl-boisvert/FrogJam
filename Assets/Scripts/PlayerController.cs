@@ -648,7 +648,7 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    private void OnStopLookAtRadioEvent(MusicType musicType)
+    private void OnStopLookAtRadioEvent()
     {
         _canMove = true;
         _isLookingAtRadio = false;

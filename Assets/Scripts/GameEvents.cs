@@ -16,7 +16,7 @@ public static class GameEvents
     public delegate void LookAtRadioEvent();
     public static LookAtRadioEvent OnLookAtRadioEvent;
     
-    public delegate void StopLookAtRadioEvent(MusicType musicTypePlaying);
+    public delegate void StopLookAtRadioEvent();
     public static StopLookAtRadioEvent OnStopLookAtRadioEvent;
 
     public delegate void EnterMusicChannel(MusicType type);
