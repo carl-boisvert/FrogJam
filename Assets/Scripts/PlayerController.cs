@@ -288,12 +288,14 @@ public class PlayerController : MonoBehaviour
                 }
                 else if (hit.collider.tag == "Kiosque")
                 {
-                    ShowTooltips("Kiosque");
-                    if (_interactInput.triggered)
+                    if (_plantsInHand.Count > 0)
                     {
-                        if (_plantsInHand.Count > 0)
+                        ShowTooltips("Kiosque");
+                        if (_interactInput.triggered)
                         {
-                            SellPlant();
+                            
+                                SellPlant();
+                            
                         }
                     }
                 }
