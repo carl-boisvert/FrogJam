@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Glasses
   m_EditorClassIdentifier: 
   name: Glasses
-  icon: {fileID: 21300000, guid: d1bdaba537ca32c4e852ee6680e1f326, type: 3}
+  icon: {fileID: 21300000, guid: 943ba88601be7aa459b17ffdb231f5b7, type: 3}
   iconBlue: {fileID: 0}
   iconGreen: {fileID: 0}
   iconYellow: {fileID: 0}
