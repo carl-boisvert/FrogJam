@@ -6,9 +6,6 @@ using UnityEngine.InputSystem;
 
 public class RadioController : MonoBehaviour
 {
-
-    [SerializeField] private List<MusicTypeAudioClip> _musicTypeAudioClips;
-    [SerializeField] private AudioClip _whiteNoise;
     [SerializeField] private GameObject _aiguille;
     [SerializeField] private float _aiguilleSpeed;
     [SerializeField] private Camera _camera;
@@ -26,52 +23,12 @@ public class RadioController : MonoBehaviour
         _escapeInput = _radioControls.Radio.Escape;
         
         GameEvents.OnLookAtRadioEvent += OnLookAtRadioEvent;
-        GameEvents.OnEnterMusicChannel += OnEnterMusicChannel;
-        GameEvents.OnExitMusicChannel += OnExitMusicChannel;
-        GameEvents.OnFrogChangedMusic += OnFrogChangedMusic;
     }
 
-    private void OnFrogChangedMusic()
-    {
-        _musicTypePlaying = MusicType.Frog;
-        AudioClip clip = _musicTypeAudioClips.Find(musicType => musicType._type == MusicType.Frog)._audio;
-        _speaker.clip = clip;
-        _speaker.Play();
-    }
 
-    private void OnExitMusicChannel()
-    {
-        if (_musicTypePlaying == MusicType.Frog)
-        {
-            GameEvents.OnStoppedFrogMusic();
-        }
-
-        _musicTypePlaying = MusicType.None;
-        _speaker.clip = _whiteNoise;
-        _speaker.Play();
-    }
-
-    private void OnEnterMusicChannel(MusicType type)
-    {
-        if (_musicTypePlaying == MusicType.Frog)
-        {
-            GameEvents.OnStoppedFrogMusic();
-        }
-        _musicTypePlaying = type;
-        AudioClip clip = _musicTypeAudioClips.Find(musicType => musicType._type == type)._audio;
-        _speaker.clip = clip;
-        _speaker.Play();
-    }
 
     private void OnLookAtRadioEvent()
     {
-        if (!_speaker.isPlaying)
-        {
-            _musicTypePlaying = MusicType.None;
-            _speaker.clip = _whiteNoise;
-            _speaker.Play();
-        }
-
         _camera.enabled = true;
         if (_aiguilleInput != null)
         {
