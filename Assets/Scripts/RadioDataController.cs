@@ -7,6 +7,7 @@ public class RadioDataController : MonoBehaviour
     [SerializeField] private List<MusicTypeAudioClip> _musicTypeAudioClips;
     [SerializeField] private AudioClip _whiteNoise;
     [SerializeField] private AudioSource _speaker;
+    [SerializeField] private Transform _startingTransform;
     
     public MusicType _musicPlaying = MusicType.None;
     [SerializeField] private List<ParticleSystem> _particleMusicsPlaying;
@@ -31,6 +32,14 @@ public class RadioDataController : MonoBehaviour
         {
             system.Stop();
         }
+
+        ResetPosition();
+    }
+    
+    public void ResetPosition()
+    {
+        gameObject.transform.position = _startingTransform.position;
+        gameObject.transform.rotation = _startingTransform.rotation;
     }
 
     private void OnLookAtRadioEvent()
