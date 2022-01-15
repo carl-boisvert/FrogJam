@@ -75,15 +75,6 @@ public class GameManager : MonoBehaviour
     private void OnOrderTimerExpiredEvent(Order order)
     {
         _orders.Remove(order);
-        if (_score - _ordersData.stages[_currentStage].pointPerOrderExpired > 0)
-        {
-            _score -= _ordersData.stages[_currentStage].pointPerOrderExpired;
-        }
-        else
-        {
-            _score = 0;
-        }
-        _jumbotronController.SetScore(_score);
         _jumbotronController.DecreaseHappiness(_ordersData.stages[_currentStage].pointPerOrderExpired);
     }
 
