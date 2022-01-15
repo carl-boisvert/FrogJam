@@ -42,7 +42,7 @@ public class SummaryController : MonoBehaviour
         {
             _nextDayText.text = $"Day {day + 1}";
             string text = "";
-            if (day + 1 <= _whatsNextPhrases.Count)
+            if (day <= _whatsNextPhrases.Count)
             {
                 WhatsNextPhrases next = _whatsNextPhrases.Find(n => n.day == day + 1);
                 foreach (var phrase in next.phrases)
