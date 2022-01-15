@@ -11,6 +11,23 @@ public class WaterSpray : MonoBehaviour
     [SerializeField] private AudioSource _audioSource;
     [SerializeField] private AudioClip _sprayAudioClip;
     [SerializeField] private Animator _sprayAnim;
+    [SerializeField] private Transform _startingTransform;
+
+    private void Start()
+    {
+        GameEvents.OnDayEndEvent += OnDayEndEvent;
+    }
+
+    private void OnDayEndEvent(int day, int score, bool islastday)
+    {
+        ResetPosition();
+    }
+
+    public void ResetPosition()
+    {
+        gameObject.transform.position = _startingTransform.position;
+        gameObject.transform.rotation = _startingTransform.rotation;
+    }
 
     public void Refill()
     {

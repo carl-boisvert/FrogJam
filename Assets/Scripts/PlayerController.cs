@@ -124,7 +124,6 @@ public class PlayerController : MonoBehaviour
         _currentRadioSpot = null;
         _plantsInHand.Clear();
         _radioGOHolos.Clear();
-        _radioSpots.Clear();
         _hasWaterSpray = false;
         _hasFrog = false;
         _hasRadio = false;
@@ -133,11 +132,12 @@ public class PlayerController : MonoBehaviour
 
         if (_currentSeedGo != null)
         {
-            DropObject(_currentSeedGo, false);
+            Destroy(_currentSeedGo);
         }
         if (_waterSprayGo != null)
         {
             DropObject(_waterSprayGo, false);
+            _waterSprayGo.GetComponent<WaterSpray>().ResetPosition();
         }
         if (_frogGo != null)
         {
@@ -146,11 +146,18 @@ public class PlayerController : MonoBehaviour
         if (_radioGO != null)
         {
             DropObject(_radioGO, false);
+            _radioGO.GetComponent<RadioDataController>().ResetPosition();
         }
         if (_tooltipGo != null)
         {
             _tooltipGo.SetActive(false);
         }
+        
+        foreach (var radioGOHolo in _radioGOHolos)
+        {
+            Destroy(radioGOHolo);
+        }
+        _radioGOHolos.Clear();
     }
 
     private void OnGameStartEvent()
@@ -235,6 +242,11 @@ public class PlayerController : MonoBehaviour
                 else if (_hasRadio)
                 {
                     DropObject(_radioGO, false);
+                    foreach (var radioGOHolo in _radioGOHolos)
+                    {
+                        Destroy(radioGOHolo);
+                    }
+                    _radioGOHolos.Clear();
                     _radioGO = null;
                 }
                 else if (_hasWaterSpray)
@@ -590,6 +602,11 @@ public class PlayerController : MonoBehaviour
         {
             DropObject(_radioGO);
             _radioGO = null;
+            foreach (var radioGOHolo in _radioGOHolos)
+            {
+                Destroy(radioGOHolo);
+            }
+            _radioGOHolos.Clear();
         }
 
         if (_hasFrog)

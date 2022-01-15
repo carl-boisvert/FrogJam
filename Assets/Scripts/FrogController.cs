@@ -52,4 +52,9 @@ public class FrogController : MonoBehaviour
         _agent.enabled = false;
         _anim.SetTrigger("Stop");
     }
+
+    private void OnDestroy()
+    {
+        GameEvents.OnDayEndEvent -= OnDayEndEvent;
+    }
 }
