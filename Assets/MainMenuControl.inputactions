@@ -1,0 +1,34 @@
+{
+    "name": "MainMenuControl",
+    "maps": [
+        {
+            "name": "Menu",
+            "id": "60940e2d-16ff-4984-9b31-e835c7cea716",
+            "actions": [
+                {
+                    "name": "PressStart",
+                    "type": "Button",
+                    "id": "228b32f5-ba4e-460b-b1a7-1b63fe8a9c65",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "554d5756-f3e0-4886-b45e-55cc29e42c93",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "PressStart",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
