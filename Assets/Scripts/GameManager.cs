@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private CinemachineVirtualCamera _dolly;
     [SerializeField] private CinemachineVirtualCamera _mainMenu;
     [SerializeField] private GameObject _mainMenuCanvas;
+    [SerializeField] private GameObject _controlMenuCanvas;
     [SerializeField] private Button _continueButton;
 
     private float _nextOrderTime;
@@ -38,14 +39,13 @@ public class GameManager : MonoBehaviour
         _continueButton.onClick.AddListener(OnclickedContinueButton);
         
         _jumbotronController.IncreaseHappiness(_hapinnessStart);
-
-        //MainMenu();
     }
 
     private void OnclickedContinueButton()
     {
         Invoke("NewPhase", 10);
         _hasPhaseEnded = false;
+        _phaseDone = 0;
         GameEvents.OnGameContinueEvent();
     }
 

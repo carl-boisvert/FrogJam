@@ -76,7 +76,6 @@ public class PlayerController : MonoBehaviour
     private InputAction _useInput;
     private InputAction _throwInput;
     private InputAction _dropInput;
-    private InputAction _mainMenuInput;
 
     private Vector2 _dir;
 
@@ -102,9 +101,6 @@ public class PlayerController : MonoBehaviour
         _dropInput = _moveControl.Player.Drop;
         _dropInput.Enable();
 
-        _mainMenuInput = _lookControl.Mouse.MainMenu;
-        _mainMenuInput.Enable();
-
         _tooltipController = _tooltipGo.GetComponent<TooltipController>();
 
         GameEvents.OnOrderDoneEvent += OnOrderDoneEvent;
@@ -112,6 +108,12 @@ public class PlayerController : MonoBehaviour
         GameEvents.OnStopLookAtPlantopediaEvent += OnStopLookAtPlantopediaEvent;
         GameEvents.OnGameEndEvent += OnGameEndEvent;
         GameEvents.OnGameContinueEvent += OnGameContinueEvent;
+        GameEvents.OnGameStartEvent += OnGameStartEvent;
+    }
+
+    private void OnGameStartEvent()
+    {
+        _playerCamera.Priority = 5;
     }
 
     private void OnGameContinueEvent()
@@ -141,13 +143,6 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        if (_mainMenuInput.enabled && _mainMenuInput.triggered)
-        {
-            _playerCamera.Priority = 5;
-            _mainMenuInput.Disable();
-            GameEvents.OnGameStartEvent();
-        }
-
         _holdSocket.forward = -_camera.transform.forward;
 
         if (_canMove)
