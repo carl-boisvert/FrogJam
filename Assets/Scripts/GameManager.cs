@@ -32,7 +32,8 @@ public class GameManager : MonoBehaviour
     private int _day = 0;
     private bool _dayOver = false;
     
-    private Coroutine _coroutine;
+    private Coroutine _phaseCoroutine;
+    private Coroutine _frogCoroutine;
 
     private void Start()
     {
@@ -46,6 +47,7 @@ public class GameManager : MonoBehaviour
     private void OnGameContinue()
     {
         Invoke("NewPhase", 10);
+        Invoke("StartSpawningFrog", 10);
         _hasPhaseEnded = false;
         _phaseDone = 0;
         //GameEvents.OnGameContinueEvent();
@@ -65,6 +67,8 @@ public class GameManager : MonoBehaviour
             bool lastDay = _day * 2 >= _ordersData.stages.Count;
             GameEvents.OnDayEndEvent(_day, _score, lastDay);
             _dayOver = true;
+            StopCoroutine(_frogCoroutine);
+            StopCoroutine(_phaseCoroutine);
         }
     }
 
@@ -89,13 +93,13 @@ public class GameManager : MonoBehaviour
         _dayOver = false;
         if (_currentStage < _ordersData.stages.Count)
         {
-            _coroutine = StartCoroutine(CreateNextOrder(_ordersData.stages[_currentStage]));
+            _phaseCoroutine = StartCoroutine(CreateNextOrder(_ordersData.stages[_currentStage]));
         }
     }
 
     private void StartSpawningFrog()
     {
-        StartCoroutine(SpawnFrog());
+        _frogCoroutine = StartCoroutine(SpawnFrog());
     }
 
     IEnumerator CreateNextOrder(OrderPlantDataStage stage)

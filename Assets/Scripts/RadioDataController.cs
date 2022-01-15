@@ -21,6 +21,16 @@ public class RadioDataController : MonoBehaviour
         GameEvents.OnEnterMusicChannel += OnEnterMusicChannel;
         GameEvents.OnExitMusicChannel += OnExitMusicChannel;
         GameEvents.OnFrogChangedMusic += OnFrogChangedMusic;
+        GameEvents.OnDayEndEvent += OnDayEndEvent;
+    }
+
+    private void OnDayEndEvent(int day, int score, bool islastday)
+    {
+        _speaker.Stop();
+        foreach (var system in _particleMusicsPlaying)
+        {
+            system.Stop();
+        }
     }
 
     private void OnLookAtRadioEvent()

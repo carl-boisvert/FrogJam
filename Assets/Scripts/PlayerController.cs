@@ -11,8 +11,6 @@ public class PlayerController : MonoBehaviour
 {
     [Header("Movement")] 
     [SerializeField] private float _speed;
-    [SerializeField] private Transform _groundCheck;
-    [SerializeField] private LayerMask _groundLayer;
 
     [Header("Interaction")] 
     [SerializeField]
@@ -58,12 +56,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private bool _hasRadio;
     [SerializeField] private GameObject _radioGO;
     [SerializeField] private List<GameObject> _radioGOHolos;
-    [SerializeField] private bool _inGardenBoxZone;
     [SerializeField] private List<RadioSpot> _radioSpots;
     [SerializeField] private RadioSpot _currentRadioSpot;
     [SerializeField] private bool _canMove = true;
     [SerializeField] private bool _inputDisabled = false;
-    [SerializeField] private bool _isLookingAtRadio = false;
     [SerializeField] private GameObject _tooltipGo;
     [SerializeField] private TooltipData _tooltipData;
 
@@ -110,6 +106,7 @@ public class PlayerController : MonoBehaviour
         GameEvents.OnGameContinueEvent += OnGameContinueEvent;
         GameEvents.OnGameStartEvent += OnGameStartEvent;
         GameEvents.OnGameEndEvent += OnGameEndEvent;
+        GameEvents.OnDayEndEvent += OnDayEndEvent;
     }
 
     private void OnGameEndEvent()
@@ -117,6 +114,43 @@ public class PlayerController : MonoBehaviour
         SwitchToJumbotronCamera();
         Cursor.lockState = CursorLockMode.Confined;
         _hud.SetActive(false);
+        ResetData();
+    }
+
+    private void ResetData()
+    {
+        _hasSomethingInHand = false;
+        _currentSeed = null;
+        _currentRadioSpot = null;
+        _plantsInHand.Clear();
+        _radioGOHolos.Clear();
+        _radioSpots.Clear();
+        _hasWaterSpray = false;
+        _hasFrog = false;
+        _hasRadio = false;
+        _inputDisabled = false;
+        _canMove = false;
+
+        if (_currentSeedGo != null)
+        {
+            DropObject(_currentSeedGo, false);
+        }
+        if (_waterSprayGo != null)
+        {
+            DropObject(_waterSprayGo, false);
+        }
+        if (_frogGo != null)
+        {
+            DropObject(_frogGo, false);
+        }
+        if (_radioGO != null)
+        {
+            DropObject(_radioGO, false);
+        }
+        if (_tooltipGo != null)
+        {
+            _tooltipGo.SetActive(false);
+        }
     }
 
     private void OnGameStartEvent()
@@ -136,6 +170,7 @@ public class PlayerController : MonoBehaviour
         SwitchToJumbotronCamera();
         Cursor.lockState = CursorLockMode.Confined;
         _hud.SetActive(false);
+        ResetData();
     }
 
     private void OnStopLookAtPlantopediaEvent()
@@ -310,8 +345,6 @@ public class PlayerController : MonoBehaviour
                         GameObject radio = hit.collider.gameObject;
 
                         GameEvents.OnLookAtRadioEvent();
-
-                        _isLookingAtRadio = true;
 
                         DisableInputs();
                         SwitchToRadioUI();
@@ -654,7 +687,6 @@ public class PlayerController : MonoBehaviour
     private void OnStopLookAtRadioEvent()
     {
         _canMove = true;
-        _isLookingAtRadio = false;
 
         _camera.enabled = true;
         _hud.SetActive(true);
