@@ -40,8 +40,25 @@ public class GameManager : MonoBehaviour
         GameEvents.OnOrderTimerExpiredEvent += OnOrderTimerExpiredEvent;
         GameEvents.OnGameStartEvent += OnGameStartEvent;
         GameEvents.OnGameContinueEvent += OnGameContinue;
+        GameEvents.OnGameEndEvent += OnGameEndEvent;
+        GameEvents.OnGoBackToMenuEvent += OnGoBackToMenuEvent;
 
         _jumbotronController.IncreaseHappiness(_hapinnessStart);
+    }
+
+    private void OnGoBackToMenuEvent()
+    {
+        _mainMenu.Priority = 5;
+    }
+
+    private void OnGameEndEvent()
+    {
+        _dayOver = true;
+        _hasPhaseEnded = true;
+        _phaseDone = 0;
+        _orders.Clear();
+        StopCoroutine(_frogCoroutine);
+        StopCoroutine(_phaseCoroutine);
     }
 
     private void OnGameContinue()
@@ -55,7 +72,11 @@ public class GameManager : MonoBehaviour
 
     private void OnGameStartEvent()
     {
+        _hasPhaseEnded = false;
+        _phaseDone = 0;
         _mainMenuCanvas.SetActive(false);
+        _currentStage = 0;
+        _jumbotronController.IncreaseHappiness(_hapinnessStart);
         Invoke("NewPhase",5);
         Invoke("StartSpawningFrog",5);
     }
