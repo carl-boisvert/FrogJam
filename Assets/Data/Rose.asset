@@ -13,13 +13,15 @@ MonoBehaviour:
   m_Name: Rose
   m_EditorClassIdentifier: 
   name: Rose
+  canBeDipped: 1
   icon: {fileID: 21300000, guid: 4679d8818c957cd44b674701e2c774e1, type: 3}
-  iconBlue: {fileID: 21300000, guid: 45187ac70f5c7ae489db276d6e70ce36, type: 3}
-  iconGreen: {fileID: 21300000, guid: 2de66cb1e03968a40ae976c2467be53b, type: 3}
-  iconYellow: {fileID: 21300000, guid: cf8476236de35ab4c82e3f0698fb8859, type: 3}
-  iconPink: {fileID: 21300000, guid: cbb5455a80dc24e478f0ea070e60769d, type: 3}
-  iconRed: {fileID: 0}
+  iconBlue: {fileID: 21300000, guid: 67e29e043a25e56449195713fc72ad5f, type: 3}
+  iconGreen: {fileID: 21300000, guid: 91cb21bbd1ad52846a37f47b77aa5e1b, type: 3}
+  iconYellow: {fileID: 21300000, guid: 09ae25aa52417c6488226c1e6932b22b, type: 3}
+  iconPink: {fileID: 21300000, guid: af4cf5e2223fa974e9de50fd5697cfb3, type: 3}
+  iconRed: {fileID: 21300000, guid: 67e29e043a25e56449195713fc72ad5f, type: 3}
   color: {r: 1, g: 1, b: 1, a: 1}
+  colorToHide: 4
   needWater: 1
   needLight: 1
   stages:
