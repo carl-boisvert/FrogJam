@@ -16,6 +16,12 @@ public class WaterSpray : MonoBehaviour
     private void Start()
     {
         GameEvents.OnDayEndEvent += OnDayEndEvent;
+        GameEvents.OnGameEndEvent += OnGameEndEvent ;
+    }
+
+    private void OnGameEndEvent()
+    {
+        ResetPosition();
     }
 
     private void OnDayEndEvent(int day, int score, bool islastday)

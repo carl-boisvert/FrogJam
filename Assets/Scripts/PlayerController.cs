@@ -12,6 +12,8 @@ public class PlayerController : MonoBehaviour
     [Header("Movement")] 
     [SerializeField] private float _speed;
 
+    [SerializeField] private Transform _playerSpawnPoint;
+
     [Header("Interaction")] 
     [SerializeField]
     private GameObject _hud;
@@ -107,6 +109,14 @@ public class PlayerController : MonoBehaviour
         GameEvents.OnGameStartEvent += OnGameStartEvent;
         GameEvents.OnGameEndEvent += OnGameEndEvent;
         GameEvents.OnDayEndEvent += OnDayEndEvent;
+        GameEvents.OnGoBackToMenuEvent += OnGoBackToMenuEvent;
+    }
+
+    private void OnGoBackToMenuEvent()
+    {
+        _hud.SetActive(false);
+        _playerCamera.Priority = 0;
+        _jumbotronCamera.Priority = 0;
     }
 
     private void OnGameEndEvent()
@@ -163,6 +173,12 @@ public class PlayerController : MonoBehaviour
     private void OnGameStartEvent()
     {
         _playerCamera.Priority = 5;
+        _canMove = true;
+        _hud.SetActive(true);
+        gameObject.transform.position = _playerSpawnPoint.position;
+        gameObject.transform.rotation = _playerSpawnPoint.rotation;
+        EnableInputs();
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     private void OnGameContinueEvent()

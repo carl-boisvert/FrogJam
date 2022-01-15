@@ -12,6 +12,18 @@ public class GardenSlot : MonoBehaviour
         GameEvents.OnFrogChangedMusic += OnFrogChangedMusic;
         GameEvents.OnStoppedFrogMusic += OnStoppedFrogMusic;
         GameEvents.OnDayEndEvent += OnDayEndEvent;
+        GameEvents.OnGameEndEvent += OnGameEndEvent;
+    }
+
+    private void OnGameEndEvent()
+    {
+        hasSomething = false;
+        MusicPlaying(MusicType.None);
+        if (plantController != null)
+        {
+            Destroy(plantController.gameObject);
+        }
+        plantController = null;
     }
 
     private void OnDayEndEvent(int day, int score, bool islastday)

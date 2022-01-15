@@ -16,10 +16,25 @@ public class SummaryController : MonoBehaviour
     [SerializeField] private List<PhraseForDay> _phrases;
     [SerializeField] private List<WhatsNextPhrases> _whatsNextPhrases;
     [SerializeField] private Button _continueButton;
+    [SerializeField] private Button _mainMenuButton;
 
     private void Start()
     {
         _continueButton.onClick.AddListener(OnContinueClicked);
+        _mainMenuButton.onClick.AddListener(ReturnToMainMenu);
+        
+        GameEvents.OnGameStartEvent += OnGameStartEvent;
+    }
+
+    private void OnGameStartEvent()
+    {
+        _continueButton.gameObject.SetActive(true);
+        _mainMenuButton.gameObject.SetActive(false);
+    }
+
+    private void ReturnToMainMenu()
+    {
+        GameEvents.OnGoBackToMenuEvent();
     }
 
     private void OnContinueClicked()
@@ -57,6 +72,9 @@ public class SummaryController : MonoBehaviour
         {
             _nextDayText.text = "";
             _whatsNext.text = "";
+            _continueButton.gameObject.SetActive(false);
+            _mainMenuButton.gameObject.SetActive(true);
+            
         }
     }
 }
