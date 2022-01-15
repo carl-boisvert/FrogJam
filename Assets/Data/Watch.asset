@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Watch
   m_EditorClassIdentifier: 
   name: Watch
+  canBeDipped: 0
   icon: {fileID: 21300000, guid: 6d792c08028f8b94e81b1c82294f3d6f, type: 3}
   iconBlue: {fileID: 0}
   iconGreen: {fileID: 0}
@@ -20,12 +21,13 @@ MonoBehaviour:
   iconPink: {fileID: 0}
   iconRed: {fileID: 0}
   color: {r: 1, g: 1, b: 1, a: 0}
+  colorToHide: 0
   needWater: 0
   needLight: 1
   stages:
-  - time: 15
+  - time: 10
     prefab: {fileID: 919132149155446097, guid: 31cbdd9319cddaa42988b0b311fa82d1, type: 3}
-  - time: 20
+  - time: 15
     prefab: {fileID: 3709799888909398600, guid: d1107d082bd68b84796c793a048d22ca, type: 3}
   - time: 15
     prefab: {fileID: 830500233494281096, guid: dbd44f58ad6c8bc4e86c0abb9cecc8ff, type: 3}

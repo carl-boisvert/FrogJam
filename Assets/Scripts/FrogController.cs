@@ -11,6 +11,17 @@ public class FrogController : MonoBehaviour
     [SerializeField] private GameObject _radio;
 
     // Start is called before the first frame update
+
+    private void Start()
+    {
+        GameEvents.OnDayEndEvent += OnDayEndEvent;
+    }
+
+    private void OnDayEndEvent(int day, int score, bool islastday)
+    {
+        Destroy(gameObject);
+    }
+
     public void Init(GameObject radio)
     {
         _radio = radio;
