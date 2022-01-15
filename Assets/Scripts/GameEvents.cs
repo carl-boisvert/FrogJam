@@ -46,4 +46,7 @@ public static class GameEvents
     public delegate void GameContinueEvent();
     public static GameContinueEvent OnGameContinueEvent;
     
+    public delegate void GoBackToMenuEvent();
+    public static GoBackToMenuEvent OnGoBackToMenuEvent;
+    
 }

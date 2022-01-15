@@ -27,6 +27,16 @@ public class MainMenuController : MonoBehaviour
         _pressStartInputAction.Enable();
         
         _startButton.onClick.AddListener(OnStartPressed);
+        
+        GameEvents.OnGoBackToMenuEvent += OnGoBackToMenuEvent;
+    }
+
+    private void OnGoBackToMenuEvent()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        _pressStartCanvas.SetActive(true);
+        _pressStartInputAction.Enable();
+        _pressStartAnim.SetTrigger("SlideIn");
     }
 
     public void StartGame()
@@ -38,6 +48,7 @@ public class MainMenuController : MonoBehaviour
     public void OnStartPressed()
     {
         Cursor.lockState = CursorLockMode.Locked;
+        _pressStartInputAction.Disable();
         _buttonAnim.SetTrigger("SlideOut");
     }
 

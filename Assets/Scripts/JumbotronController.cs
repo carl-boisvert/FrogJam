@@ -21,6 +21,7 @@ public class JumbotronController : MonoBehaviour
     [SerializeField] private Image _fillImage;
 
     [SerializeField] private float _happiness;
+    [SerializeField] private Button _gameOverMainMenuButton;
 
     void Start()
     {
@@ -29,15 +30,24 @@ public class JumbotronController : MonoBehaviour
         GameEvents.OnOrderTimerExpiredEvent += OnOrderTimerExpiredEvent;
         GameEvents.OnDayEndEvent += OnDayEndEvent;
         GameEvents.OnGameContinueEvent += OnGameContinueEvent;
-        GameEvents.OnGameEndEvent += OnGameEndEvent;
+        GameEvents.OnGameStartEvent += OnGameStartEvent;
+        
+        _gameOverMainMenuButton.onClick.AddListener(ReturnToMainMenu);
+        
         _happiness = 0;
     }
 
-    private void OnGameEndEvent()
+    private void OnGameStartEvent()
     {
-        _gameOver.SetActive(true);
         _ingameUI.SetActive(true);
-        _phaseSummary.SetActive(true);
+        _phaseSummary.SetActive(false);
+        _gameOver.SetActive(false);
+        Reset();
+    }
+
+    private void ReturnToMainMenu()
+    {
+        GameEvents.OnGoBackToMenuEvent();
     }
 
     private void OnGameContinueEvent()
@@ -141,7 +151,9 @@ public class JumbotronController : MonoBehaviour
         if (_happiness <= 0)
         {
             _ingameUI.SetActive(false);
-            _phaseSummary.SetActive(true);
+            _phaseSummary.SetActive(false);
+            _gameOver.SetActive(true);
+            Reset();
             GameEvents.OnGameEndEvent();
             _happiness = 0;
         }
@@ -152,5 +164,15 @@ public class JumbotronController : MonoBehaviour
         }
 
         _slider.value = _happiness / _maxHapiness;
+    }
+
+    private void Reset()
+    {
+        foreach (var ordersGameObject in _ordersGameObjects)
+        {
+            Destroy(ordersGameObject.Value);
+        }
+
+        _ordersGameObjects.Clear();
     }
 }

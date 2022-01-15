@@ -15,6 +15,12 @@ public class FrogController : MonoBehaviour
     private void Start()
     {
         GameEvents.OnDayEndEvent += OnDayEndEvent;
+        GameEvents.OnGameEndEvent += OnGameEndEvent;
+    }
+
+    private void OnGameEndEvent()
+    {
+        Destroy(gameObject);
     }
 
     private void OnDayEndEvent(int day, int score, bool islastday)
@@ -56,5 +62,6 @@ public class FrogController : MonoBehaviour
     private void OnDestroy()
     {
         GameEvents.OnDayEndEvent -= OnDayEndEvent;
+        GameEvents.OnGameEndEvent -= OnGameEndEvent;
     }
 }
