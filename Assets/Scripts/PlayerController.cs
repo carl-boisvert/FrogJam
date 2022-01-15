@@ -106,7 +106,7 @@ public class PlayerController : MonoBehaviour
         GameEvents.OnOrderDoneEvent += OnOrderDoneEvent;
         GameEvents.OnStopLookAtRadioEvent += OnStopLookAtRadioEvent;
         GameEvents.OnStopLookAtPlantopediaEvent += OnStopLookAtPlantopediaEvent;
-        GameEvents.OnGameEndEvent += OnGameEndEvent;
+        GameEvents.OnDayEndEvent += OnDayEndEvent;
         GameEvents.OnGameContinueEvent += OnGameContinueEvent;
         GameEvents.OnGameStartEvent += OnGameStartEvent;
     }
@@ -123,7 +123,7 @@ public class PlayerController : MonoBehaviour
         _hud.SetActive(true);
     }
 
-    private void OnGameEndEvent()
+    private void OnDayEndEvent(int day, int score, bool isLastDay)
     {
         SwitchToJumbotronCamera();
         Cursor.lockState = CursorLockMode.Confined;
