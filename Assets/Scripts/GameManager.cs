@@ -10,6 +10,7 @@ using Random = UnityEngine.Random;
 public class GameManager : MonoBehaviour
 {
     [SerializeField] private OrdersData _ordersData;
+    [SerializeField] private List<Unlockable> _unlockables;
     [SerializeField] private List<Order> _orders;
     [SerializeField] private GameObject _frogPrefab;
     [SerializeField] private List<GameObject> _frogSpawnPoint;
@@ -67,7 +68,12 @@ public class GameManager : MonoBehaviour
         Invoke("StartSpawningFrog", 10);
         _hasPhaseEnded = false;
         _phaseDone = 0;
-        //GameEvents.OnGameContinueEvent();
+
+        Unlockable unlocked = _unlockables.Find(unlockable => unlockable.day == _day);
+        foreach (var o in unlocked.unlock)
+        {
+            o.SetActive(true);
+        }
     }
 
     private void OnGameStartEvent()
@@ -251,4 +257,12 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+}
+
+
+[Serializable]
+public class Unlockable
+{
+    public int day;
+    public List<GameObject> unlock;
 }
