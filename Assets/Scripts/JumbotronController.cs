@@ -116,6 +116,12 @@ public class JumbotronController : MonoBehaviour
         {
             _happiness = _maxHapiness;
         }
+        
+        if (_happiness > 25)
+        {
+            _fillImage.color = Color.green;
+        }
+        
         _slider.value = _happiness / _maxHapiness;
     }
     
@@ -130,6 +136,12 @@ public class JumbotronController : MonoBehaviour
             GameEvents.OnGameEndEvent();
             _happiness = 0;
         }
+
+        if (_happiness <= 25)
+        {
+            _fillImage.color = Color.red;
+        }
+
         _slider.value = _happiness / _maxHapiness;
     }
 }
