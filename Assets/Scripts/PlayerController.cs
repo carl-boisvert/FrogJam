@@ -109,6 +109,14 @@ public class PlayerController : MonoBehaviour
         GameEvents.OnDayEndEvent += OnDayEndEvent;
         GameEvents.OnGameContinueEvent += OnGameContinueEvent;
         GameEvents.OnGameStartEvent += OnGameStartEvent;
+        GameEvents.OnGameEndEvent += OnGameEndEvent;
+    }
+
+    private void OnGameEndEvent()
+    {
+        SwitchToJumbotronCamera();
+        Cursor.lockState = CursorLockMode.Confined;
+        _hud.SetActive(false);
     }
 
     private void OnGameStartEvent()
