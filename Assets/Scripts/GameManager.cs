@@ -149,9 +149,17 @@ public class GameManager : MonoBehaviour
                 {
                     List<PlantData> plantDatas = stage.plantThatCanSpawn.FindAll(plant => plant.canBeDipped);
                     plant = plantDatas[Random.Range(0, plantDatas.Count)];
-                    int color = Random.Range(0, 4);
-                    Array values = Enum.GetValues(typeof(PlantColor));
-                    order.colors.Add((PlantColor)values.GetValue(color));
+                    
+                    List<PlantColor> colors = new List<PlantColor>();
+                    foreach (var color in Enum.GetValues(typeof(PlantColor)))
+                    {
+                        if ((PlantColor)color != plant.colorToHide)
+                        {
+                            colors.Add((PlantColor)color);
+                        }
+                    }
+                    int colorId = Random.Range(0, colors.Count);
+                    order.colors.Add(colors[colorId]);
                 }
             }
 
