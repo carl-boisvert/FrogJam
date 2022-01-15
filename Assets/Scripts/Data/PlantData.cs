@@ -16,6 +16,7 @@ public class PlantData : ScriptableObject
     public Sprite iconPink;
     public Sprite iconRed;
     public Color color;
+    public PlantColor colorToHide;
     public bool needWater;
     public bool needLight;
     public List<PlantDataStage> stages;
