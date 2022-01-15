@@ -144,6 +144,8 @@ public class GameManager : MonoBehaviour
             PlantData plant = stage.plantThatCanSpawn[Random.Range(0, stage.plantThatCanSpawn.Count)];
             if (stage.hasColorModifier)
             {
+                List<PlantData> plantDatas = stage.plantThatCanSpawn.FindAll(plant => plant.canBeDipped);
+                plant = plantDatas[Random.Range(0, plantDatas.Count)];
                 int roll = Random.Range(0, 100);
                 if (roll <= stage.percentageOfChanceToGetColor)
                 {

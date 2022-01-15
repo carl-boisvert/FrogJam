@@ -8,6 +8,7 @@ using UnityEngine.UIElements;
 public class PlantData : ScriptableObject
 {
     public string name;
+    public bool canBeDipped;
     public Sprite icon;
     public Sprite iconBlue;
     public Sprite iconGreen;
