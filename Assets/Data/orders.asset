@@ -96,7 +96,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 4e9f5a68353611740a5e20c1ad823725, type: 2}
     maximumOfPlantPerOrder: 1
     hasColorModifier: 1
-    percentageOfChanceToGetColor: 100
+    percentageOfChanceToGetColor: 70
     timeBetweenFrogsMin: 25
     timeBetweenFrogsMax: 30
   - stageDuration: 100
@@ -115,6 +115,6 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 4e9f5a68353611740a5e20c1ad823725, type: 2}
     maximumOfPlantPerOrder: 1
     hasColorModifier: 1
-    percentageOfChanceToGetColor: 100
+    percentageOfChanceToGetColor: 70
     timeBetweenFrogsMin: 25
     timeBetweenFrogsMax: 30
