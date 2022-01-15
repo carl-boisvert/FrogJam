@@ -11,6 +11,7 @@ public class JumbotronController : MonoBehaviour
     [SerializeField] private GameObject _screen;
     [SerializeField] private GameObject _ingameUI;
     [SerializeField] private GameObject _phaseSummary;
+    [SerializeField] private SummaryController _summaryController;
     [SerializeField] private Dictionary<Order, GameObject> _ordersGameObjects = new Dictionary<Order, GameObject>();
     [SerializeField] private TextMeshProUGUI _scoreText;
     [SerializeField] private float _maxHapiness;
@@ -25,7 +26,7 @@ public class JumbotronController : MonoBehaviour
         GameEvents.OnNewOrderEvent += OnNewOrderEvent;
         GameEvents.OnOrderDoneEvent += OnOrderDoneEvent;
         GameEvents.OnOrderTimerExpiredEvent += OnOrderTimerExpiredEvent;
-        GameEvents.OnGameEndEvent += OnGameEndEvent;
+        GameEvents.OnDayEndEvent += OnDayEndEvent;
         GameEvents.OnGameContinueEvent += OnGameContinueEvent;
         _happiness = 0;
     }
@@ -36,10 +37,11 @@ public class JumbotronController : MonoBehaviour
         _phaseSummary.SetActive(false);
     }
 
-    private void OnGameEndEvent()
+    private void OnDayEndEvent(int day, int score, bool isLastDay)
     {
         _ingameUI.SetActive(false);
         _phaseSummary.SetActive(true);
+        _summaryController.SetCurrentDay(day, score, _happiness, isLastDay);
     }
 
     private void OnOrderTimerExpiredEvent(Order order)

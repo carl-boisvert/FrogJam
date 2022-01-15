@@ -29,6 +29,8 @@ public class GameManager : MonoBehaviour
     private int _currentStage = 0;
     private bool _hasPhaseEnded = false;
     private int _phaseDone = 0;
+    private int _day = 0;
+    private bool _dayOver = false;
     
     private Coroutine _coroutine;
 
@@ -36,17 +38,17 @@ public class GameManager : MonoBehaviour
     {
         GameEvents.OnOrderTimerExpiredEvent += OnOrderTimerExpiredEvent;
         GameEvents.OnGameStartEvent += OnGameStartEvent;
-        _continueButton.onClick.AddListener(OnclickedContinueButton);
-        
+        GameEvents.OnGameContinueEvent += OnGameContinue;
+
         _jumbotronController.IncreaseHappiness(_hapinnessStart);
     }
 
-    private void OnclickedContinueButton()
+    private void OnGameContinue()
     {
         Invoke("NewPhase", 10);
         _hasPhaseEnded = false;
         _phaseDone = 0;
-        GameEvents.OnGameContinueEvent();
+        //GameEvents.OnGameContinueEvent();
     }
 
     private void OnGameStartEvent()
@@ -58,26 +60,33 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (_hasPhaseEnded && _orders.Count == 0)
+        if (_hasPhaseEnded && _orders.Count == 0 && !_dayOver)
         {
-            GameEvents.OnGameEndEvent();
+            bool lastDay = _day * 2 >= _ordersData.stages.Count;
+            GameEvents.OnDayEndEvent(_day, _score, lastDay);
+            _dayOver = true;
         }
     }
 
     private void OnOrderTimerExpiredEvent(Order order)
     {
         _orders.Remove(order);
-        if (_score + _ordersData.stages[_currentStage].pointPerOrderExpired > 0)
+        if (_score - _ordersData.stages[_currentStage].pointPerOrderExpired > 0)
         {
-            _score += _ordersData.stages[_currentStage].pointPerOrderExpired;
-            _jumbotronController.SetScore(_score);
+            _score -= _ordersData.stages[_currentStage].pointPerOrderExpired;
         }
+        else
+        {
+            _score = 0;
+        }
+        _jumbotronController.SetScore(_score);
         _jumbotronController.DecreaseHappiness(_ordersData.stages[_currentStage].pointPerOrderExpired);
     }
 
     private void NewPhase()
     {
         _hasPhaseEnded = false;
+        _dayOver = false;
         if (_currentStage < _ordersData.stages.Count)
         {
             _coroutine = StartCoroutine(CreateNextOrder(_ordersData.stages[_currentStage]));
@@ -117,6 +126,7 @@ public class GameManager : MonoBehaviour
         if (_phaseDone == 2)
         {
             _hasPhaseEnded = true;
+            _day += 1;
         }
         else
         {

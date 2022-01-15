@@ -34,6 +34,9 @@ public static class GameEvents
     public delegate void StopLookAtPlantopediaEvent();
     public static StopLookAtPlantopediaEvent OnStopLookAtPlantopediaEvent;
     
+    public delegate void DayEndEvent(int day, int score, bool isLastDay);
+    public static DayEndEvent OnDayEndEvent;
+    
     public delegate void GameEndEvent();
     public static GameEndEvent OnGameEndEvent;
     
