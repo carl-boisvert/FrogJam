@@ -13,12 +13,13 @@ MonoBehaviour:
   m_Name: Petunia
   m_EditorClassIdentifier: 
   name: Petunia
+  canBeDipped: 1
   icon: {fileID: 21300000, guid: 80202b40968e0ba40a12beba82c4075c, type: 3}
-  iconBlue: {fileID: 0}
-  iconGreen: {fileID: 21300000, guid: db7eb0d1e36935d429db16c2c88179d6, type: 3}
-  iconYellow: {fileID: 21300000, guid: 775339922faa66d46b7f7aae642f9dbb, type: 3}
-  iconPink: {fileID: 21300000, guid: 2f2c610d04fe43b49b4872304f48ac96, type: 3}
-  iconRed: {fileID: 21300000, guid: 621e4ae3e247623428f470e25e45bfd7, type: 3}
+  iconBlue: {fileID: 21300000, guid: 935bdff6f85ac1e4a9a564b0b6242e0f, type: 3}
+  iconGreen: {fileID: 21300000, guid: ccc3b1a2fe04d5143a58506231ca7cbb, type: 3}
+  iconYellow: {fileID: 21300000, guid: 935bdff6f85ac1e4a9a564b0b6242e0f, type: 3}
+  iconPink: {fileID: 21300000, guid: 1fc7951616856c4448e991d5802374f7, type: 3}
+  iconRed: {fileID: 21300000, guid: a220a58d2b3bcaa4b829a08bab8dba0c, type: 3}
   color: {r: 1, g: 1, b: 1, a: 1}
   needWater: 1
   needLight: 1

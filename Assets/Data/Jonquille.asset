@@ -13,13 +13,15 @@ MonoBehaviour:
   m_Name: Jonquille
   m_EditorClassIdentifier: 
   name: Jonquille
+  canBeDipped: 1
   icon: {fileID: 21300000, guid: 72fde65625a9dbb43be4d6b8d4dbac39, type: 3}
-  iconBlue: {fileID: 21300000, guid: 6e193e7ff95c69441bbfb071e965412c, type: 3}
-  iconGreen: {fileID: 21300000, guid: a78537ecfbfcc45498e69fb4c19bd17e, type: 3}
-  iconYellow: {fileID: 0}
-  iconPink: {fileID: 21300000, guid: 33f59200dfe4430438efd22ec6f5d860, type: 3}
-  iconRed: {fileID: 21300000, guid: 81c1448c56532a44286829b2d26736de, type: 3}
+  iconBlue: {fileID: 21300000, guid: f604567d555a159419d3cec2e53baf94, type: 3}
+  iconGreen: {fileID: 21300000, guid: d408030b955d2da4b8bb26414097e9e3, type: 3}
+  iconYellow: {fileID: 21300000, guid: acc7b92e86f66e2468a65a24815b5613, type: 3}
+  iconPink: {fileID: 21300000, guid: 2be97a7531fa1ce498e104d116d95253, type: 3}
+  iconRed: {fileID: 21300000, guid: acc7b92e86f66e2468a65a24815b5613, type: 3}
   color: {r: 1, g: 1, b: 1, a: 1}
+  colorToHide: 2
   needWater: 1
   needLight: 1
   stages:
