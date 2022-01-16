@@ -110,6 +110,8 @@ public class PlayerController : MonoBehaviour
         GameEvents.OnGameEndEvent += OnGameEndEvent;
         GameEvents.OnDayEndEvent += OnDayEndEvent;
         GameEvents.OnGoBackToMenuEvent += OnGoBackToMenuEvent;
+        
+        _hud.SetActive(false);
     }
 
     private void OnGoBackToMenuEvent()
