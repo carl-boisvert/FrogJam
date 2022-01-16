@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class JumbotronController : MonoBehaviour
 {
     [SerializeField] private GameObject _orderImagePrefab;
+    [SerializeField] private GameObject _orderImageLargePrefab;
     [SerializeField] private GameObject _screen;
     [SerializeField] private GameObject _ingameUI;
     [SerializeField] private GameObject _phaseSummary;
@@ -89,11 +90,11 @@ public class JumbotronController : MonoBehaviour
 
     private void OnNewOrderEvent(Order order)
     {
-        GameObject go = Instantiate(_orderImagePrefab, _screen.transform);
-        OrderUIController orderUIController = go.GetComponent<OrderUIController>();
+        GameObject go = null;
         Sprite icon = order.plants[0].icon;
         if (order.colors.Count > 0)
         {
+            go = Instantiate(_orderImageLargePrefab, _screen.transform);
             switch (order.colors[0])
             {
                 case PlantColor.Blue:
@@ -113,7 +114,11 @@ public class JumbotronController : MonoBehaviour
                     break;
             }
         }
-
+        else
+        {
+            go = Instantiate(_orderImagePrefab, _screen.transform);
+        }
+        OrderUIController orderUIController = go.GetComponent<OrderUIController>();
         orderUIController.Init(order, icon, order.time);
         _ordersGameObjects.Add(order, go);
     }
