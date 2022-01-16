@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
     [Header("Interaction")] 
     [SerializeField]
     private GameObject _hud;
+    [SerializeField] private DebugSettings _debug;
 
     [SerializeField] private float _distance;
     [SerializeField] private float _throwForce;
@@ -291,7 +292,11 @@ public class PlayerController : MonoBehaviour
             if (Physics.Raycast(_camera.transform.position, _camera.transform.forward, out hit, _distance,
                 _interactableLayer))
             {
-                Debug.Log(hit.collider.tag);
+                if (_debug.DebugPickUp)
+                {
+                    Debug.Log(hit.collider.tag);
+                }
+                
                 //Pick Up Interaction
                 if (hit.collider.tag == "GardenSlot")
                 {
