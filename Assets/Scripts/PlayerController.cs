@@ -289,6 +289,7 @@ public class PlayerController : MonoBehaviour
             if (Physics.Raycast(_camera.transform.position, _camera.transform.forward, out hit, _distance,
                 _interactableLayer))
             {
+                Debug.Log(hit.collider.tag);
                 //Pick Up Interaction
                 if (hit.collider.tag == "GardenSlot")
                 {
