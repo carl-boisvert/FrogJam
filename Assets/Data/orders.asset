@@ -17,7 +17,7 @@ MonoBehaviour:
     timePerOrderMin: 90
     timePerOrderMax: 90
     pointPerOrderDone: 10
-    pointPerOrderExpired: 1
+    pointPerOrderExpired: 15
     timeBetweenOrdersMin: 30
     timeBetweenOrdersMax: 35
     plantThatCanSpawn:
@@ -28,11 +28,11 @@ MonoBehaviour:
     percentageOfChanceToGetColor: 0
     timeBetweenFrogsMin: 100
     timeBetweenFrogsMax: 100
-  - stageDuration: 120
-    timePerOrderMin: 50
-    timePerOrderMax: 60
-    pointPerOrderDone: 15
-    pointPerOrderExpired: 5
+  - stageDuration: 90
+    timePerOrderMin: 45
+    timePerOrderMax: 50
+    pointPerOrderDone: 10
+    pointPerOrderExpired: 15
     timeBetweenOrdersMin: 10
     timeBetweenOrdersMax: 20
     plantThatCanSpawn:
@@ -47,15 +47,14 @@ MonoBehaviour:
   - stageDuration: 120
     timePerOrderMin: 60
     timePerOrderMax: 70
-    pointPerOrderDone: 20
-    pointPerOrderExpired: 10
+    pointPerOrderDone: 14
+    pointPerOrderExpired: 15
     timeBetweenOrdersMin: 20
     timeBetweenOrdersMax: 25
     plantThatCanSpawn:
     - {fileID: 11400000, guid: d63e83505175087409433eed775acf97, type: 2}
     - {fileID: 11400000, guid: 4e9f5a68353611740a5e20c1ad823725, type: 2}
     - {fileID: 11400000, guid: 7675694b6ea0b9040a5938b1455bbc48, type: 2}
-    - {fileID: 11400000, guid: 238f2d8ce721cf947b8f4ed7d0d424cf, type: 2}
     maximumOfPlantPerOrder: 1
     hasColorModifier: 0
     percentageOfChanceToGetColor: 0
@@ -64,8 +63,8 @@ MonoBehaviour:
   - stageDuration: 80
     timePerOrderMin: 50
     timePerOrderMax: 60
-    pointPerOrderDone: 20
-    pointPerOrderExpired: 10
+    pointPerOrderDone: 15
+    pointPerOrderExpired: 20
     timeBetweenOrdersMin: 10
     timeBetweenOrdersMax: 20
     plantThatCanSpawn:
@@ -79,11 +78,11 @@ MonoBehaviour:
     hasColorModifier: 0
     percentageOfChanceToGetColor: 0
     timeBetweenFrogsMin: 20
-    timeBetweenFrogsMax: 30
+    timeBetweenFrogsMax: 25
   - stageDuration: 120
     timePerOrderMin: 55
     timePerOrderMax: 65
-    pointPerOrderDone: 30
+    pointPerOrderDone: 25
     pointPerOrderExpired: 15
     timeBetweenOrdersMin: 20
     timeBetweenOrdersMax: 30
@@ -96,14 +95,14 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 4e9f5a68353611740a5e20c1ad823725, type: 2}
     maximumOfPlantPerOrder: 1
     hasColorModifier: 1
-    percentageOfChanceToGetColor: 100
+    percentageOfChanceToGetColor: 60
     timeBetweenFrogsMin: 25
     timeBetweenFrogsMax: 30
   - stageDuration: 100
     timePerOrderMin: 55
     timePerOrderMax: 65
-    pointPerOrderDone: 30
-    pointPerOrderExpired: 15
+    pointPerOrderDone: 25
+    pointPerOrderExpired: 20
     timeBetweenOrdersMin: 15
     timeBetweenOrdersMax: 25
     plantThatCanSpawn:
@@ -115,6 +114,6 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 4e9f5a68353611740a5e20c1ad823725, type: 2}
     maximumOfPlantPerOrder: 1
     hasColorModifier: 1
-    percentageOfChanceToGetColor: 100
-    timeBetweenFrogsMin: 25
-    timeBetweenFrogsMax: 30
+    percentageOfChanceToGetColor: 60
+    timeBetweenFrogsMin: 20
+    timeBetweenFrogsMax: 25

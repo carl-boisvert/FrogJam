@@ -34,6 +34,6 @@ MonoBehaviour:
   - time: 0
     prefab: {fileID: 7522469864180113815, guid: b3a82a1e2a4ca714093f87ea0203dd56, type: 3}
   musicLikeMultiplier: 2
-  musicDislikeTime: 10
+  musicDislikeTime: 8
   musicLikes: 01000000
   musicDisikes: 0000000005000000
