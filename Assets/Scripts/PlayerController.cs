@@ -655,6 +655,7 @@ public class PlayerController : MonoBehaviour
     {
         Rigidbody _rb = go.GetComponent<Rigidbody>();
         _rb.isKinematic = false;
+        _rb.useGravity = true;
 
         Collider collider = go.GetComponent<Collider>();
         collider.enabled = true;
@@ -666,7 +667,7 @@ public class PlayerController : MonoBehaviour
         else
         {
             go.transform.parent = null;
-            go.transform.position = new Vector3(go.transform.position.x, 0, go.transform.position.z);
+            //go.transform.position = new Vector3(go.transform.position.x, 0, go.transform.position.z);
         }
     }
 
