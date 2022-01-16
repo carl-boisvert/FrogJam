@@ -351,6 +351,7 @@ public class PlayerController : MonoBehaviour
                         foreach (var radioSpot in _radioSpots)
                         {
                             _radioGOHolos.Add(Instantiate(_radioHologram, radioSpot.transform));
+                            radioSpot.GetComponentInParent<Collider>().enabled = true;
                         }
                         
                         if (_currentRadioSpot != null)
@@ -476,6 +477,11 @@ public class PlayerController : MonoBehaviour
                             foreach (var holo in _radioGOHolos)
                             {
                                 Destroy(holo);
+                            }
+                            
+                            foreach (var spot in _radioSpots)
+                            {
+                                spot.GetComponentInParent<Collider>().enabled = false;
                             }
                             
                             //Placer la radio
