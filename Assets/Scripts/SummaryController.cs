@@ -17,6 +17,7 @@ public class SummaryController : MonoBehaviour
     [SerializeField] private List<WhatsNextPhrases> _whatsNextPhrases;
     [SerializeField] private Button _continueButton;
     [SerializeField] private Button _mainMenuButton;
+    [SerializeField] private string ggPhrase;
 
     private void Start()
     {
@@ -71,7 +72,7 @@ public class SummaryController : MonoBehaviour
         else
         {
             _nextDayText.text = "";
-            _whatsNext.text = "";
+            _whatsNext.text = ggPhrase;
             _continueButton.gameObject.SetActive(false);
             _mainMenuButton.gameObject.SetActive(true);
             
