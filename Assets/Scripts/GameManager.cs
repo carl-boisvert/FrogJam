@@ -19,6 +19,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int _score = 0;
     [SerializeField] private int _hapinnessStart = 50;
     [SerializeField] private JumbotronController _jumbotronController;
+    [SerializeField] private int secondBetweenPhase = 10;
+    [SerializeField] private int secondBetweenPhaseFrogStart = 10;
     
     [SerializeField] private CinemachineVirtualCamera _dolly;
     [SerializeField] private CinemachineVirtualCamera _mainMenu;
@@ -64,8 +66,8 @@ public class GameManager : MonoBehaviour
 
     private void OnGameContinue()
     {
-        Invoke("NewPhase", 10);
-        Invoke("StartSpawningFrog", 10);
+        Invoke("NewPhase", secondBetweenPhase);
+        Invoke("StartSpawningFrog", secondBetweenPhaseFrogStart);
         _hasPhaseEnded = false;
         _phaseDone = 0;
 
