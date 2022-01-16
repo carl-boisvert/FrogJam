@@ -65,7 +65,7 @@ MonoBehaviour:
     timePerOrderMax: 60
     pointPerOrderDone: 15
     pointPerOrderExpired: 25
-    timeBetweenOrdersMin: 10
+    timeBetweenOrdersMin: 15
     timeBetweenOrdersMax: 20
     plantThatCanSpawn:
     - {fileID: 11400000, guid: 238f2d8ce721cf947b8f4ed7d0d424cf, type: 2}
