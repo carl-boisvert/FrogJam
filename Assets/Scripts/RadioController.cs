@@ -10,6 +10,7 @@ public class RadioController : MonoBehaviour
     [SerializeField] private float _aiguilleSpeed;
     [SerializeField] private Camera _camera;
     [SerializeField] private AudioSource _speaker;
+    [SerializeField] private GameObject _tooltip;
 
     private MusicType _musicTypePlaying;
     private RadioControls _radioControls;
@@ -34,6 +35,7 @@ public class RadioController : MonoBehaviour
         {
             _aiguilleInput.Enable();
             _escapeInput.Enable();
+            _tooltip.SetActive(true);
         }
     }
 
@@ -49,7 +51,7 @@ public class RadioController : MonoBehaviour
             _camera.enabled = false;
             _aiguilleInput.Disable();
             _escapeInput.Disable();
-
+            _tooltip.SetActive(false);
             GameEvents.OnStopLookAtRadioEvent();
         }
     }

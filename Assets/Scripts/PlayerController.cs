@@ -9,40 +9,35 @@ using Random = UnityEngine.Random;
 
 public class PlayerController : MonoBehaviour
 {
-    [Header("Movement")] 
-    [SerializeField] private float _speed;
-
+    [Header("Movement")] [SerializeField] private float _speed;
     [SerializeField] private Transform _playerSpawnPoint;
 
-    [Header("Interaction")] 
-    [SerializeField]
+    [Header("Interaction")] [SerializeField]
     private GameObject _hud;
-    [SerializeField] private DebugSettings _debug;
 
+    [SerializeField] private DebugSettings _debug;
+    [SerializeField] private GameObject _inGameMenu;
+    [SerializeField] private Button _quitButton;
     [SerializeField] private float _distance;
     [SerializeField] private float _throwForce;
     [SerializeField] private Transform _holdSocket;
     [SerializeField] private GameObject _radioHologram;
 
-    [Header("Link")] 
-    [SerializeField] private CharacterController _cc;
+    [Header("Link")] [SerializeField] private CharacterController _cc;
     [SerializeField] private LayerMask _interactableLayer;
     [SerializeField] private GameManager _gameManager;
 
-    [Header("Sound")] 
-    [SerializeField] private AudioSource _audioSource;
+    [Header("Sound")] [SerializeField] private AudioSource _audioSource;
     [SerializeField] private AudioClip _dipPaint;
     [SerializeField] private AudioClip _grabSound;
     [SerializeField] private AudioClip _refillWaterSound;
     [SerializeField] private AudioClip _openBookSound;
     [SerializeField] private List<AudioClip> _throwSounds;
 
-    [Header("Plant")] 
-    [SerializeField] private GameObject _plantPrefab;
+    [Header("Plant")] [SerializeField] private GameObject _plantPrefab;
     [SerializeField] private GameObject _seedPrefab;
 
-    [Header("Camera")] 
-    [SerializeField] private Camera _camera;
+    [Header("Camera")] [SerializeField] private Camera _camera;
     [SerializeField] private CinemachineVirtualCamera _playerCamera;
     [SerializeField] private CinemachineVirtualCamera _jumbotronCamera;
 
@@ -75,6 +70,7 @@ public class PlayerController : MonoBehaviour
     private InputAction _useInput;
     private InputAction _throwInput;
     private InputAction _dropInput;
+    private InputAction _escapeInput;
 
     private Vector2 _dir;
 
@@ -100,7 +96,12 @@ public class PlayerController : MonoBehaviour
         _dropInput = _moveControl.Player.Drop;
         _dropInput.Enable();
 
+        _escapeInput = _moveControl.Player.OpenMenu;
+        _escapeInput.Enable();
+
         _tooltipController = _tooltipGo.GetComponent<TooltipController>();
+
+        _quitButton.onClick.AddListener(QuitGame);
 
         GameEvents.OnOrderDoneEvent += OnOrderDoneEvent;
         GameEvents.OnStopLookAtRadioEvent += OnStopLookAtRadioEvent;
@@ -111,8 +112,13 @@ public class PlayerController : MonoBehaviour
         GameEvents.OnGameEndEvent += OnGameEndEvent;
         GameEvents.OnDayEndEvent += OnDayEndEvent;
         GameEvents.OnGoBackToMenuEvent += OnGoBackToMenuEvent;
-        
+
         _hud.SetActive(false);
+    }
+
+    private void QuitGame()
+    {
+        Application.Quit();
     }
 
     private void OnGoBackToMenuEvent()
@@ -214,10 +220,19 @@ public class PlayerController : MonoBehaviour
     {
         _holdSocket.forward = -_camera.transform.forward;
 
-        if (_canMove)
+        if (_escapeInput.triggered)
         {
-            Move();
-            Look();
+            _inGameMenu.SetActive(!_inGameMenu.activeSelf);
+            Time.timeScale = _inGameMenu.activeSelf ? 0 : 1;
+            Cursor.lockState = _inGameMenu.activeSelf ? CursorLockMode.Confined : CursorLockMode.Locked;
+        }
+        else
+        {
+            if (_canMove)
+            {
+                Move();
+                Look();
+            }
         }
     }
 
@@ -580,6 +595,7 @@ public class PlayerController : MonoBehaviour
         _useInput.Disable();
         _throwInput.Disable();
         _dropInput.Disable();
+        _escapeInput.Disable();
     }
 
     private void EnableInputs()
@@ -591,6 +607,7 @@ public class PlayerController : MonoBehaviour
         _useInput.Enable();
         _throwInput.Enable();
         _dropInput.Enable();
+        _escapeInput.Enable();
     }
 
     private void ShowTooltips(string key)
