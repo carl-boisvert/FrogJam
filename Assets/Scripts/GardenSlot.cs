@@ -56,7 +56,7 @@ public class GardenSlot : MonoBehaviour
         }
     }
 
-    private void OnParticleCollision(GameObject other)
+    public void WaterPlant()
     {
         if (hasSomething)
         {
