@@ -33,7 +33,7 @@ MonoBehaviour:
     timePerOrderMax: 50
     pointPerOrderDone: 10
     pointPerOrderExpired: 15
-    timeBetweenOrdersMin: 10
+    timeBetweenOrdersMin: 15
     timeBetweenOrdersMax: 20
     plantThatCanSpawn:
     - {fileID: 11400000, guid: 238f2d8ce721cf947b8f4ed7d0d424cf, type: 2}
@@ -48,7 +48,7 @@ MonoBehaviour:
     timePerOrderMin: 60
     timePerOrderMax: 70
     pointPerOrderDone: 14
-    pointPerOrderExpired: 15
+    pointPerOrderExpired: 20
     timeBetweenOrdersMin: 20
     timeBetweenOrdersMax: 25
     plantThatCanSpawn:
@@ -64,7 +64,7 @@ MonoBehaviour:
     timePerOrderMin: 50
     timePerOrderMax: 60
     pointPerOrderDone: 15
-    pointPerOrderExpired: 20
+    pointPerOrderExpired: 25
     timeBetweenOrdersMin: 10
     timeBetweenOrdersMax: 20
     plantThatCanSpawn:
@@ -83,9 +83,9 @@ MonoBehaviour:
     timePerOrderMin: 55
     timePerOrderMax: 65
     pointPerOrderDone: 25
-    pointPerOrderExpired: 15
-    timeBetweenOrdersMin: 20
-    timeBetweenOrdersMax: 30
+    pointPerOrderExpired: 30
+    timeBetweenOrdersMin: 15
+    timeBetweenOrdersMax: 20
     plantThatCanSpawn:
     - {fileID: 11400000, guid: 238f2d8ce721cf947b8f4ed7d0d424cf, type: 2}
     - {fileID: 11400000, guid: 1fcbfd98b23189342bde67335e0b6bba, type: 2}
@@ -95,16 +95,16 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 4e9f5a68353611740a5e20c1ad823725, type: 2}
     maximumOfPlantPerOrder: 1
     hasColorModifier: 1
-    percentageOfChanceToGetColor: 60
+    percentageOfChanceToGetColor: 70
     timeBetweenFrogsMin: 25
     timeBetweenFrogsMax: 30
   - stageDuration: 100
     timePerOrderMin: 55
     timePerOrderMax: 65
     pointPerOrderDone: 25
-    pointPerOrderExpired: 20
+    pointPerOrderExpired: 30
     timeBetweenOrdersMin: 15
-    timeBetweenOrdersMax: 25
+    timeBetweenOrdersMax: 20
     plantThatCanSpawn:
     - {fileID: 11400000, guid: 238f2d8ce721cf947b8f4ed7d0d424cf, type: 2}
     - {fileID: 11400000, guid: 1fcbfd98b23189342bde67335e0b6bba, type: 2}
@@ -114,6 +114,6 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 4e9f5a68353611740a5e20c1ad823725, type: 2}
     maximumOfPlantPerOrder: 1
     hasColorModifier: 1
-    percentageOfChanceToGetColor: 60
+    percentageOfChanceToGetColor: 70
     timeBetweenFrogsMin: 20
     timeBetweenFrogsMax: 25
