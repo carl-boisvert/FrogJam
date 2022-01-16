@@ -307,6 +307,8 @@ public class PlayerController : MonoBehaviour
 
                     if (_interactInput.triggered && _currentSeed != null)
                     {
+                        _tooltipController.hideToolTips();
+                        _tooltipGo.SetActive(false);
                         GardenSlot gs = hit.collider.gameObject.GetComponent<GardenSlot>();
                         Plant(gs);
                         _hasSomethingInHand = false;
@@ -318,6 +320,8 @@ public class PlayerController : MonoBehaviour
                     ShowTooltips("SeedBag");
                     if (_interactInput.triggered)
                     {
+                        _tooltipController.hideToolTips();
+                        _tooltipGo.SetActive(false);
                         _audioSource.PlayOneShot(_grabSound);
                         SeedBag bag = hit.collider.gameObject.GetComponent<SeedBag>();
                         _currentSeed = bag.plantData;
@@ -331,6 +335,8 @@ public class PlayerController : MonoBehaviour
                     ShowTooltips("Plant");
                     if (_interactInput.triggered && !_hasSomethingInHand)
                     {
+                        _tooltipController.hideToolTips();
+                        _tooltipGo.SetActive(false);
                         _audioSource.PlayOneShot(_grabSound);
                         GameObject plant = hit.collider.gameObject;
                         PickUpPlant(plant);
@@ -344,9 +350,9 @@ public class PlayerController : MonoBehaviour
                         ShowTooltips("Kiosque");
                         if (_interactInput.triggered)
                         {
-                            
-                                SellPlant();
-                            
+                            _tooltipController.hideToolTips();
+                            _tooltipGo.SetActive(false);
+                            SellPlant();
                         }
                     }
                 }
@@ -355,6 +361,8 @@ public class PlayerController : MonoBehaviour
                     ShowTooltips("Radio");
                     if (_interactInput.triggered && !_hasSomethingInHand)
                     {
+                        _tooltipController.hideToolTips();
+                        _tooltipGo.SetActive(false);
                         foreach (var radioSpot in _radioSpots)
                         {
                             _radioGOHolos.Add(Instantiate(_radioHologram, radioSpot.transform));
@@ -379,6 +387,8 @@ public class PlayerController : MonoBehaviour
                     }
                     else if (_useInput.triggered)
                     {
+                        _tooltipController.hideToolTips();
+                        _tooltipGo.SetActive(false);
                         GameObject radio = hit.collider.gameObject;
 
                         GameEvents.OnLookAtRadioEvent();
@@ -392,6 +402,8 @@ public class PlayerController : MonoBehaviour
                     ShowTooltips("Frog");
                     if (_interactInput.triggered && !_hasSomethingInHand)
                     {
+                        _tooltipController.hideToolTips();
+                        _tooltipGo.SetActive(false);
                         _audioSource.PlayOneShot(_grabSound);
                         PickUpFrog(hit.collider.gameObject);
                         _frogGo = hit.collider.gameObject;
@@ -408,6 +420,8 @@ public class PlayerController : MonoBehaviour
 
                     if (_interactInput.triggered)
                     {
+                        _tooltipController.hideToolTips();
+                        _tooltipGo.SetActive(false);
                         if (_plantsInHand.Count > 0)
                         {
                             foreach (var plantController in _plantsInHand)
@@ -425,6 +439,8 @@ public class PlayerController : MonoBehaviour
                     ShowTooltips("WaterSpray");
                     if (_interactInput.triggered && !_hasSomethingInHand)
                     {
+                        _tooltipController.hideToolTips();
+                        _tooltipGo.SetActive(false);
                         _audioSource.PlayOneShot(_grabSound);
                         GameObject waterSpray = hit.collider.gameObject;
                         _waterSprayGo = waterSpray;
@@ -444,6 +460,8 @@ public class PlayerController : MonoBehaviour
 
                     if (_interactInput.triggered && _hasWaterSpray)
                     {
+                        _tooltipController.hideToolTips();
+                        _tooltipGo.SetActive(false);
                         _audioSource.PlayOneShot(_refillWaterSound);
                         WaterSpray waterSpray = _waterSprayGo.GetComponent<WaterSpray>();
                         waterSpray.Refill();
@@ -456,6 +474,8 @@ public class PlayerController : MonoBehaviour
                         ShowTooltips("Paint");
                         if (_interactInput.triggered)
                         {
+                            _tooltipController.hideToolTips();
+                            _tooltipGo.SetActive(false);
                             _audioSource.PlayOneShot(_dipPaint);
                             Paint paint = hit.collider.gameObject.GetComponent<Paint>();
                             _plantsInHand[0].Paint(paint.color);
@@ -467,6 +487,8 @@ public class PlayerController : MonoBehaviour
                     ShowTooltips("Book");
                     if (_useInput.triggered)
                     {
+                        _tooltipController.hideToolTips();
+                        _tooltipGo.SetActive(false);
                         _audioSource.PlayOneShot(_openBookSound);
                         DisableInputs();
                         PlantopediaController plantopedia =
@@ -481,6 +503,8 @@ public class PlayerController : MonoBehaviour
                         ShowTooltips("RadioSpot");
                         if (_interactInput.triggered)
                         {
+                            _tooltipController.hideToolTips();
+                            _tooltipGo.SetActive(false);
                             foreach (var holo in _radioGOHolos)
                             {
                                 Destroy(holo);
@@ -657,6 +681,12 @@ public class PlayerController : MonoBehaviour
         {
             DropObject(_waterSprayGo);
             _waterSprayGo = null;
+        }
+
+        if (_currentSeed != null)
+        {
+            DropObject(_currentSeedGo);
+            _currentSeedGo = null;
         }
 
         foreach (var plantController in _plantsInHand)
