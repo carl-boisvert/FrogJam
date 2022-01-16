@@ -225,11 +225,15 @@ public class PlayerController : MonoBehaviour
             _inGameMenu.SetActive(!_inGameMenu.activeSelf);
             Time.timeScale = _inGameMenu.activeSelf ? 0 : 1;
             Cursor.lockState = _inGameMenu.activeSelf ? CursorLockMode.Confined : CursorLockMode.Locked;
+            _tooltipController.hideToolTips();
+            _tooltipGo.SetActive(false);
+            _hud.SetActive(false);
         }
         else
         {
-            if (_canMove)
+            if (_canMove && !_inGameMenu.activeSelf)
             {
+                _hud.SetActive(true);
                 Move();
                 Look();
             }
