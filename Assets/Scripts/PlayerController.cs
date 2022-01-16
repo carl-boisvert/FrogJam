@@ -97,7 +97,6 @@ public class PlayerController : MonoBehaviour
         _dropInput.Enable();
 
         _escapeInput = _moveControl.Player.OpenMenu;
-        _escapeInput.Enable();
 
         _tooltipController = _tooltipGo.GetComponent<TooltipController>();
 
@@ -283,6 +282,10 @@ public class PlayerController : MonoBehaviour
                     foreach (var radioGOHolo in _radioGOHolos)
                     {
                         Destroy(radioGOHolo);
+                    }
+                    foreach (var radioSpot in _radioSpots)
+                    {
+                        radioSpot.GetComponentInParent<Collider>().enabled = false;
                     }
                     _radioGOHolos.Clear();
                     _radioGO = null;

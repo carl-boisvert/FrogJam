@@ -32,14 +32,25 @@ public class JumbotronController : MonoBehaviour
         GameEvents.OnDayEndEvent += OnDayEndEvent;
         GameEvents.OnGameContinueEvent += OnGameContinueEvent;
         GameEvents.OnGameStartEvent += OnGameStartEvent;
+        GameEvents.OnGoBackToMenuEvent += OnGoBackToMenuEvent;
         
         _gameOverMainMenuButton.onClick.AddListener(ReturnToMainMenu);
         
         _happiness = 0;
     }
 
+    private void OnGoBackToMenuEvent()
+    {
+        _happiness = 0;
+        _ingameUI.SetActive(false);
+        _phaseSummary.SetActive(false);
+        _gameOver.SetActive(false);
+        Reset();
+    }
+
     private void OnGameStartEvent()
     {
+        _happiness = 0;
         _ingameUI.SetActive(true);
         _phaseSummary.SetActive(false);
         _gameOver.SetActive(false);
@@ -48,6 +59,9 @@ public class JumbotronController : MonoBehaviour
 
     private void ReturnToMainMenu()
     {
+        _ingameUI.SetActive(false);
+        _phaseSummary.SetActive(false);
+        _gameOver.SetActive(false);
         GameEvents.OnGoBackToMenuEvent();
     }
 
@@ -55,12 +69,14 @@ public class JumbotronController : MonoBehaviour
     {
         _ingameUI.SetActive(true);
         _phaseSummary.SetActive(false);
+        _gameOver.SetActive(false);
     }
 
     private void OnDayEndEvent(int day, int score, bool isLastDay)
     {
         _ingameUI.SetActive(false);
         _phaseSummary.SetActive(true);
+        _gameOver.SetActive(false);
         _summaryController.SetCurrentDay(day, score, _happiness, isLastDay);
     }
 

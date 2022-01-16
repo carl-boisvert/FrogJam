@@ -6,6 +6,9 @@ public class GardenSlot : MonoBehaviour
     public bool hasSomething = false;
     public MusicType musicTypePlaying = MusicType.None;
     public PlantController plantController;
+    public Material _dirtDry;
+    public Material _dirtWet;
+    public MeshRenderer _meshRenderer;
 
     private void Start()
     {
@@ -61,7 +64,17 @@ public class GardenSlot : MonoBehaviour
         if (hasSomething)
         {
             plantController.Watered();
+            Material[] materials = _meshRenderer.materials;
+            materials[1] = _dirtWet;
+            _meshRenderer.materials = materials;
         }
+    }
+
+    public void RemoveWater()
+    {
+        Material[] materials = _meshRenderer.materials;
+        materials[1] = _dirtDry;
+        _meshRenderer.materials = materials;
     }
 
     private void OnDestroy()

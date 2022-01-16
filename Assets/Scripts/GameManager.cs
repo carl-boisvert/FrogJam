@@ -45,8 +45,6 @@ public class GameManager : MonoBehaviour
         GameEvents.OnGameContinueEvent += OnGameContinue;
         GameEvents.OnGameEndEvent += OnGameEndEvent;
         GameEvents.OnGoBackToMenuEvent += OnGoBackToMenuEvent;
-
-        _jumbotronController.IncreaseHappiness(_hapinnessStart);
     }
 
     private void OnGoBackToMenuEvent()
