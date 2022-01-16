@@ -12,6 +12,7 @@ public class MainMenuController : MonoBehaviour
     [SerializeField] private GameObject _menuCanvas;
     [SerializeField] private Button _startButton;
     [SerializeField] private Button _controlButton;
+    [SerializeField] private Button _backButton;
     [SerializeField] private Button _quitButton;
     [SerializeField] private Animator _pressStartAnim;
     [SerializeField] private Animator _buttonAnim;
@@ -27,9 +28,18 @@ public class MainMenuController : MonoBehaviour
         _pressStartInputAction.Enable();
         
         _startButton.onClick.AddListener(OnStartPressed);
+        _controlButton.onClick.AddListener(OnControlPressed);
+        _backButton.onClick.AddListener(HideControl);
+        _quitButton.onClick.AddListener(QuitGame);
         
         GameEvents.OnGoBackToMenuEvent += OnGoBackToMenuEvent;
     }
+
+    private void QuitGame()
+    {
+        Application.Quit();
+    }
+    
 
     private void OnGoBackToMenuEvent()
     {
@@ -37,6 +47,16 @@ public class MainMenuController : MonoBehaviour
         _pressStartCanvas.SetActive(true);
         _pressStartInputAction.Enable();
         _pressStartAnim.SetTrigger("SlideIn");
+    }
+
+    private void HideControl()
+    {
+        _controlsCanvas.SetActive(false);
+    }
+
+    private void OnControlPressed()
+    {
+        _controlsCanvas.SetActive(true);
     }
 
     public void StartGame()
