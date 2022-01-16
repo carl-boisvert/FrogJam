@@ -160,6 +160,7 @@ public class PlantController : MonoBehaviour
         
         if (_slot != null)
         {
+            _slot.RemoveWater();
             _slot.hasSomething = false;
             _slot.plantController = null;
             _slot = null;
